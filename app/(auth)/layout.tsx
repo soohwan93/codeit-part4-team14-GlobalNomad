@@ -1,20 +1,12 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
-import "./globals.css";
-
-const pretendard = localFont({
-  src: "../public/fonts/PretendardVariable.woff2",
-  display: "swap",
-  weight: "45 920",
-  variable: "--font-pretendard",
-});
-
+import "../(app)/globals.css";
+import { pretendard } from "../(app)/layout";
 export const metadata: Metadata = {
   title: "GlobalNomad",
   description: "여행",
 };
 
-export default function RootLayout({
+export default function AuthLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
