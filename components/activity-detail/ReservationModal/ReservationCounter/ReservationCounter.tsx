@@ -1,10 +1,5 @@
-import React, {
-  Dispatch,
-  RefObject,
-  SetStateAction,
-  useEffect,
-  useRef,
-} from "react";
+"use client";
+import React, { Dispatch, SetStateAction, useRef } from "react";
 
 interface ReservationCounterProp {
   count: number;

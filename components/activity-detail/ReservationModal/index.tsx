@@ -1,6 +1,6 @@
 "use client";
 import React, { useRef, useState } from "react";
-import ReservationCounterModal from "./ReservationCounterModal";
+import ReservationCounterPresenter from "./ReservationCounter/ReservationCounterPresenter";
 
 const ReservationModal = () => {
   const [currentReservationCount, setCurrentReservationCount] = useState(1);
@@ -13,11 +13,11 @@ const ReservationModal = () => {
           <span className="hidden text-[#4b4b4b] md:inline">/&nbsp;인</span>
           <span className="inline md:hidden">/&nbsp;</span>
         </div>
-        <ReservationCounterModal
+        <ReservationCounterPresenter
           count={currentReservationCount}
           setCount={setCurrentReservationCount}
         />
-        <span className="md:row-start-2">날짜</span>
+        <div className="md:row-start-2">날짜</div>
       </div>
 
       <button>예약하기</button>

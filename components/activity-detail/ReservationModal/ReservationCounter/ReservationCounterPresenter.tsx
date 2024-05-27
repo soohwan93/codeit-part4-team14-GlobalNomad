@@ -1,17 +1,17 @@
 "use client";
-import React, { Dispatch, RefObject, SetStateAction, useState } from "react";
+import React, { Dispatch, SetStateAction, useState } from "react";
 import ReservationCounter from "./ReservationCounter";
-import ReservationPopup from "./ReservationPopup";
+import ReservationPopup from "../ReservationPopup";
 
-interface ReservationCounterModalProp {
+interface ReservationCounterPresenterProp {
   count: number;
   setCount: Dispatch<SetStateAction<number>>;
 }
 
-const ReservationCounterModal = ({
+const ReservationCounterPresenter = ({
   count,
   setCount,
-}: ReservationCounterModalProp) => {
+}: ReservationCounterPresenterProp) => {
   const [showCounterModal, setShowCounterModal] = useState(false);
 
   return (
@@ -40,4 +40,4 @@ const ReservationCounterModal = ({
   );
 };
 
-export default ReservationCounterModal;
+export default ReservationCounterPresenter;
