@@ -1,6 +1,7 @@
 "use client";
 import React, { Dispatch, RefObject, SetStateAction, useState } from "react";
 import ReservationCounter from "./ReservationCounter";
+import ReservationPopup from "./ReservationPopup";
 
 interface ReservationCounterModalProp {
   count: number;
@@ -27,7 +28,11 @@ const ReservationCounterModal = ({
       >
         {count}명
       </span>
-      {showCounterModal && <div className="fixed h-screen w-screen "></div>}
+      {showCounterModal && (
+        <ReservationPopup title="인원 수" setState={setShowCounterModal}>
+          <></>
+        </ReservationPopup>
+      )}
     </>
   );
 };
