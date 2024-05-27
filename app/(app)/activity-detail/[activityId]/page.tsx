@@ -1,13 +1,12 @@
 import ReservationModal from "@/components/activity-detail/ReservationModal";
 import React from "react";
 
-type Props = {};
-
-const page = (props: Props) => {
+const page = () => {
   return (
-    <div className="flex h-screen justify-end">
-      <ReservationModal />
-    </div>
+    <main>
+      <header className="my-4 flex justify-between"></header>
+      <section></section>
+    </main>
   );
 };
 
