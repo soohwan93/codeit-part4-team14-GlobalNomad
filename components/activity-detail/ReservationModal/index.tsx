@@ -1,12 +1,22 @@
 "use client";
-import React from "react";
+import React, { useRef, useState } from "react";
+import ReservationCounterModal from "./ReservationCounterModal";
 
 const ReservationModal = () => {
+  const [currentReservationCount, setCurrentReservationCount] = useState(1);
+
   return (
     <div className="fixed bottom-0 flex w-screen flex-row justify-between bg-white p-4 outline outline-[1px] outline-[#a1a1a1] md:relative md:bottom-0 md:block md:h-[26.9375rem] md:w-[15.6875rem] md:flex-col md:rounded-xl xl:h-[46.625rem] xl:w-[24rem]">
       <div className="grid grid-cols-2 md:grid-cols-1">
-        <span>가격 / </span>
-        <span>인원수</span>
+        <div>
+          가격&nbsp;
+          <span className="hidden text-[#4b4b4b] md:inline">/&nbsp;인</span>
+          <span className="inline md:hidden">/&nbsp;</span>
+        </div>
+        <ReservationCounterModal
+          count={currentReservationCount}
+          setCount={setCurrentReservationCount}
+        />
         <span className="md:row-start-2">날짜</span>
       </div>
 
