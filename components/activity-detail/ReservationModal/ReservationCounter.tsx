@@ -1,4 +1,10 @@
-import React, { Dispatch, RefObject, SetStateAction, useRef } from "react";
+import React, {
+  Dispatch,
+  RefObject,
+  SetStateAction,
+  useEffect,
+  useRef,
+} from "react";
 
 interface ReservationCounterProp {
   count: number;
@@ -25,6 +31,8 @@ function ReservationCounter({ count, setCount }: ReservationCounterProp) {
       setCount(Number(counterRef.current!.value.split(".")[0]));
       counterRef.current!.value = `${Number(counterRef.current!.value.split(".")[0])}`;
     }
+
+    setCount(Number(counterRef.current!.value));
   };
   const handleBlur = () => {
     if (counterRef.current!.value === "") {
