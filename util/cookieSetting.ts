@@ -21,7 +21,7 @@ export function setAccessTokenCookie(accessTokenValue: string) {
   });
 }
 
-//accessToken을 쿠키로 저장하는 함수
+//refreshToken을 쿠키로 저장하는 함수
 export function setRefreshTokenCookie(refreshTokenValue: string) {
   setCookie(null, "refreshToken", refreshTokenValue, {
     maxAge: 24 * 7 * 60 * 60, // 수명: 1주일
