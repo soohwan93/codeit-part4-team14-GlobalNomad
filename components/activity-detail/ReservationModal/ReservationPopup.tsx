@@ -1,10 +1,10 @@
 "use client";
-import React, { Dispatch, ReactChildren, SetStateAction } from "react";
+import React, { Dispatch, SetStateAction } from "react";
 
 interface ReservationPopupType {
   title: string;
   setState: Dispatch<SetStateAction<boolean>>;
-  children: React.ReactChild;
+  children: React.ReactNode;
 }
 
 const ReservationPopup = ({

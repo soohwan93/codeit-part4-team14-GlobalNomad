@@ -52,7 +52,7 @@ function ReservationCounter({ count, setCount }: ReservationCounterProp) {
       <input
         ref={counterRef}
         type="number"
-        defaultValue={count}
+        defaultValue={String(count)}
         onChange={() => {
           handleVerificationCount();
         }}
