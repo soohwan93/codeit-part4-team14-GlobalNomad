@@ -15,7 +15,7 @@ const ReservationCounterPresenter = ({
   const [showCounterModal, setShowCounterModal] = useState(false);
 
   return (
-    <>
+    <div className="inline-block md:px-6 xl:p-0">
       <div className="hidden md:block">
         <h5 className="mb-2 text-xl font-bold leading-[130%]">참여 인원 수</h5>
         <ReservationCounter count={count} setCount={setCount} />
@@ -36,7 +36,7 @@ const ReservationCounterPresenter = ({
           <ReservationCounter count={count} setCount={setCount} />
         </ReservationPopup>
       )}
-    </>
+    </div>
   );
 };
 
