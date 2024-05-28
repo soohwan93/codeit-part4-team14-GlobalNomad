@@ -40,6 +40,9 @@ export async function middleware(request: NextRequest) {
           sameSite: "strict",
         });
 
+        if (url.pathname === "/signin" || url.pathname === "/signup") {
+          return NextResponse.redirect(new URL("/", request.url));
+        }
         // 현재 페이지에 머무름
         return response;
       } else {
@@ -47,7 +50,7 @@ export async function middleware(request: NextRequest) {
         return NextResponse.redirect(new URL("/signin", request.url));
       }
     } catch (error) {
-      console.error("refreshToken 접근 실패: ", error);
+      console.error("refreshToken 재발급 실패: ", error);
       return NextResponse.redirect(new URL("/signin", request.url));
     }
   }
