@@ -25,7 +25,7 @@ import { getCookie } from "./cookieSetting";
 import { convertQuery } from "./querySetting";
 
 // 기본 url
-const BASE_URL = "https://sp-globalnomad-api.vercel.app/4-14";
+export const BASE_URL = "https://sp-globalnomad-api.vercel.app/4-14";
 
 // 토큰값도 함께 보내는 fetch함수
 async function fetchWithToken(url: string, options: RequestInit = {}) {
