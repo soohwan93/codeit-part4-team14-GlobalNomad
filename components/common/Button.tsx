@@ -43,6 +43,7 @@ interface ButtonProps
  * @children ReactElement 아이콘같은걸 넣어준다
  * @additionalClass 추가할 클래스 속성을 넣어준다
  * @props 추가할 버튼 속성을 넣어준다
+ * @type 현재 버튼의 타입을 넣어준다. 기본값은 button
  */
 const Button: FC<ButtonProps> = ({
   variant,
@@ -50,6 +51,7 @@ const Button: FC<ButtonProps> = ({
   children,
   additionalClass,
   disabled,
+  type = "button",
   ...props
 }) => {
   return (
@@ -59,6 +61,7 @@ const Button: FC<ButtonProps> = ({
         additionalClass,
       )}
       disabled={disabled}
+      type={type}
       {...props}
     >
       {children && children}
