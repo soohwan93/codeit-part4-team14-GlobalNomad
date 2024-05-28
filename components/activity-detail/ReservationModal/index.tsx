@@ -31,14 +31,14 @@ const ReservationModal = () => {
           />
         </div>
 
-        <div className="col-start-2 row-start-1 md:col-start-1 md:row-start-6 md:inline">
+        <div className="col-start-2 row-start-1 md:col-start-1 md:row-start-6 md:mt-[1.875rem] md:inline xl:mt-0">
           <ReservationCounterPresenter
             count={currentReservationCount}
             setCount={setCurrentReservationCount}
           />
         </div>
 
-        <hr color="#a1a1a1" className="my-4 hidden md:row-start-5 md:block" />
+        <hr color="#a1a1a1" className="my-4 hidden md:row-start-5 xl:block" />
       </div>
 
       <div className="mt-6 md:h-14 md:px-6 xl:p-0">

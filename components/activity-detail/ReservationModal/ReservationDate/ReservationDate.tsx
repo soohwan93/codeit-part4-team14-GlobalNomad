@@ -11,7 +11,7 @@ const ReservationDate = ({}: ReservationDateType) => {
         <Calendar locale="ko" minDate={new Date()} minDetail="year" />
       </div>
       <div>
-        <span className="mb-3 text-lg font-bold leading-[144%]">
+        <span className="mb-3 inline-block text-lg font-bold leading-[144%]">
           예약 가능한 시간
         </span>
         <div className="h-10 w-full outline outline-gray-200">
