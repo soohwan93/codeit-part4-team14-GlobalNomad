@@ -45,7 +45,7 @@ async function fetchWithToken(url: string, options: RequestInit = {}) {
     headers,
   };
 
-  let response = await fetch(url, mergedOptions);
+  const response = await fetch(url, mergedOptions);
 
   if (!response.ok) {
     const errorResponse = await response.json();
@@ -132,9 +132,9 @@ export function postLogin(body: LoginBody) {
   return fetcher(`/auth/login`, "POST", body);
 }
 
-// 토큰 재발급(현재 이상해서 질문 중)
-export function postTokens(body: ActivityImagesBody) {
-  return fetcher(`/auth/tokens`, "POST", body);
+// 토큰 재발급
+export function postTokens() {
+  return fetcher(`/auth/tokens`, "POST");
 }
 
 /** MyActivities
