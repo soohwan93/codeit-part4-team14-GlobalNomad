@@ -24,7 +24,7 @@ const ReservationDatePresenter = ({
         <ReservationDate />
       </div>
       <span
-        className="inline text-sm font-medium leading-[1.625rem] text-[#0b3b2d] xl:hidden"
+        className="inline text-sm font-medium leading-[1.625rem] text-[#0b3b2d] underline md:text-base md:font-semibold xl:hidden"
         onClick={() => {
           setShowDateModal(true);
         }}

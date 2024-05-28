@@ -21,7 +21,7 @@ const ReservationCounterPresenter = ({
         <ReservationCounter count={count} setCount={setCount} />
       </div>
       <span
-        className="inline text-lg font-medium leading-[1.625rem] text-[#0b3b2d] md:hidden"
+        className="inline text-lg font-medium leading-[1.625rem] text-[#0b3b2d] underline md:hidden"
         onClick={() => {
           setShowCounterModal(true);
         }}

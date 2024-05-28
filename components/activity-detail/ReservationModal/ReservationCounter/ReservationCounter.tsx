@@ -62,7 +62,7 @@ function ReservationCounter({ count, setCount }: ReservationCounterProp) {
         onBlur={() => handleBlur()}
         min={1}
         max={50}
-        className="input-number-none-arrow h-6 w-full p-2"
+        className="input-number-none-arrow h-6 w-full p-2 text-center"
       />
       <button
         type="button"

@@ -13,8 +13,11 @@ const ReservationModal = () => {
         <div className="md:px-6 md:pt-6 xl:p-0">
           <div className="flex items-center font-bold md:text-2xl xl:text-[1.75rem]">
             가격&nbsp;
+            <span className="inline text-xl font-normal text-[#4b4b4b] md:text-base">
+              /
+            </span>
             <span className="hidden text-xl font-normal text-[#4b4b4b] md:inline md:text-base">
-              /&nbsp;인
+              &nbsp;인
             </span>
           </div>
         </div>
@@ -29,7 +32,6 @@ const ReservationModal = () => {
         </div>
 
         <div className="col-start-2 row-start-1 md:col-start-1 md:row-start-6 md:inline">
-          <span className="md:hidden">/&nbsp;</span>
           <ReservationCounterPresenter
             count={currentReservationCount}
             setCount={setCurrentReservationCount}
