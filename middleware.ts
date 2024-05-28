@@ -64,5 +64,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/((?!$|activity-detail).*)"],
+  matcher: ["/((?!^$|^activity-detail/).*)"],
 };
