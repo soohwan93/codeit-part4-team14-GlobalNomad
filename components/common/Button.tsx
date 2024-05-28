@@ -11,7 +11,7 @@ export const ButtonVariants = cva(
     //variant , size에 따라 다른 디자인을 보여줄수 있다
     variants: {
       variant: {
-        primary: "bg-nomad-black text-white ",
+        primary: " bg-nomad-black text-white ",
         white: " bg-white text-nomad-black border-nomad-black border-[1px] ",
         gray: " bg-gray-60 cursor-not-allowed text-white ",
       },
