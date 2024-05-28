@@ -1,11 +1,193 @@
+### 회원가입
+POST https://sp-globalnomad-api.vercel.app/4-14/users
+Content-Type: application/json
+
+{
+  "email": "test@naver.com",
+  "nickname": "테스트-네이버",
+  "password": "qwer1234"
+}
+
+### 로그인
+POST https://sp-globalnomad-api.vercel.app/4-14/auth/login
+Content-Type: application/json
+
+{
+  "email": "test@naver.com",
+  "password": "qwer1234"
+}
+
+### 내 정보 조회
+GET https://sp-globalnomad-api.vercel.app/4-14/users/me
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzIwLCJ0ZWFtSWQiOiI0LTE0IiwiaWF0IjoxNzE2ODc2OTE2LCJleHAiOjE3MTY4Nzg3MTYsImlzcyI6InNwLWdsb2JhbG5vbWFkIn0.Ob20fGj4lQQz6metvTmrx5W0UMGj_Ml-HKoQcvJUykY
+
+### 내 정보 수정
+PATCH https://sp-globalnomad-api.vercel.app/4-14/users/me
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzIwLCJ0ZWFtSWQiOiI0LTE0IiwiaWF0IjoxNzE2ODc2OTE2LCJleHAiOjE3MTY4Nzg3MTYsImlzcyI6InNwLWdsb2JhbG5vbWFkIn0.Ob20fGj4lQQz6metvTmrx5W0UMGj_Ml-HKoQcvJUykY
+Content-Type: application/json
+
+{
+  "nickname": "테스트-naver",
+  "newPassword": "qwer1234"
+}
+
+### 프로필 이미지 url 생성
+POST https://sp-globalnomad-api.vercel.app/4-14/users/me/image
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzIwLCJ0ZWFtSWQiOiI0LTE0IiwiaWF0IjoxNzE2ODc2OTE2LCJleHAiOjE3MTY4Nzg3MTYsImlzcyI6InNwLWdsb2JhbG5vbWFkIn0.Ob20fGj4lQQz6metvTmrx5W0UMGj_Ml-HKoQcvJUykY
+Content-Type: application/json
+
+{
+  "image": "",
+}
+
 ### 체험 리스트 조회(offset)
 GET https://sp-globalnomad-api.vercel.app/4-14/activities?method=offset
 
+### 체험 등록
+POST https://sp-globalnomad-api.vercel.app/4-14/activities?method=offset
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzIwLCJ0ZWFtSWQiOiI0LTE0IiwiaWF0IjoxNzE2ODc1MDczLCJleHAiOjE3MTY4NzY4NzMsImlzcyI6InNwLWdsb2JhbG5vbWFkIn0.lpSqdApa73aop_52RfkHgVcdkS5FyNycFdrPB0VQVxI
+Content-Type: application/json
+
+{
+  "title": "테스트용",
+  "category": "투어",
+  "description": "둠칫 둠칫 두둠칫",
+  "address": "서울특별시 강남구 테헤란로 427",
+  "price": 10000,
+  "schedules": [
+    {
+      "date": "2024-12-01",
+      "startTime": "12:00",
+      "endTime": "13:00"
+    },
+    {
+      "date": "2024-12-05",
+      "startTime": "12:00",
+      "endTime": "13:00"
+    },
+    {
+      "date": "2024-12-05",
+      "startTime": "13:00",
+      "endTime": "14:00"
+    },
+    {
+      "date": "2024-12-05",
+      "startTime": "14:00",
+      "endTime": "15:00"
+    }
+  ],
+  "bannerImageUrl": "https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/globalnomad/activity_registration_image/a.png",
+  "subImageUrls": [
+    "https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/globalnomad/activity_registration_image/b.png"
+  ]
+}
+
+### 체험 상세 조회
+GET https://sp-globalnomad-api.vercel.app/4-14/activities/919
+
+### 체험 예약 가능일 조회
+GET https://sp-globalnomad-api.vercel.app/4-14/activities/919/available-schedule?year=2024&month=12
+
+### 체험 리뷰 조회
+GET https://sp-globalnomad-api.vercel.app/4-14/activities/916/reviews
+
+### 체험 예약 신청
+POST https://sp-globalnomad-api.vercel.app/4-14/activities/919/reservations
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzIwLCJ0ZWFtSWQiOiI0LTE0IiwiaWF0IjoxNzE2ODc2OTE2LCJleHAiOjE3MTY4Nzg3MTYsImlzcyI6InNwLWdsb2JhbG5vbWFkIn0.Ob20fGj4lQQz6metvTmrx5W0UMGj_Ml-HKoQcvJUykY
+Content-Type: application/json
+
+{
+  "scheduleId": 3238,
+  "headCount": 5
+}
+
 ### 체험 이미지 url 생성
 POST https://sp-globalnomad-api.vercel.app/4-14/activities/images
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzA1LCJ0ZWFtSWQiOiI0LTE0IiwiaWF0IjoxNzE2Nzk3MzQxLCJleHAiOjE3MTY3OTkxNDEsImlzcyI6InNwLWdsb2JhbG5vbWFkIn0.am2_Hb_9yxoorVkJPGPbQAKtLRgfliHtUCiQJOqcDxc
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzIwLCJ0ZWFtSWQiOiI0LTE0IiwiaWF0IjoxNzE2ODc1MDczLCJleHAiOjE3MTY4NzY4NzMsImlzcyI6InNwLWdsb2JhbG5vbWFkIn0.lpSqdApa73aop_52RfkHgVcdkS5FyNycFdrPB0VQVxI
 Content-Type: multipart/form-data
 
 {
-  "image" : ""
+  "image" : "asd"
+}
+
+### 토큰 재발급
+POST https://sp-globalnomad-api.vercel.app/4-14/auth/tokens
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzIwLCJ0ZWFtSWQiOiI0LTE0IiwiaWF0IjoxNzE2ODc1MjUxLCJleHAiOjE3MTgwODQ4NTEsImlzcyI6InNwLWdsb2JhbG5vbWFkIn0.BEUy1gUXvHQt5AyK7EXchEVrHBZggoSdOax2i_S3oRk
+
+### 내 체험 리스트 조회
+GET https://sp-globalnomad-api.vercel.app/4-14/my-activities
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzIwLCJ0ZWFtSWQiOiI0LTE0IiwiaWF0IjoxNzE2ODc2OTE2LCJleHAiOjE3MTY4Nzg3MTYsImlzcyI6InNwLWdsb2JhbG5vbWFkIn0.Ob20fGj4lQQz6metvTmrx5W0UMGj_Ml-HKoQcvJUykY
+
+### 내 체험 월별 예약 현황 조회
+GET https://sp-globalnomad-api.vercel.app/4-14/my-activities/919/reservation-dashboard?year=2024&month=12
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzIwLCJ0ZWFtSWQiOiI0LTE0IiwiaWF0IjoxNzE2ODc2OTE2LCJleHAiOjE3MTY4Nzg3MTYsImlzcyI6InNwLWdsb2JhbG5vbWFkIn0.Ob20fGj4lQQz6metvTmrx5W0UMGj_Ml-HKoQcvJUykY
+
+### 내 체험 날짜별 예약 정보(신청, 승인, 거절)가 있는 스케줄 조회
+GET https://sp-globalnomad-api.vercel.app/4-14/my-activities/919/reserved-schedule?date=2024-12-01
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzIwLCJ0ZWFtSWQiOiI0LTE0IiwiaWF0IjoxNzE2ODc2OTE2LCJleHAiOjE3MTY4Nzg3MTYsImlzcyI6InNwLWdsb2JhbG5vbWFkIn0.Ob20fGj4lQQz6metvTmrx5W0UMGj_Ml-HKoQcvJUykY
+
+### 내 체험 예약 시간대별 예약 내역 조회
+GET https://sp-globalnomad-api.vercel.app/4-14/my-activities/919/reservations?scheduleId=3238&status=pending
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzIwLCJ0ZWFtSWQiOiI0LTE0IiwiaWF0IjoxNzE2ODc2OTE2LCJleHAiOjE3MTY4Nzg3MTYsImlzcyI6InNwLWdsb2JhbG5vbWFkIn0.Ob20fGj4lQQz6metvTmrx5W0UMGj_Ml-HKoQcvJUykY
+
+### 내 체험 예약 상태(승인, 거절) 업데이트
+PATCH https://sp-globalnomad-api.vercel.app/4-14/my-activities/919/reservations/1398
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzIwLCJ0ZWFtSWQiOiI0LTE0IiwiaWF0IjoxNzE2ODc2OTE2LCJleHAiOjE3MTY4Nzg3MTYsImlzcyI6InNwLWdsb2JhbG5vbWFkIn0.Ob20fGj4lQQz6metvTmrx5W0UMGj_Ml-HKoQcvJUykY
+Content-Type: application/json
+
+{
+  "status": "confirmed"
+}
+
+### 내 체험 삭제
+DELETE https://sp-globalnomad-api.vercel.app/4-14/my-activities/918
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzIwLCJ0ZWFtSWQiOiI0LTE0IiwiaWF0IjoxNzE2ODc1MDczLCJleHAiOjE3MTY4NzY4NzMsImlzcyI6InNwLWdsb2JhbG5vbWFkIn0.lpSqdApa73aop_52RfkHgVcdkS5FyNycFdrPB0VQVxI
+
+### 내 체험 수정
+PATCH https://sp-globalnomad-api.vercel.app/4-14/my-activities/916
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzIwLCJ0ZWFtSWQiOiI0LTE0IiwiaWF0IjoxNzE2ODc1MDczLCJleHAiOjE3MTY4NzY4NzMsImlzcyI6InNwLWdsb2JhbG5vbWFkIn0.lpSqdApa73aop_52RfkHgVcdkS5FyNycFdrPB0VQVxI
+Content-Type: application/json
+
+{
+  "title": "함께 해도 재미 없는 댄스",
+  "category": "문화 · 예술",
+  "description": "노잼요",
+  "price": 5000,
+  "address": "서울특별시 강남구 테헤란로 427",
+  "bannerImageUrl": "https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/globalnomad/activity_registration_image/a.png",
+  "subImageIdsToRemove": [],
+  "subImageUrlsToAdd": [],
+  "scheduleIdsToRemove": [],
+  "schedulesToAdd": []
+}
+
+### 내 알림 리스트 조회
+GET https://sp-globalnomad-api.vercel.app/4-14/my-notifications
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzIwLCJ0ZWFtSWQiOiI0LTE0IiwiaWF0IjoxNzE2ODc1MDczLCJleHAiOjE3MTY4NzY4NzMsImlzcyI6InNwLWdsb2JhbG5vbWFkIn0.lpSqdApa73aop_52RfkHgVcdkS5FyNycFdrPB0VQVxI
+
+### 내 알림 삭제
+DELETE https://sp-globalnomad-api.vercel.app/4-14/my-notifications/874
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzIwLCJ0ZWFtSWQiOiI0LTE0IiwiaWF0IjoxNzE2ODc1MDczLCJleHAiOjE3MTY4NzY4NzMsImlzcyI6InNwLWdsb2JhbG5vbWFkIn0.lpSqdApa73aop_52RfkHgVcdkS5FyNycFdrPB0VQVxI
+
+### 내 예약 리스트 조회
+GET https://sp-globalnomad-api.vercel.app/4-14/my-reservations
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzIwLCJ0ZWFtSWQiOiI0LTE0IiwiaWF0IjoxNzE2ODc1MDczLCJleHAiOjE3MTY4NzY4NzMsImlzcyI6InNwLWdsb2JhbG5vbWFkIn0.lpSqdApa73aop_52RfkHgVcdkS5FyNycFdrPB0VQVxI
+
+### 내 예약 수정 (취소)
+PATCH https://sp-globalnomad-api.vercel.app/4-14/my-reservations/1397
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzIwLCJ0ZWFtSWQiOiI0LTE0IiwiaWF0IjoxNzE2ODc2OTE2LCJleHAiOjE3MTY4Nzg3MTYsImlzcyI6InNwLWdsb2JhbG5vbWFkIn0.Ob20fGj4lQQz6metvTmrx5W0UMGj_Ml-HKoQcvJUykY
+Content-Type: application/json
+
+{
+  "status" : "canceled"
+}
+
+### 내 예약 리뷰 작성
+POST https://sp-globalnomad-api.vercel.app/4-14/my-reservations/1398/reviews
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzIwLCJ0ZWFtSWQiOiI0LTE0IiwiaWF0IjoxNzE2ODc2OTE2LCJleHAiOjE3MTY4Nzg3MTYsImlzcyI6InNwLWdsb2JhbG5vbWFkIn0.Ob20fGj4lQQz6metvTmrx5W0UMGj_Ml-HKoQcvJUykY
+Content-Type: application/json
+
+{
+  "rating": 4,
+  "content": "생각보다 재밌네요~"
 }
