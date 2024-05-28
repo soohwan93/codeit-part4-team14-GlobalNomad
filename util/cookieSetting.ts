@@ -14,7 +14,7 @@ export function getCookie(name: string): string | undefined {
 //accessToken을 쿠키로 저장하는 함수
 export function setAccessTokenCookie(accessTokenValue: string) {
   setCookie(null, "accessToken", accessTokenValue, {
-    maxAge: 60 * 60, // 수명: 1시간
+    maxAge: 30 * 60, // 수명: 30분
     path: "/",
     secure: true,
     sameSite: "strict",
@@ -24,7 +24,7 @@ export function setAccessTokenCookie(accessTokenValue: string) {
 //refreshToken을 쿠키로 저장하는 함수
 export function setRefreshTokenCookie(refreshTokenValue: string) {
   setCookie(null, "refreshToken", refreshTokenValue, {
-    maxAge: 24 * 7 * 60 * 60, // 수명: 1주일
+    maxAge: 24 * 14 * 60 * 60, // 수명: 2주일
     path: "/",
     secure: true,
     sameSite: "strict",
