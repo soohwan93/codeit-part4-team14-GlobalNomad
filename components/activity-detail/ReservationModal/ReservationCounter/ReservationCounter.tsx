@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 import React, { Dispatch, SetStateAction, useRef } from "react";
 
 interface ReservationCounterProp {
@@ -44,13 +45,19 @@ function ReservationCounter({ count, setCount }: ReservationCounterProp) {
   };
 
   return (
-    <div className="flex h-10 w-min min-w-[7.5rem] items-center rounded-xl outline outline-[#cdd0dc]">
+    <div className="flex h-10 w-min min-w-[7.5rem] items-center justify-center rounded-xl outline outline-[#cdd0dc]">
       <button
         type="button"
-        className="p-2.5"
+        className="h-10 w-10"
         onClick={() => handleClickButton(false)}
       >
-        -
+        <Image
+          src="/icons/counter/Subtract.svg"
+          width={20}
+          height={20}
+          alt="reservation-decrease"
+          className="inline-block text-center"
+        />
       </button>
       <input
         ref={counterRef}
@@ -62,14 +69,20 @@ function ReservationCounter({ count, setCount }: ReservationCounterProp) {
         onBlur={() => handleBlur()}
         min={1}
         max={50}
-        className="input-number-none-arrow h-6 w-full p-2 text-center"
+        className="input-number-none-arrow h-10 w-10 p-2 text-center"
       />
       <button
         type="button"
-        className="p-2.5"
+        className="h-10 w-10"
         onClick={() => handleClickButton(true)}
       >
-        +
+        <Image
+          src="/icons/counter/Add.svg"
+          width={20}
+          height={20}
+          alt="reservation-increase"
+          className="inline-block text-center"
+        />
       </button>
     </div>
   );
