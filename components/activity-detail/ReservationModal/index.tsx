@@ -47,7 +47,7 @@ const ReservationModal = () => {
 
       <div className="hidden text-xl font-bold leading-[130%] md:flex md:justify-between md:px-6 xl:p-0">
         <span>총 합계</span>
-        <span>₩ 10000원</span>
+        <span>₩ {currentReservationCount * 10}</span>
       </div>
     </div>
   );
