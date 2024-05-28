@@ -1,16 +1,5 @@
 import { setCookie, destroyCookie } from "nookies";
 
-//쿠키를 가져오는 함수
-export function getCookie(name: string): string | undefined {
-  if (typeof window === "undefined") {
-    return undefined;
-  }
-
-  const value = `; ${document.cookie}`;
-  const parts = value.split(`; ${name}=`);
-  if (parts.length === 2) return parts.pop()?.split(";").shift();
-}
-
 //accessToken을 쿠키로 저장하는 함수
 export function setAccessTokenCookie(accessTokenValue: string) {
   setCookie(null, "accessToken", accessTokenValue, {
@@ -18,6 +7,7 @@ export function setAccessTokenCookie(accessTokenValue: string) {
     path: "/",
     secure: true,
     sameSite: "strict",
+    httpOnly: true, //스크립트로 불러 올 수 없는 옵션 - xss공격 방지
   });
 }
 
@@ -28,16 +18,12 @@ export function setRefreshTokenCookie(refreshTokenValue: string) {
     path: "/",
     secure: true,
     sameSite: "strict",
+    httpOnly: true, //스크립트로 불러 올 수 없는 옵션 - xss공격 방지
   });
 }
 
 //생성한 모든 쿠키 삭제하는 코드(accessToken, refreshToken)
 export function removeAllTokenCookies() {
-  deleteCookie("accessToken");
-  deleteCookie("refreshToken");
-}
-
-//쿠키 삭제 함수
-export function deleteCookie(name: string) {
-  destroyCookie(null, name, { path: "/" });
+  destroyCookie(null, "accessToken", { path: "/" });
+  destroyCookie(null, "refreshToken", { path: "/" });
 }
