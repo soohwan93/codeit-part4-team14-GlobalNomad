@@ -1,14 +1,26 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import Calendar from "react-calendar";
+import { CalendarValue } from "../calendarTypes";
 
-interface ReservationDateType {}
+interface ReservationDateType {
+  setDate: (date: CalendarValue) => void;
+}
 
-const ReservationDate = ({}: ReservationDateType) => {
+const ReservationDate = ({ setDate }: ReservationDateType) => {
   return (
     <div>
       <div className="mb-4 flex justify-center">
-        <Calendar locale="ko" minDate={new Date()} minDetail="year" />
+        <Calendar
+          locale="ko"
+          minDate={new Date()}
+          onChange={(item) => {
+            setDate(item);
+          }}
+          next2Label={null}
+          prev2Label={null}
+          minDetail="year"
+        />
       </div>
       <div>
         <span className="mb-3 inline-block text-lg font-bold leading-[144%]">

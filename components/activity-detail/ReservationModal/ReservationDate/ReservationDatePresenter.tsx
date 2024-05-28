@@ -3,10 +3,11 @@ import React, { Dispatch, SetStateAction, useState } from "react";
 import ReservationPopup from "../ReservationPopup";
 import ReservationDate from "./ReservationDate";
 import "react-calendar/dist/Calendar.css";
+import { CalendarValue } from "../calendarTypes";
 
 interface ReservationDatePresenterProp {
-  date: string | null;
-  setDate: Dispatch<SetStateAction<string | null>>;
+  date: Date | null;
+  setDate: (date: CalendarValue) => void;
 }
 
 const ReservationDatePresenter = ({
@@ -21,7 +22,7 @@ const ReservationDatePresenter = ({
         날짜
       </h5>
       <div className="hidden xl:block">
-        <ReservationDate />
+        <ReservationDate setDate={setDate} />
       </div>
       <span
         className="inline text-sm font-medium leading-[1.625rem] text-[#0b3b2d] underline md:text-base md:font-semibold xl:hidden"
@@ -29,11 +30,11 @@ const ReservationDatePresenter = ({
           setShowDateModal(true);
         }}
       >
-        {date === null ? "날짜 선택하기" : "대충 날짜"}
+        {date === null ? "날짜 선택하기" : String(date)}
       </span>
       {showDateModal && (
         <ReservationPopup title="날짜" setState={setShowDateModal}>
-          <ReservationDate />
+          <ReservationDate setDate={setDate} />
         </ReservationPopup>
       )}
     </div>

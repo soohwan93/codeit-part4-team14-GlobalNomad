@@ -2,10 +2,19 @@
 import React, { useRef, useState } from "react";
 import ReservationCounterPresenter from "./ReservationCounter/ReservationCounterPresenter";
 import ReservationDatePresenter from "./ReservationDate/ReservationDatePresenter";
+import { CalendarValue } from "./calendarTypes";
 
 const ReservationModal = () => {
   const [currentReservationCount, setCurrentReservationCount] = useState(1);
-  const [reservationDate, setReservationDate] = useState<null | string>(null);
+  const [reservationDate, setReservationDate] = useState<null | Date>(null);
+
+  const handleSelectDay = (item: CalendarValue) => {
+    // fetch 이후 받아온 데이터를 reservation dropdown date에 전달할 예정
+  };
+
+  const handleDropdownSelect = () => {
+    //dropdown 선택시 시행할 함수를 작성할 예정
+  };
 
   return (
     <div className="fixed bottom-0 flex w-screen flex-row justify-between bg-white p-4 outline outline-[1px] outline-[#a1a1a1] md:relative md:bottom-0 md:block md:h-max md:min-h-[26.9375rem] md:w-[15.6875rem] md:flex-col md:rounded-xl md:p-0 xl:min-h-[46.625rem] xl:w-[24rem] xl:p-6">
@@ -27,7 +36,7 @@ const ReservationModal = () => {
         <div className="col-start-1 col-end-3 md:row-start-3">
           <ReservationDatePresenter
             date={reservationDate}
-            setDate={setReservationDate}
+            setDate={handleSelectDay}
           />
         </div>
 
