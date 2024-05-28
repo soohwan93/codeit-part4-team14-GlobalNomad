@@ -47,16 +47,16 @@ export interface MyActivitiesQuery {
   size: number;
 }
 
-// 내 체험 리스트 조회 쿼리 타입
+// 내 체험 월별 예약 현황 조회 쿼리 타입
 export interface ReservationDashBoardQuery extends AvailableScheduleQuery {}
 
-// 내 체험 리스트 조회 쿼리 타입
+// 내 체험 날짜별 예약 정보(신청, 승인, 거절)가 있는 스케줄 조회 쿼리 타입
 export interface ReservedScheduleQuery {
   [key: string]: string;
   date: string;
 }
 
-// 내 체험 리스트 조회 쿼리 타입
+// 내 체험 예약 시간대별 예약 내역 조회 쿼리 타입
 export interface ReservationsQuery {
   [key: string]: string | undefined | number | ReservationsStatus;
   cursorId?: string;
