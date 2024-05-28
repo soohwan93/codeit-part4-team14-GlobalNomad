@@ -124,17 +124,11 @@ export function postActivityImages(body: ActivityImagesBody) {
 
 /** Auth
  * 로그인
- * 토큰 재발급
  */
 
 // 로그인
 export function postLogin(body: LoginBody) {
   return fetcher(`/auth/login`, "POST", body);
-}
-
-// 토큰 재발급
-export function postTokens() {
-  return fetcher(`/auth/tokens`, "POST");
 }
 
 /** MyActivities
