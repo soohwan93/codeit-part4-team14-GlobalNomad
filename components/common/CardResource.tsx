@@ -51,7 +51,7 @@ export const CardResourceCategory = () => {
           </span>
         </div>
         <div className="... truncate break-keep pb-[5px] text-[18px] font-[600] md:text-[24px]">
-          함께 배우면 즐거운 스트릿 댄스
+          함께 배우면 즐거운 스트릿 댄스!!!
         </div>
         <div className="flex gap-[5px] text-[20px] font-[700] md:text-[28px]">
           <span>₩ 38,000</span>
