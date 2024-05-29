@@ -31,3 +31,35 @@ export const CardResourcePopular = () => {
     </div>
   );
 };
+
+export const CardResourceCategory = () => {
+  return (
+    <div className="flex w-min flex-col gap-[16px]">
+      <div className="relative h-[168px] w-[168px] overflow-hidden rounded-[20px] md:h-[221px] md:w-[221px] xl:h-[283px] xl:w-[283px]">
+        <Image
+          className="scale-125 rounded-[20px] object-cover"
+          fill
+          src={image}
+          alt="image"
+        />
+      </div>
+      <div className="flex w-[168px] flex-col gap-[10px] text-[#1b1b1b] md:w-[282px]">
+        <div className="flex gap-[5px]">
+          <Image src={Star} alt="star icon" />
+          <span className="text-[16px] font-[500]">
+            4.9 <span className="text-[#a1a1a1]">(793)</span>
+          </span>
+        </div>
+        <div className="... truncate break-keep pb-[5px] text-[18px] font-[600] md:text-[24px]">
+          함께 배우면 즐거운 스트릿 댄스
+        </div>
+        <div className="flex gap-[5px] text-[20px] font-[700] md:text-[28px]">
+          <span>₩ 38,000</span>
+          <span className="self-center text-[16px] font-[400] text-[#4b4b4b] md:text-[20px]">
+            / 인
+          </span>
+        </div>
+      </div>
+    </div>
+  );
+};
