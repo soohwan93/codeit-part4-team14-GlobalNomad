@@ -3,16 +3,16 @@ import React from "react";
 const page = () => {
   return (
     <>
-      <header className="my-4 flex items-center justify-between">
+      <header className="flex items-center justify-between px-4 py-4 xl:pt-20">
         <div>체험 상세 정보</div>
         <button>kebab section</button>
       </header>
       <main>
         <section>대충 이미지가 들어갈 장소</section>
-        <div className="flex">
-          <article className="">
+        <div className="flex px-6 pt-4">
+          <article className="w-full">
             <hr color="nomad-black" className="hidden md:block" />
-            <h3 className="mb-4 mt-4 text-xl font-bold leading-[130%] text-nomad-black md:mt-10">
+            <h3 className="mb-4 text-xl font-bold leading-[130%] text-nomad-black md:mt-10">
               체험 설명
             </h3>
             <textarea
@@ -27,10 +27,22 @@ const page = () => {
             <hr />
             <section>
               <header>
-                <h3 className="mb-6 text-xl font-bold leading-[130%] text-nomad-black">
+                <h3 className="text-xl font-bold leading-[130%] text-nomad-black">
                   후기
                 </h3>
-                별점
+                <div>
+                  <span className="text-[3.125rem] font-semibold text-nomad-black">
+                    4.2
+                  </span>
+                  <div className="ml-4 inline-block">
+                    <span className="text-lg leading-[133%] text-nomad-black">
+                      매우 만족
+                    </span>
+                    <div className="text-sm text-nomad-black">
+                      대충 별 1300개 후기
+                    </div>
+                  </div>
+                </div>
               </header>
               후기 렌더링 컴포넌트
             </section>
