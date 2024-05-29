@@ -1,4 +1,3 @@
-import ReservationModal from "@/components/activity-detail/ReservationModal";
 import React from "react";
 
 const page = () => {
@@ -13,21 +12,24 @@ const page = () => {
         <div className="flex">
           <article className="">
             <hr color="nomad-black" className="hidden md:block" />
-            <h3 className="mb-4 mt-4 text-xl font-bold leading-[130%] md:mt-10">
+            <h3 className="mb-4 mt-4 text-xl font-bold leading-[130%] text-nomad-black md:mt-10">
               체험 설명
             </h3>
             <textarea
               disabled
-              className="h-min w-full resize-none text-base leading-[162.5%]"
+              className="w-full resize-none text-wrap bg-transparent text-base leading-[162.5%] text-nomad-black"
             >
-              체험 설명 쫘라라라라락
+              체험 설명
+              쫘라라라라락sfasd;fadjsfkldsjfdls;fsdfasfsdkf;lsakfjas;lfkasjfls;dkfjas;lfaksjf;lsakfjdsl;fkjasdfl;aksdjfals;kfj
             </textarea>
-            <hr />
+            <hr className="mt-16" />
             지도 컴포넌트
             <hr />
             <section>
               <header>
-                <h3>후기</h3>
+                <h3 className="mb-6 text-xl font-bold leading-[130%] text-nomad-black">
+                  후기
+                </h3>
                 별점
               </header>
               후기 렌더링 컴포넌트
