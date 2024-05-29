@@ -10,7 +10,7 @@ interface useDropdownInputType {
 const useDropdownInput = (
   dataArray: string[],
   defaultValue: string | null,
-  type = "카테고리",
+  type = "10:00",
 ) => {
   const [selected, setSelected] = useState(defaultValue);
   const [open, setOpen] = useState(false);
@@ -24,33 +24,27 @@ const useDropdownInput = (
     return (
       <div className="relative">
         <div
-          className={`flex h-14 w-full cursor-pointer items-center justify-between rounded border-[1px] border-black pl-4 text-base leading-[162.5%] 
+          className={`flex h-12 w-full cursor-pointer items-center justify-between overflow-hidden rounded border-[1px] border-black pl-2 pr-1.5 text-sm leading-[162.5%] md:h-14 md:pl-4 md:text-base 
             ${selected === null ? "text-gray-60" : "text-black"}`}
           onClick={() => setOpen(!open)}
         >
           {selected === null ? type : selected}
-          <button
-            className={`${open ? "rotate-180" : "rotate-0"} p-3 duration-100`}
-          >
-            <Image
-              src="/icons/chevron_down.svg"
-              alt="dropdown"
-              width={24}
-              height={24}
-            />
-          </button>
+
+          <div
+            className={`ml-1 inline-block h-6 w-6 bg-[url('/icons/chevron_down.svg')] bg-center bg-no-repeat duration-100 md:h-5 md:w-5 md:p-6 ${open ? "rotate-180" : "rotate-0"}`}
+          />
         </div>
         <ul
-          className={`absolute flex w-full translate-y-2 flex-col gap-[1px] overflow-hidden rounded bg-white shadow-lg duration-100 ${open ? "h-max max-h-56 p-2" : "h-0"}`}
+          className={`absolute flex w-full translate-y-2 flex-col gap-[1px] overflow-hidden rounded bg-white shadow-lg duration-200 ${open ? "h-max max-h-56 p-2" : "h-0"}`}
         >
           {dataArray.map((item) => (
             <li
               key={item}
-              className={`flex cursor-pointer items-center rounded p-2 ${selected === item ? "bg-nomad-black text-white hover:bg-nomad-black" : "text-black hover:bg-gray-30"}`}
+              className={`flex cursor-pointer items-center rounded p-2 text-sm md:text-base ${selected === item ? "bg-nomad-black text-white hover:bg-nomad-black" : "text-black hover:bg-gray-30"}`}
               onClick={() => handleSelectChild(item)}
             >
               <div
-                className={`${selected === item ? "bg-[url('/icons/checkmark.svg')]" : ""} mr-2 inline-block h-5 w-5`}
+                className={`${selected === item ? "bg-[url('/icons/checkmark.svg')]" : ""} mr-2 inline-block h-3 w-3 bg-center`}
               ></div>
               {item}
             </li>
