@@ -4,7 +4,7 @@ import "./globals.css";
 import Header from "@/components/common/Header";
 import Footer from "@/components/common/Footer";
 
-export const pretendard = localFont({
+const pretendard = localFont({
   src: "../../public/fonts/PretendardVariable.woff2",
   display: "swap",
   weight: "45 920",
