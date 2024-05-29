@@ -1,11 +1,13 @@
 import { removeAllTokenCookies } from "@/util/cookieSetting";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
-export async function handleRequest() {
+async function handleRequest(
+  request: NextRequest,
+): Promise<NextResponse<{ message: string }>> {
   removeAllTokenCookies();
   return NextResponse.json({ message: "로그아웃되었습니다." }, { status: 200 });
 }
 
-export async function POST() {
-  return handleRequest();
+export async function POST(request: NextRequest) {
+  return handleRequest(request);
 }
