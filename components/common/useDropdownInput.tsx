@@ -1,4 +1,4 @@
-import Image from "next/image";
+"use client";
 import React, { useState } from "react";
 
 interface useDropdownInputType {
@@ -10,7 +10,7 @@ interface useDropdownInputType {
 const useDropdownInput = (
   dataArray: string[],
   defaultValue: string | null,
-  type = "10:00",
+  type = "카테고리",
 ) => {
   const [selected, setSelected] = useState(defaultValue);
   const [isOpen, setIsOpen] = useState(false);
