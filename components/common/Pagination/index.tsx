@@ -35,7 +35,7 @@ const Pagination = ({
   const handlePageNumberChange = (pageNum: number) => {
     setCurrentPage(pageNum);
     onPageClick(pageNum);
-    if (pageNum % 5 === 1 && pageNum < lastPageNum) {
+    if (pageNum % 5 === 1 && pageNum <= lastPageNum) {
       const pageList = [];
       for (let i = pageNum; i <= pageNum + 4 && i <= lastPageNum; i++) {
         pageList.push(i);
@@ -43,7 +43,7 @@ const Pagination = ({
       setCurrentPageList(pageList);
     }
 
-    if (pageNum % 5 === 0 && pageNum < lastPageNum) {
+    if (pageNum % 5 === 0 && pageNum <= lastPageNum) {
       const pageList = [];
       for (let i = pageNum - 4; i <= pageNum && i <= lastPageNum; i++) {
         pageList.push(i);
