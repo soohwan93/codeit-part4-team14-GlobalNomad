@@ -27,8 +27,8 @@ const PaginationArrow = ({
           id="Vector 668"
           d="M16 11L26.2929 21.2929C26.6834 21.6834 26.6834 22.3166 26.2929 22.7071L16 33"
           stroke={color}
-          stroke-width="3"
-          stroke-linecap="round"
+          strokeWidth="3"
+          strokeLinecap="round"
         />
       </g>
     </svg>
