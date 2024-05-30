@@ -4,14 +4,14 @@ import React, { useState } from "react";
 /**
  *
  * @param {string[]} dataArray 현재 드롭다운에서 보여줄 데이터 목록을 받습니다.
- * @param {string} defaultValue 수정 등의 경우 현재 드롭다운에서 기본으로 선택할 값을 받습니다. 없을 경우 null로 처리됩니다.
  * @param {string} type 현재 드롭다운이 어떤 종류인지 보여줄 항목입니다. defaultValue가 null일 경우, 이것을 보여줍니다.
+ * @param {string} defaultValue 수정 등의 경우 현재 드롭다운에서 기본으로 선택할 값을 받습니다. 없을 경우 null로 처리됩니다.
  * @returns
  */
 const useDropdownInput = (
   dataArray: string[],
+  type: string,
   defaultValue: string | null = null,
-  type = "카테고리",
 ) => {
   const [selected, setSelected] = useState(defaultValue);
   const [isOpen, setIsOpen] = useState(false);
