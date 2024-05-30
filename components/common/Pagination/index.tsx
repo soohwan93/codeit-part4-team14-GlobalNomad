@@ -5,7 +5,7 @@ import PaginationArrow from "./PaginationArrow";
 
 interface PaginationProps {
   count: number;
-  setCurrentPageData: (currentPageData: number) => void;
+  onPageClick: (currentPageData: number) => void;
   pageItemLimit?: number;
   pageRefreshSwitch?: boolean;
   enableAnchorNavigation?: boolean;
@@ -24,47 +24,54 @@ interface PaginationProps {
 const Pagination = ({
   count,
   pageItemLimit = 3,
-  setCurrentPageData,
+  onPageClick = () => {},
   pageRefreshSwitch,
-  setIsFilterChanged,
 }: PaginationProps) => {
-  const pageData = Math.ceil(count / pageItemLimit);
+  const lastPageNum = Math.ceil(count / pageItemLimit);
   const [currentPage, setCurrentPage] = useState(1);
-  const [currentPageList, setCurrentPageList] = useState([1, 2, 3, 4, 5]);
+  const [currentPageList, setCurrentPageList] = useState([1]);
 
   // 페이지 번호 설정에 따라 발생시킬 함수
-  const handlePageNumberChange = (index: number) => {
-    setIsFilterChanged?.(false);
-    setCurrentPage(index);
-    setCurrentPageData(index);
+  const handlePageNumberChange = (pageNum: number) => {
+    setCurrentPage(pageNum);
+    onPageClick(pageNum);
+    if (pageNum % 5 === 1) {
+      const pageList = [];
+      for (let i = pageNum; i <= pageNum + 4 && i <= lastPageNum; i++) {
+        pageList.push(i);
+      }
+      setCurrentPageList(pageList);
+    }
+
+    if (pageNum % 5 === 0) {
+      const pageList = [];
+      for (let i = pageNum - 4; i <= pageNum && i <= lastPageNum; i++) {
+        pageList.push(i);
+      }
+      setCurrentPageList(pageList);
+    }
   };
 
   // 페이지 숫자 양 옆의 화살표 버튼 클릭 시 실행할 함수
-  const handlePaginationArrowButton = (direction: string) => {
-    setIsFilterChanged?.(false);
-    switch (direction) {
-      case "left":
-        if (currentPage !== 1) {
-          handlePageNumberChange(currentPage - 1);
-        }
-        break;
-      case "right":
-        if (currentPage !== pageData && pageData !== 1) {
-          handlePageNumberChange(currentPage + 1);
-        }
-        break;
-      default:
-        console.error("이게 뜨면 안됨");
+  const handlePaginationArrowButton = (rightDirection: boolean) => {
+    if (rightDirection) {
+      if (currentPage !== lastPageNum && lastPageNum !== 1) {
+        handlePageNumberChange(currentPage + 1);
+      }
+    } else {
+      if (currentPage !== 1) {
+        handlePageNumberChange(currentPage - 1);
+      }
     }
   };
 
   useEffect(() => {
     const firstPageList: number[] = [];
 
-    if (pageData === 0) {
+    if (lastPageNum === 0) {
       firstPageList.push(1);
     } else {
-      for (let i = 1; i <= pageData; i++) {
+      for (let i = 1; i <= 5 && i <= lastPageNum; i++) {
         firstPageList.push(i);
       }
     }
@@ -85,18 +92,18 @@ const Pagination = ({
         type="button"
         className={`h-5 w-5 rounded-full 
           ${currentPage !== 1 ? "hover:bg-gray-20" : "cursor-default opacity-40"}`}
-        onClick={() => handlePaginationArrowButton("left")}
+        onClick={() => handlePaginationArrowButton(false)}
       >
         <PaginationArrow className="h-full w-full rotate-180" />
       </button>
 
-      <div className="flex gap-2.5">
+      <div className="flex min-w-80 justify-center gap-2.5">
         {currentPageList.map((item) => (
           <React.Fragment key={`pagination-${item}`}>
             <button
               type="button"
               className={`h-14 w-14 rounded-2xl border border-black
-            ${currentPage === item ? "bg-nomad-black text-white" : "text-black hover:bg-white"}`}
+            ${currentPage === item ? "bg-nomad-black text-white" : "text-black hover:bg-gray-10"}`}
               onClick={() => handlePageNumberChange(item)}
             >
               {item}
@@ -108,8 +115,8 @@ const Pagination = ({
       <button
         type="button"
         className={`relative h-5 w-5 rounded-full 
-          ${currentPage !== pageData && pageData !== 1 ? " hover:bg-gray-20" : "cursor-default opacity-40"}`}
-        onClick={() => handlePaginationArrowButton("right")}
+          ${currentPage !== lastPageNum && lastPageNum !== 1 ? " hover:bg-gray-20" : "cursor-default opacity-40"}`}
+        onClick={() => handlePaginationArrowButton(true)}
       >
         <PaginationArrow className="h-full w-full" />
       </button>
