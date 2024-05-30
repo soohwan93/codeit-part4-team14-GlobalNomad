@@ -1,18 +1,18 @@
 import React from "react";
 
-interface PaginationArrow {
+interface Arrow {
   width?: number;
   height?: number;
   color?: string;
   className?: string;
 }
 
-const PaginationArrow = ({
+const Arrow = ({
   width = 40,
   height = 40,
   color = "#4B4B4B",
   className = "",
-}: PaginationArrow) => {
+}: Arrow) => {
   return (
     <svg
       className={className}
@@ -35,4 +35,4 @@ const PaginationArrow = ({
   );
 };
 
-export default PaginationArrow;
+export default Arrow;

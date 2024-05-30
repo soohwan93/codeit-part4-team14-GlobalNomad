@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
-import PaginationArrow from "./PaginationArrow";
+import Arrow from "../svg/Arrow";
 
 interface PaginationProps {
   count: number;
@@ -90,7 +90,7 @@ const Pagination = ({
           ${currentPage !== 1 ? "hover:bg-gray-20" : "cursor-default opacity-40"}`}
         onClick={() => handlePaginationArrowButton(false)}
       >
-        <PaginationArrow className="h-full w-full rotate-180" />
+        <Arrow className="h-full w-full rotate-180" />
       </button>
 
       <div className="flex min-w-60 justify-center gap-2.5 md:min-w-80">
@@ -114,7 +114,7 @@ const Pagination = ({
           ${currentPage < lastPageNum ? " hover:bg-gray-20" : "cursor-default opacity-40"}`}
         onClick={() => handlePaginationArrowButton(true)}
       >
-        <PaginationArrow className="h-full w-full" />
+        <Arrow className="h-full w-full" />
       </button>
     </div>
   );
