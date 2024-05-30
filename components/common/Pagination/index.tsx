@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import PaginationArrow from "./PaginationArrow";
 
 interface PaginationProps {
@@ -13,7 +13,7 @@ interface PaginationProps {
 /**
  * @param {number} count 현재 페이지네이션할 데이터의 총량을 받습니다.
  * @param {number} pageItemLimit 현재 페이지에 얼마나 많은 개수를 표기할 지 선택하는 인수입니다. 기본적으로 리뷰 컴포넌트에서 표시하는 3값으로 설정되어있습니다.
- * @param {function} onPageClick 현재 페이지에 보여줄 데이터를 설정하는 setState함수를 받아 페이지 선택 시 그 값으로 설정합니다.
+ * @param {function} onPageClick 현재 페이지에 보여줄 데이터를 설정하는 setState함수를 받아 페이지 선택 시 그 값으로 설정합니다. 동일 페이지 내 화면 이동이 필요한 경우, useRef를 활용해 ref.current.scrollIntoView를 활용하시면 될 것 같습니다.
  * @param {boolean} pageRefreshSwitch 현재 페이지가 변화하여 1페이지로 돌아가야 함을 알려줄 때 사용합니다. ex)filter적용 setState(!state) 형식으로 초기화가 필요한 작업 끝단에 넣어주시면 될 듯 합니다.
  * @returns
  */
