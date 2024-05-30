@@ -1,22 +1,20 @@
 "use client";
 
-import React, { SetStateAction, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import PaginationArrow from "./PaginationArrow";
 
 interface PaginationProps {
   count: number;
-  onPageClick: (currentPageData: number) => void;
+  onPageClick: (currentPageNum: number) => void;
   pageItemLimit?: number;
   pageRefreshSwitch?: boolean;
-  enableAnchorNavigation?: boolean;
-  setIsFilterChanged?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 /**
  * @param {number} count 현재 페이지네이션할 데이터의 총량을 받습니다.
  * @param {number} pageItemLimit 현재 페이지에 얼마나 많은 개수를 표기할 지 선택하는 인수입니다. 기본적으로 리뷰 컴포넌트에서 표시하는 3값으로 설정되어있습니다.
  * @param {function} onPageClick 현재 페이지에 보여줄 데이터를 설정하는 setState함수를 받아 페이지 선택 시 그 값으로 설정합니다.
- * @param {boolean} pageRefreshSwitch 현재 페이지가 변화하여 1페이지로 돌아가야 함을 알려줄 때 사용합니다. setState(!state) 형식으로 초기화가 필요한 작업 끝단에 넣어주시면 될 듯 합니다.
+ * @param {boolean} pageRefreshSwitch 현재 페이지가 변화하여 1페이지로 돌아가야 함을 알려줄 때 사용합니다. ex)filter적용 setState(!state) 형식으로 초기화가 필요한 작업 끝단에 넣어주시면 될 듯 합니다.
  * @returns
  */
 const Pagination = ({
@@ -85,7 +83,7 @@ const Pagination = ({
   }, [pageRefreshSwitch]);
 
   return (
-    <div className="flex h-16 w-full items-center justify-center gap-2 bg-white p-3 ">
+    <div className="flex h-10 w-full items-center justify-center gap-2 bg-white p-3 md:h-14 ">
       <button
         type="button"
         className={`h-5 w-5 rounded-full 
@@ -95,12 +93,12 @@ const Pagination = ({
         <PaginationArrow className="h-full w-full rotate-180" />
       </button>
 
-      <div className="flex min-w-80 justify-center gap-2.5">
+      <div className="flex min-w-60 justify-center gap-2.5 md:min-w-80">
         {currentPageList.map((item) => (
           <React.Fragment key={`pagination-${item}`}>
             <button
               type="button"
-              className={`h-14 w-14 rounded-2xl border border-black
+              className={`h-10 w-10 rounded-2xl border border-black md:h-14 md:w-14
             ${currentPage === item ? "bg-nomad-black text-white" : "text-black hover:bg-gray-10"}`}
               onClick={() => handlePageNumberChange(item)}
             >
