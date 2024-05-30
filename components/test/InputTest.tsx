@@ -17,6 +17,7 @@ const initialState: State = {
   invalidEmail: "",
   password: "",
   invalidPassword: "",
+  readonlyText: "",
 };
 
 const reducer = (state: State, action: Action): State => {
@@ -73,6 +74,14 @@ const InputTest = () => {
         error={true}
         errorMessage="비밀번호가 올바르지 않습니다"
         placeholder="비밀번호를 입력해 주세요"
+      />
+      <Input
+        name="readonlyText"
+        value={state.readonlyText}
+        onChange={handleChange}
+        placeholder="비활성화 텍스트"
+        readOnly
+        disabled
       />
     </div>
   );
