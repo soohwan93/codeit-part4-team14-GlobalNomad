@@ -1,7 +1,7 @@
 import React from "react";
 import RoundedCloseSvg from "./RoundedCloseSvg";
 
-type Props = { onClick: () => void };
+type Props = { onClick?: () => void };
 
 const InteractiveRoundedCloseSvg = ({ onClick }: Props) => {
   return (

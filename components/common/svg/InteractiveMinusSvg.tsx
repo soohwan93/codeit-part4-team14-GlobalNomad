@@ -2,7 +2,7 @@ import React from "react";
 import MinusLargeSvg from "./MinusLargeSvg";
 import MinusSmallSvg from "./MinusSmallSvg";
 
-type Props = { onClick: () => void };
+type Props = { onClick?: () => void };
 
 const InteractiveMinusSvg = ({ onClick }: Props) => {
   return (
