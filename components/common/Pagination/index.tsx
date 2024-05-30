@@ -35,7 +35,7 @@ const Pagination = ({
   const handlePageNumberChange = (pageNum: number) => {
     setCurrentPage(pageNum);
     onPageClick(pageNum);
-    if (pageNum % 5 === 1) {
+    if (pageNum % 5 === 1 && pageNum < lastPageNum) {
       const pageList = [];
       for (let i = pageNum; i <= pageNum + 4 && i <= lastPageNum; i++) {
         pageList.push(i);
@@ -43,7 +43,7 @@ const Pagination = ({
       setCurrentPageList(pageList);
     }
 
-    if (pageNum % 5 === 0) {
+    if (pageNum % 5 === 0 && pageNum < lastPageNum) {
       const pageList = [];
       for (let i = pageNum - 4; i <= pageNum && i <= lastPageNum; i++) {
         pageList.push(i);
@@ -55,7 +55,7 @@ const Pagination = ({
   // 페이지 숫자 양 옆의 화살표 버튼 클릭 시 실행할 함수
   const handlePaginationArrowButton = (rightDirection: boolean) => {
     if (rightDirection) {
-      if (currentPage !== lastPageNum && lastPageNum !== 1) {
+      if (currentPage < lastPageNum && lastPageNum !== 1) {
         handlePageNumberChange(currentPage + 1);
       }
     } else {
@@ -115,7 +115,7 @@ const Pagination = ({
       <button
         type="button"
         className={`relative h-5 w-5 rounded-full 
-          ${currentPage !== lastPageNum && lastPageNum !== 1 ? " hover:bg-gray-20" : "cursor-default opacity-40"}`}
+          ${currentPage < lastPageNum ? " hover:bg-gray-20" : "cursor-default opacity-40"}`}
         onClick={() => handlePaginationArrowButton(true)}
       >
         <PaginationArrow className="h-full w-full" />
