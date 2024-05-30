@@ -14,11 +14,9 @@ interface PaginationProps {
 
 /**
  * @param {number} count 현재 페이지네이션할 데이터의 총량을 받습니다.
- * @param {number} pageItemLimit 현재 페이지에 얼마나 많은 개수를 표기할 지 선택하는 인수입니다. 기본적으로 코드잇에서 제공하는 5값으로 되어있으며 필요시 추가로 수정할 수 있게 하였습니다.
- * @param {pageData[]} rawPageData 페이지에 표시할 순수 배열 데이터를 받는 param입니다. 이 데이터를 가공하여 [페이지][페이지 데이터] 형태의 2차원 배열로 가공합니다.
- * @param {React.Dispatch<SetStateAction>} setCurrentPageData 현재 페이지에 보여줄 데이터를 설정하는 setState함수를 받아 페이지 선택 시 그 값으로 설정합니다.
- * @param {boolean} pageRefreshSwitch boolean 형이 변화할 때 마다 바뀌었다는 것을 알려주는 인자입니다. setState(!state) 형식으로 초기화가 필요한 작업 끝단에 넣어주시면 될 듯 합니다.
- * @param {React.Dispatch<React.SetStateAction<boolean>>} setIsFilterChanged 페이지 이동할때 filter변경이 이뤄지지 않는다고 세팅을 해줘야해서 받는 setter함수입니다.
+ * @param {number} pageItemLimit 현재 페이지에 얼마나 많은 개수를 표기할 지 선택하는 인수입니다. 기본적으로 리뷰 컴포넌트에서 표시하는 3값으로 설정되어있습니다.
+ * @param {function} onPageClick 현재 페이지에 보여줄 데이터를 설정하는 setState함수를 받아 페이지 선택 시 그 값으로 설정합니다.
+ * @param {boolean} pageRefreshSwitch 현재 페이지가 변화하여 1페이지로 돌아가야 함을 알려줄 때 사용합니다. setState(!state) 형식으로 초기화가 필요한 작업 끝단에 넣어주시면 될 듯 합니다.
  * @returns
  */
 const Pagination = ({
