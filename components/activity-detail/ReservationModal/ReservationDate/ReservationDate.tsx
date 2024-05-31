@@ -2,12 +2,18 @@
 import React, { useState } from "react";
 import Calendar from "react-calendar";
 import { CalendarValue } from "../calendarTypes";
+import useDropdownInput from "@/components/common/useDropdownInput";
 
 interface ReservationDateType {
   setDate: (date: CalendarValue) => void;
 }
 
 const ReservationDate = ({ setDate }: ReservationDateType) => {
+  const { selected, renderDropdown } = useDropdownInput(
+    ["1", "2", "3"],
+    "예약 가능한 시간",
+  );
+
   return (
     <div>
       <div className="mb-4 flex justify-center">
@@ -26,9 +32,7 @@ const ReservationDate = ({ setDate }: ReservationDateType) => {
         <span className="mb-3 inline-block text-lg font-bold leading-[144%]">
           예약 가능한 시간
         </span>
-        <div className="h-10 w-full outline outline-gray-200">
-          드롭다운 컴포넌트
-        </div>
+        {renderDropdown()}
       </div>
     </div>
   );

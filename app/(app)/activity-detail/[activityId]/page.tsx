@@ -4,9 +4,11 @@ import React from "react";
 type Props = {};
 
 const page = (props: Props) => {
-  <div className="h-screen w-screen">
-    <ReservationModal />
-  </div>;
+  return (
+    <div className="h-screen">
+      <ReservationModal />
+    </div>
+  );
 };
 
 export default page;
