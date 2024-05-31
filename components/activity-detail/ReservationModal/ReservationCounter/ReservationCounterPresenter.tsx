@@ -30,10 +30,12 @@ const ReservationCounterPresenter = ({
       </span>
       {showCounterModal && (
         <ReservationPopup title="인원 수" setState={setShowCounterModal}>
-          <span className="mb-6 block text-xl font-medium leading-[130%]">
-            예약할 인원을 선택해주세요.
-          </span>
-          <ReservationCounter count={count} setCount={setCount} />
+          <div>
+            <span className="mb-6 block text-xl font-medium leading-[130%]">
+              예약할 인원을 선택해주세요.
+            </span>
+            <ReservationCounter count={count} setCount={setCount} />
+          </div>
         </ReservationPopup>
       )}
     </div>
