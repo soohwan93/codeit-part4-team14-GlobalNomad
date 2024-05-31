@@ -1,4 +1,4 @@
-import ReservationModal from "@/components/activity-detail/ReservationModal";
+import ReviewList from "@/components/activity-detail/ReviewList";
 import React from "react";
 
 const page = () => {
@@ -45,7 +45,7 @@ const page = () => {
                   </div>
                 </div>
               </header>
-              후기 렌더링 컴포넌트
+              <ReviewList />
             </section>
           </article>
 
