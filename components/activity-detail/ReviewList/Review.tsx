@@ -15,7 +15,9 @@ const Review = (props: Props) => {
       />
       <div className="block">
         <div className="mb-2">
-          <span>이름 |&nbsp;</span>
+          <span className="font-bold">
+            이름<span className="font-normal">&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+          </span>
           <span className="leading-[162.5%] text-gray-60">작성 날짜</span>
         </div>
         <p>후기 쫘라라라ㅏ라라락</p>

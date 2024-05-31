@@ -8,8 +8,8 @@ type Props = {};
 const ReviewList = (props: Props) => {
   const reviewList: any[] = [1, 2, 3];
   return (
-    <div className="mb-72">
-      <div className="mb-12">
+    <div className="mb-36 md:mb-72">
+      <div className="mb-10 md:mb-20">
         {reviewList.map((item, i) => {
           return (
             <>
