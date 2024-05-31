@@ -23,9 +23,9 @@ const page = () => {
               체험 설명
               쫘라라라라락sfasd;fadjsfkldsjfdls;fsdfasfsdkf;lsakfjas;lfkasjfls;dkfjas;lfaksjf;lsakfjdsl;fkjasdfl;aksdjfals;kfj
             </textarea>
-            <hr className="mt-16" />
+            <hr className="mb-10 mt-10" />
             지도 컴포넌트
-            <hr />
+            <hr className="my-10" />
             <section>
               <header>
                 <h3 className="text-xl font-bold leading-[130%] text-nomad-black">
