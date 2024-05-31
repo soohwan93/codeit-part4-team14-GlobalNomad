@@ -32,7 +32,7 @@ export const Search = () => {
             onBlur={handleBlur}
           />
           <span
-            className={`absolute left-[48px] top-[34px] w-[130px] px-[5px] ${isFocused ? "-translate-y-12" : "-translate-y-6"} transform bg-white text-[14px] font-[400] leading-[26px] text-gray-60 transition duration-300 ease-in-out md:text-[16px]`}
+            className={`absolute left-[48px] top-[34px] w-[115px] px-[5px] md:w-[130px] ${isFocused ? "-translate-y-12" : "-translate-y-6"} transform bg-white text-[14px] font-[400] leading-[26px] text-gray-60 transition duration-300 ease-in-out md:text-[16px]`}
           >
             내가 원하는 체험은
           </span>
