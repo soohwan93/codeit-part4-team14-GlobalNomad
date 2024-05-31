@@ -5,7 +5,7 @@ type Props = {};
 
 const page = (props: Props) => {
   return (
-    <div className="h-screen">
+    <div className="flex h-screen justify-end">
       <ReservationModal />
     </div>
   );
