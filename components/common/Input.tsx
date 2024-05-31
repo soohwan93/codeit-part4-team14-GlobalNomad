@@ -1,5 +1,6 @@
 import React, { useState, InputHTMLAttributes } from "react";
-import { EyeIcon, EyeSlashIcon } from "../signIn/Icons";
+import EyeOnSvg from "./svg/EyeOnSvg";
+import EyeOffSvg from "./svg/EyeOffSvg";
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   error?: boolean;
@@ -41,7 +42,7 @@ const Input = ({
             className="absolute right-3 top-1/2 -translate-y-1/2 transform cursor-pointer"
             onClick={togglePasswordVisibility}
           >
-            {showPassword ? <EyeIcon /> : <EyeSlashIcon />}
+            {showPassword ? <EyeOnSvg /> : <EyeOffSvg />}
           </span>
         )}
       </div>
