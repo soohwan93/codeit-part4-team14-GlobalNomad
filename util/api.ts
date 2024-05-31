@@ -109,6 +109,7 @@ export function postActivityImages(body: ActivityImagesBody) {
 /** Auth
  * 로그인
  * 로그아웃
+ * accessToken 쿠키 확인
  */
 
 // 로그인(httpOnly 쿠키는 클라이언트에서 저장할 수 없어 서버에서 저장)
@@ -136,6 +137,24 @@ export async function postLogin(body: LoginBody) {
 // 로그아웃(쿠키제거 로직)
 export async function logout() {
   await fetch("/api/logout", { method: "POST" });
+}
+
+// accessToken 쿠키 확인
+export async function checkAccessTokenCookie() {
+  try {
+    const response = await fetch("/api/check-cookie", {
+      method: "GET",
+      credentials: "include",
+    });
+    if (!response.ok) {
+      throw new Error("네트워크 응답에 실패했습니다.");
+    }
+    const result = await response.json();
+    return result.cookieExists;
+  } catch (error) {
+    console.error("쿠키 확인에 실패: ", error);
+    return false;
+  }
 }
 
 /** MyActivities
