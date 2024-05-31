@@ -7,6 +7,7 @@ import type { LoginBody } from "@/util/apiType";
 
 import React from "react";
 import SubButtonTest from "@/components/test/SubButtonTest";
+import LogoTest from "@/components/test/LogoTest";
 
 type Props = {};
 
@@ -30,6 +31,7 @@ const page = (props: Props) => {
       <div className="my-10">
         <SubButtonTest />
       </div>
+      <LogoTest />
     </>
   );
 };
