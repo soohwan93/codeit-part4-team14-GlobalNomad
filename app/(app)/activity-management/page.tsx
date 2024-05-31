@@ -6,6 +6,7 @@ import { logout, postLogin } from "@/util/api";
 import type { LoginBody } from "@/util/apiType";
 
 import React from "react";
+import SubButtonTest from "@/components/test/SubButtonTest";
 
 type Props = {};
 
@@ -21,11 +22,14 @@ const page = (props: Props) => {
 
   return (
     <>
-      <ColorTest />
+      {/* <ColorTest />
       <div onClick={loginTest}>로그인</div>
       <div onClick={logout}>로그아웃</div>
       <ApiTest1>apiGETFunctionTest</ApiTest1>
-      <ApiTest2>apiGETFunctionTest</ApiTest2>
+      <ApiTest2>apiGETFunctionTest</ApiTest2> */}
+      <div className="my-10">
+        <SubButtonTest />
+      </div>
     </>
   );
 };
