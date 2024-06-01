@@ -114,17 +114,20 @@ export function postActivityImages(body: ActivityImagesBody) {
 
 // 로그인(httpOnly 쿠키는 클라이언트에서 저장할 수 없어 서버에서 저장)
 export async function postLogin(body: LoginBody) {
-  const response = await fetch("/api/login", {
-    method: "POST",
-    headers: {
-      "Content-type": "application/json",
-    },
-    body: JSON.stringify({
-      endpoint: "/auth/login",
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/login`,
+    {
       method: "POST",
-      body,
-    }),
-  });
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify({
+        endpoint: "/auth/login",
+        method: "POST",
+        body,
+      }),
+    },
+  );
   if (!response.ok) {
     const errorResponse = await response.json();
     console.error(errorResponse.message);
@@ -136,20 +139,27 @@ export async function postLogin(body: LoginBody) {
 
 // 로그아웃(쿠키제거 로직)
 export async function logout() {
-  await fetch("/api/logout", { method: "POST" });
+  await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/logout`, {
+    method: "POST",
+  });
 }
 
 // accessToken 쿠키 확인
 export async function checkAccessTokenCookie() {
   try {
-    const response = await fetch("/api/check-cookie", {
-      method: "GET",
-      credentials: "include",
-    });
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/check-cookie`,
+      {
+        method: "GET",
+        credentials: "include",
+      },
+    );
+
     if (!response.ok) {
       throw new Error("네트워크 응답에 실패했습니다.");
     }
     const result = await response.json();
+    console.log(result);
     return result.cookieExists;
   } catch (error) {
     console.error("쿠키 확인에 실패: ", error);
