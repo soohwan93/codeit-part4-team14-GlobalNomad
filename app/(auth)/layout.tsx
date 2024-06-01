@@ -21,7 +21,7 @@ export default function AuthLayout({
 }>) {
   return (
     <html lang="ko">
-      <body className={pretendard.variable}>{children}</body>
+      <body className={pretendard.className}>{children}</body>
     </html>
   );
 }
