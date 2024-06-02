@@ -9,12 +9,12 @@ interface CancelPopupProps {
   onCancel: () => void;
 }
 
-const CancelPopup: React.FC<CancelPopupProps> = ({
+const CancelPopup = ({
   message,
   isOpen,
   onClose,
   onCancel,
-}) => {
+}: CancelPopupProps) => {
   return (
     <PopupWrapper isOpen={isOpen} onClose={onClose}>
       <div className="flex w-72 flex-col items-center justify-center rounded-xl bg-white p-6">
