@@ -1,4 +1,3 @@
-import React from "react";
 import PopupWrapper from "./PopupWrapper";
 import Button from "../Button";
 import CloseSvg from "../svg/PopupCheckSvg";
