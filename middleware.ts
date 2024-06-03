@@ -70,5 +70,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/((?!^$|^activity-detail/).*)"],
+  matcher: ["/((?!api|_next|static|favicon.ico).*)"],
 };
