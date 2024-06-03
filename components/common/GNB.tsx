@@ -1,5 +1,5 @@
 import HeaderLogoSvg from "./svg/HeaderLogoSvg";
-import NavButtons from "./GNB/NavButton";
+import NavButtons from "./GNB/NavButtons";
 
 import Link from "next/link";
 
