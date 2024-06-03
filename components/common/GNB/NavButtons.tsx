@@ -3,6 +3,8 @@
 import { checkAccessTokenCookie } from "@/util/api";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
+import GuestNavButtons from "./GuestNavButtons";
+import AuthNavButtons from "./AuthNavButtons";
 
 const NavButtons = () => {
   const [isLogin, setIsLogin] = useState(false);
@@ -27,21 +29,7 @@ const NavButtons = () => {
 
   return (
     <nav className="flex items-center gap-[25px]">
-      {isLogin ? (
-        <Link className="font-medium" href="/my-profile">
-          내 정보
-        </Link>
-      ) : (
-        <>
-          <div>Logintest</div>
-          <Link className="font-medium" href="/signin">
-            로그인
-          </Link>
-          <Link className="font-medium" href="/signup">
-            회원가입
-          </Link>
-        </>
-      )}
+      {isLogin ? <AuthNavButtons /> : <GuestNavButtons />}
     </nav>
   );
 };
