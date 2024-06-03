@@ -3,9 +3,23 @@ import Image from "next/image";
 import React from "react";
 import Button from "../common/Button";
 
-type Props = {};
+interface ReservationListCardProps {
+  id: number;
+  activity: {
+    bannerImageUrl: string;
+    title: string;
+    id: number;
+  };
+  status: "pending" | "confirmed" | "completed" | "declined" | "canceled";
+  reviewSubmitted: boolean;
+  totalPrice: number;
+  headCount: number;
+  date: string;
+  startTime: string;
+  endTime: string;
+}
 
-const ReservationListCard = (props: Props) => {
+const ReservationListCard = (reservationData: ReservationListCardProps) => {
   return (
     <div className="flex h-32 w-full overflow-hidden rounded-3xl bg-white pr-3 shadow-sm outline-[1px] md:h-36 md:pr-4 xl:h-52 xl:pr-6">
       <div className="relative mr-2 inline-block h-full w-32 shrink-0 md:mr-3 md:w-40 xl:mr-6 xl:w-52">
