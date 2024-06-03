@@ -5,11 +5,23 @@ import CaretSvg from "../svg/CaretSvg";
 import DivineLineSvg from "../svg/DivineLineSvg";
 import AlertSvg from "../svg/AlertSvg";
 import UserInformation from "./UserInformation";
+import { getUser } from "@/util/api";
+
+export interface UserData {
+  createdAt: string;
+  email: string;
+  id: number;
+  nickname: string;
+  profileImageUrl: null | string;
+  updatedAt: string;
+}
 
 const AuthNavButtons = () => {
   const [isDropDownClicked, setIsDropDownClicked] = useState(false);
   const [isAlertClicked, setIsAlertClicked] = useState(false);
   const [isImageClicked, setIsImageClicked] = useState(false);
+
+  const [userData, setUserData] = useState<UserData | null>(null);
 
   const dropDownRef = useRef<HTMLDivElement>(null);
   const alertRef = useRef<HTMLDivElement>(null);
@@ -52,6 +64,12 @@ const AuthNavButtons = () => {
     }
   };
 
+  const callUserInformation = async () => {
+    const res = await getUser();
+    setUserData(res);
+    console.log(res);
+  };
+
   useEffect(() => {
     document.addEventListener("mousedown", handleClickDropdownOutside);
     document.addEventListener("mousedown", handleClickAlertOutside);
@@ -59,6 +77,10 @@ const AuthNavButtons = () => {
       document.removeEventListener("mousedown", handleClickDropdownOutside);
       document.removeEventListener("mousedown", handleClickAlertOutside);
     };
+  }, []);
+
+  useEffect(() => {
+    callUserInformation();
   }, []);
 
   return (
@@ -112,7 +134,7 @@ const AuthNavButtons = () => {
         </Link>
         <DivineLineSvg />
         <div ref={alertRef} className="relative flex">
-          <AlertSvg onClick={handleAlertClick} />
+          <AlertSvg onClick={handleAlertClick} isClicked={isAlertClicked} />
           {/* 임시 드롭다운 */}
           <ul
             className={`absolute ${isAlertClicked ? `block` : `hidden`} right-0 mt-7 w-24 transform text-gray-700 transition-transform duration-300 ease-in-out md:left-0 dark:text-gray-300`}
@@ -144,11 +166,22 @@ const AuthNavButtons = () => {
           </ul>
         </div>
         <DivineLineSvg />
-        <UserInformation
+        {userData ? (
+          <UserInformation
+            userData={userData}
+            setIsImageClicked={setIsImageClicked}
+            onClick={handleImageClick}
+            isClicked={isImageClicked}
+          />
+        ) : (
+          <div className="flex w-32 gap-3" />
+        )}
+        {/* <UserInformation
+          userData={userData}
           setIsImageClicked={setIsImageClicked}
           onClick={handleImageClick}
           isClicked={isImageClicked}
-        />
+        /> */}
       </div>
     </>
   );
