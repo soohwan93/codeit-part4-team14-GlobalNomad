@@ -1,14 +1,21 @@
 import Image from "next/image";
 import React, { useCallback, useEffect, useRef } from "react";
 import placeHolderImg from "@/components/common/GNB/세상에서 가장 멋진 석양.png";
+import { UserData } from "./AuthNavButtons";
 
 type Props = {
+  userData: UserData | null;
   onClick: () => void;
   isClicked: Boolean;
   setIsImageClicked: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const UserInformation = ({ onClick, isClicked, setIsImageClicked }: Props) => {
+const UserInformation = ({
+  userData,
+  onClick,
+  isClicked,
+  setIsImageClicked,
+}: Props) => {
   const imageRef = useRef<HTMLDivElement>(null);
 
   const handleClickImageOutside = useCallback(
@@ -33,16 +40,19 @@ const UserInformation = ({ onClick, isClicked, setIsImageClicked }: Props) => {
 
   return (
     <>
-      <div ref={imageRef} className="flex gap-3">
+      <div ref={imageRef} className="flex w-32 gap-3">
         <div onClick={onClick} className="relative h-6 w-6 rounded-full">
           <Image
             id="userImage"
-            className="rounded-full"
-            alt="임시 이미지"
-            layout="fixed"
-            src={placeHolderImg}
-            objectFit="cover"
+            className="fixed rounded-full object-cover"
+            alt="userImage"
+            src={
+              userData?.profileImageUrl
+                ? userData.profileImageUrl
+                : placeHolderImg
+            }
             fill
+            sizes="100px"
           />
           {/* 임시 드롭다운 */}
           <ul
@@ -51,7 +61,7 @@ const UserInformation = ({ onClick, isClicked, setIsImageClicked }: Props) => {
             <li className="">
               <a
                 className="block whitespace-nowrap rounded-t bg-gray-200 px-4 py-2 hover:bg-gray-400 dark:bg-gray-600 dark:hover:bg-gray-700"
-                href="#"
+                href="/my-page"
               >
                 내 정보
               </a>
@@ -59,16 +69,18 @@ const UserInformation = ({ onClick, isClicked, setIsImageClicked }: Props) => {
             <li className="">
               <a
                 className="block whitespace-nowrap rounded-b bg-gray-200 px-4 py-2 hover:bg-gray-400 dark:bg-gray-600 dark:hover:bg-gray-700"
-                href="#"
+                href="/signin"
               >
                 로그아웃
               </a>
             </li>
           </ul>
         </div>
-
-        <span className="hidden md:block" onClick={onClick}>
-          정만철아닌데예
+        <span
+          className="hidden w-[90px] overflow-hidden truncate md:block"
+          onClick={onClick}
+        >
+          {userData?.nickname}
         </span>
       </div>
     </>
