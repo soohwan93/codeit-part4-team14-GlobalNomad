@@ -19,11 +19,23 @@ const ActivityManagementCard = ({
 }: {
   prop: ActivityManagementCardProps;
 }) => {
+  const {
+    id,
+    title,
+    description,
+    category,
+    price,
+    address,
+    bannerImageUrl,
+    rating,
+    reviewCount,
+  } = prop;
+
   return (
     <div className="flex h-32 w-full overflow-hidden rounded-3xl bg-white pr-3 shadow-sm outline-[1px] md:h-36 md:pr-4 xl:h-52 xl:pr-6">
       <div className="relative mr-2 inline-block h-full w-32 shrink-0 md:mr-3 md:w-40 xl:mr-6 xl:w-52">
         <Image
-          src={"/images/함께 배우면 즐거운 스트릿 댄스.png"}
+          src={bannerImageUrl}
           fill
           priority
           className="object-cover"
@@ -33,16 +45,17 @@ const ActivityManagementCard = ({
       </div>
       <section className="my-auto inline-block w-full">
         <div className="mb-7 md:mb-10 xl:mb-16">
-          <span className="text-sm text-black md:mb-1.5 md:text-base">
-            rating
+          <span className="flex items-center text-sm text-black md:mb-1.5 md:text-base">
+            <div className="my-auto mr-1.5 inline-block h-4 w-4 bg-[url('/icons/star.svg')] md:h-5 md:w-5" />
+            {rating} ({reviewCount})
           </span>
           <h4 className="truncate text-nowrap text-sm font-bold leading-[1.625rem] text-green-20 md:text-lg xl:text-xl">
-            title
+            {title}
           </h4>
         </div>
         <div className="flex items-center justify-between">
-          <span className=" text-base font-medium text-black md:text-xl xl:text-2xl">
-            bill
+          <span className=" text-base font-medium text-gray-80 md:text-xl xl:text-2xl">
+            ₩{price} /인
           </span>
           <button
             className="h-10 w-10 shrink-0 bg-[url('/icons/kebab.svg')] "
