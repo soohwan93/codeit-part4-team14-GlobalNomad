@@ -1,31 +1,77 @@
 "use client";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import CaretSvg from "../svg/CaretSvg";
 import DivineLineSvg from "../svg/DivineLineSvg";
 import AlertSvg from "../svg/AlertSvg";
 import UserInformation from "./UserInformation";
 
 const AuthNavButtons = () => {
-  const [dropDownClicked, setDropDownClicked] = useState(false);
-  const [imageClicked, setImageClicked] = useState(false);
+  const [isDropDownClicked, setIsDropDownClicked] = useState(false);
+  const [isAlertClicked, setIsAlertClicked] = useState(false);
+  const [isImageClicked, setIsImageClicked] = useState(false);
+
+  const dropDownRef = useRef<HTMLDivElement>(null);
+  const alertRef = useRef<HTMLDivElement>(null);
 
   const handleDropdownClick = () => {
-    setDropDownClicked(!dropDownClicked);
+    setIsDropDownClicked(!isDropDownClicked);
+    setIsImageClicked(false);
+    setIsAlertClicked(false);
+  };
+
+  const handleAlertClick = () => {
+    setIsDropDownClicked(false);
+    setIsImageClicked(false);
+    setIsAlertClicked(!isAlertClicked);
   };
 
   const handleImageClick = () => {
-    setImageClicked(!imageClicked);
+    setIsDropDownClicked(false);
+    setIsImageClicked(!isImageClicked);
+    setIsAlertClicked(false);
   };
+
+  const handleClickDropdownOutside = (e: MouseEvent) => {
+    if (
+      dropDownRef.current &&
+      !dropDownRef.current.contains(e.target as Node) &&
+      !(e.target as Element).closest("#caretSvg")
+    ) {
+      setIsDropDownClicked(false);
+    }
+  };
+
+  const handleClickAlertOutside = (e: MouseEvent) => {
+    if (
+      alertRef.current &&
+      !alertRef.current.contains(e.target as Node) &&
+      !(e.target as Element).closest("#alertSvg")
+    ) {
+      setIsAlertClicked(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickDropdownOutside);
+    document.addEventListener("mousedown", handleClickAlertOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickDropdownOutside);
+      document.removeEventListener("mousedown", handleClickAlertOutside);
+    };
+  }, []);
 
   return (
     <>
       <div className="flex gap-3">
-        <div className="relative flex">
-          <CaretSvg onClick={handleDropdownClick} isClicked={dropDownClicked} />
+        <div ref={dropDownRef} className="relative flex">
+          <CaretSvg
+            onClick={handleDropdownClick}
+            isClicked={isDropDownClicked}
+          />
           {/* 임시 드롭다운 */}
           <ul
-            className={`absolute ${dropDownClicked ? `block` : `hidden`} mt-7 transform text-gray-700 transition-transform duration-300 ease-in-out dark:text-gray-300`}
+            className={`absolute ${isDropDownClicked ? `block sm:hidden` : `hidden`} mt-7 transform text-gray-700 transition-transform duration-300 ease-in-out dark:text-gray-300`}
           >
             <li className="">
               <a
@@ -65,9 +111,44 @@ const AuthNavButtons = () => {
           예약현황
         </Link>
         <DivineLineSvg />
-        <AlertSvg />
+        <div ref={alertRef} className="relative flex">
+          <AlertSvg onClick={handleAlertClick} />
+          {/* 임시 드롭다운 */}
+          <ul
+            className={`absolute ${isAlertClicked ? `block` : `hidden`} right-0 mt-7 w-24 transform text-gray-700 transition-transform duration-300 ease-in-out md:left-0 dark:text-gray-300`}
+          >
+            <li className="">
+              <a
+                className="block whitespace-nowrap rounded-t bg-gray-200 px-4 py-2 hover:bg-gray-400 dark:bg-gray-600 dark:hover:bg-gray-700"
+                href="#"
+              >
+                임시 알림
+              </a>
+            </li>
+            <li className="">
+              <a
+                className="block whitespace-nowrap bg-gray-200 px-4 py-2 hover:bg-gray-400 dark:bg-gray-600 dark:hover:bg-gray-700"
+                href="#"
+              >
+                임시 알림
+              </a>
+            </li>
+            <li className="">
+              <a
+                className="block whitespace-nowrap rounded-b bg-gray-200 px-4 py-2 hover:bg-gray-400 dark:bg-gray-600 dark:hover:bg-gray-700"
+                href="#"
+              >
+                임시 알림
+              </a>
+            </li>
+          </ul>
+        </div>
         <DivineLineSvg />
-        <UserInformation onClick={handleImageClick} isClicked={imageClicked} />
+        <UserInformation
+          setIsImageClicked={setIsImageClicked}
+          onClick={handleImageClick}
+          isClicked={isImageClicked}
+        />
       </div>
     </>
   );
