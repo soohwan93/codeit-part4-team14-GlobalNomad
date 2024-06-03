@@ -8,6 +8,7 @@ interface Props {
 const CaretSvg = ({ onClick, isClicked }: Props) => {
   return (
     <svg
+      id="caretSvg"
       onClick={onClick}
       className={` ${isClicked && `rotate-180`} block transform cursor-pointer transition-transform duration-300 sm:hidden`}
       fill="none"
