@@ -1,7 +1,6 @@
 "use client";
 import Image from "next/image";
 import React from "react";
-import Button from "../common/Button";
 
 type Props = {};
 
@@ -19,24 +18,22 @@ const ActivityManagementCard = (props: Props) => {
         />
       </div>
       <section className="my-auto inline-block w-full">
-        <div className="md:mb-3 xl:mb-4">
-          <span className="text-sm font-bold leading-[1.625rem] text-gray-70 md:text-base">
-            status
+        <div className="mb-7 md:mb-10 xl:mb-16">
+          <span className="text-sm text-black md:mb-1.5 md:text-base">
+            rating
           </span>
-          <h4 className="truncate text-sm font-bold leading-[1.625rem] text-green-20 md:text-lg xl:text-xl">
-            activity title
+          <h4 className="truncate text-nowrap text-sm font-bold leading-[1.625rem] text-green-20 md:text-lg xl:text-xl">
+            title
           </h4>
-          <span className="text-xs leading-6 text-nomad-black md:text-sm xl:text-lg">
-            duration
-          </span>
         </div>
-        <div className="flex w-full items-center justify-between">
-          <h5 className="text-base font-medium leading-normal text-black md:text-xl xl:text-2xl">
-            가격
-          </h5>
-          <Button additionalClass="xl:w-32 md:h-10 w-20" size="sm">
-            후기 작성
-          </Button>
+        <div className="flex items-center justify-between">
+          <span className=" text-base font-medium text-black md:text-xl xl:text-2xl">
+            bill
+          </span>
+          <button
+            className="h-10 w-10 shrink-0 bg-[url('/icons/kebab.svg')] "
+            type="button"
+          ></button>
         </div>
       </section>
     </div>

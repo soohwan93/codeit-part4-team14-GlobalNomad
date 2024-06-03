@@ -7,10 +7,10 @@ type Props = {};
 const page = (props: Props) => {
   return (
     <div className="h-screen bg-gray-10">
-      <ActivityManagementCard />;
-      <ActivityManagementCard />;
       <ReservationListCard />;
       <ReservationListCard />;
+      <ActivityManagementCard />;
+      <ActivityManagementCard />;
     </div>
   );
 };
