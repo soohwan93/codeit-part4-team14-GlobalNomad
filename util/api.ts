@@ -21,48 +21,32 @@ import {
   ReservedScheduleQuery,
   UserImageUrlBody,
 } from "./apiType";
-import { getCookie } from "./cookieSetting";
+
 import { convertQuery } from "./querySetting";
 
 // 기본 url
 export const BASE_URL = "https://sp-globalnomad-api.vercel.app/4-14";
 
-// 토큰값도 함께 보내는 fetch함수
-async function fetchWithToken(url: string, options: RequestInit = {}) {
-  const headers = new Headers(options.headers as HeadersInit);
-  const accessToken = getCookie("accessToken");
-
-  if (accessToken) {
-    headers.append("Authorization", `Bearer ${accessToken}`);
-  }
-
-  if (!headers.has("Content-Type") && options.body) {
-    headers.append("Content-Type", "application/json");
-  }
-
-  const mergedOptions: RequestInit = {
-    ...options,
-    headers,
-  };
-
-  const response = await fetch(url, mergedOptions);
-
+async function fetcher(endpoint: string, method: FetchMethod, body?: Object) {
+  console.log(method);
+  const response = await fetch("/api/fetchWithToken", {
+    method: "POST",
+    headers: {
+      "Content-type": "application/json",
+    },
+    body: JSON.stringify({
+      endpoint,
+      method,
+      body,
+    }),
+  });
   if (!response.ok) {
     const errorResponse = await response.json();
     console.error(errorResponse.message);
-    return;
+    throw new Error(errorResponse.message);
   }
 
   return response.json();
-}
-
-async function fetcher(endpoint: string, method: FetchMethod, body?: Object) {
-  const options: RequestInit = {
-    method,
-    body: body ? JSON.stringify(body) : undefined,
-  };
-
-  return await fetchWithToken(`${BASE_URL}${endpoint}`, options);
 }
 
 /** Activities
@@ -124,11 +108,34 @@ export function postActivityImages(body: ActivityImagesBody) {
 
 /** Auth
  * 로그인
+ * 로그아웃
  */
 
-// 로그인
-export function postLogin(body: LoginBody) {
-  return fetcher(`/auth/login`, "POST", body);
+// 로그인(httpOnly 쿠키는 클라이언트에서 저장할 수 없어 서버에서 저장)
+export async function postLogin(body: LoginBody) {
+  const response = await fetch("/api/login", {
+    method: "POST",
+    headers: {
+      "Content-type": "application/json",
+    },
+    body: JSON.stringify({
+      endpoint: "/auth/login",
+      method: "POST",
+      body,
+    }),
+  });
+  if (!response.ok) {
+    const errorResponse = await response.json();
+    console.error(errorResponse.message);
+    throw new Error(errorResponse.message);
+  }
+
+  return response.json();
+}
+
+// 로그아웃(쿠키제거 로직)
+export async function logout() {
+  await fetch("/api/logout", { method: "POST" });
 }
 
 /** MyActivities
