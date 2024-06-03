@@ -54,7 +54,18 @@ const ReservationListCard = ({ prop }: { prop: ReservationListCardProps }) => {
       </div>
       <section className="my-auto inline-block w-full">
         <div className="md:mb-3 xl:mb-4">
-          <span className="text-sm font-bold leading-[1.625rem] text-gray-70 md:text-base">
+          <span
+            className={`leading-[1.625rem]md:text-base text-sm font-bold 
+           ${
+             status === "declined"
+               ? "text-red-20"
+               : status === "confirmed"
+                 ? "text-blue-30"
+                 : status === "pending"
+                   ? "text-orange-20"
+                   : "text-gray-70"
+           }`}
+          >
             {handleStatusString(status)}
           </span>
           <h4 className="truncate text-sm font-bold leading-[1.625rem] text-green-20 md:text-lg xl:text-xl">
