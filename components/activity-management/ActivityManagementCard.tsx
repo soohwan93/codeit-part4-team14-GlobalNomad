@@ -2,9 +2,21 @@
 import Image from "next/image";
 import React from "react";
 
-type Props = {};
+interface ActivityManagementCardProps {
+  id: number;
+  title: string;
+  description: string;
+  category: string;
+  price: number;
+  address: string;
+  bannerImageUrl: string;
+  rating: number;
+  reviewCount: number;
+}
 
-const ActivityManagementCard = (props: Props) => {
+const ActivityManagementCard = (
+  ActivityManagementData: ActivityManagementCardProps,
+) => {
   return (
     <div className="flex h-32 w-full overflow-hidden rounded-3xl bg-white pr-3 shadow-sm outline-[1px] md:h-36 md:pr-4 xl:h-52 xl:pr-6">
       <div className="relative mr-2 inline-block h-full w-32 shrink-0 md:mr-3 md:w-40 xl:mr-6 xl:w-52">
