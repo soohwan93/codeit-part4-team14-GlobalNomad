@@ -55,20 +55,14 @@ export async function middleware(request: NextRequest) {
     }
   }
 
-  // accessToken과 refreshToken이 모두 없는 경우
+  // accessToken과 refreshToken이 모두 없는 경우 로그인 페이지로 리다이렉트
   if (!accessToken && !refreshToken) {
-    if (url.pathname === "/" || url.pathname.startsWith("/activity-detail")) {
-      // 권한이 없어도 되는 페이지라면 페이지를 새로고침 (리다이렉트하여 새로고침 효과)
-      return NextResponse.redirect(url);
-    } else {
-      // 권한이 필요한 페이지라면 로그인 페이지로 리다이렉트
-      return NextResponse.redirect(new URL("/signin", request.url));
-    }
+    return NextResponse.redirect(new URL("/signin", request.url));
   }
 
   return NextResponse.next();
 }
 
 export const config = {
-  matcher: ["/((?!api|_next|static|favicon.ico).*)"],
+  matcher: ["/((?!^$|^activity-detail/).*)"],
 };
