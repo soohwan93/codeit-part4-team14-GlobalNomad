@@ -1,5 +1,5 @@
 import HeaderLogoSvg from "./svg/HeaderLogoSvg";
-import NavButton from "./GNB/NavButton";
+import NavButtons from "./GNB/NavButton";
 
 import Link from "next/link";
 
@@ -10,7 +10,7 @@ const GNB = () => {
         <Link href="/">
           <HeaderLogoSvg />
         </Link>
-        <NavButton />
+        <NavButtons />
       </div>
     </header>
   );
