@@ -56,19 +56,19 @@ const ReservationListCard = ({ prop }: { prop: ReservationListCardProps }) => {
         <div className="md:mb-3 xl:mb-4">
           <span
             className={`leading-[1.625rem]md:text-base text-sm font-bold 
-           ${
-             status === "declined"
-               ? "text-red-20"
-               : status === "confirmed"
-                 ? "text-blue-30"
-                 : status === "pending"
-                   ? "text-orange-20"
-                   : "text-gray-70"
-           }`}
+            ${
+              status === "declined"
+                ? "text-red-20"
+                : status === "confirmed"
+                  ? "text-blue-30"
+                  : status === "pending"
+                    ? "text-orange-20"
+                    : "text-gray-70"
+            }`}
           >
             {handleStatusString(status)}
           </span>
-          <h4 className="truncate text-sm font-bold leading-[1.625rem] text-green-20 md:text-lg xl:text-xl">
+          <h4 className="truncate text-nowrap text-sm font-bold leading-[1.625rem] text-green-20 md:text-lg xl:text-xl">
             {activity.title}
           </h4>
           <span className="text-xs leading-6 text-nomad-black md:text-sm xl:text-lg">
@@ -77,7 +77,7 @@ const ReservationListCard = ({ prop }: { prop: ReservationListCardProps }) => {
         </div>
         <div className="flex w-full items-center justify-between">
           <h5 className="text-base font-medium leading-normal text-black md:text-xl xl:text-2xl">
-            ₩{totalPrice}
+            ₩{totalPrice / headCount}
           </h5>
           {status === "completed" && !reviewSubmitted ? (
             <Button additionalClass="xl:w-32 md:h-10 w-20" size="sm">

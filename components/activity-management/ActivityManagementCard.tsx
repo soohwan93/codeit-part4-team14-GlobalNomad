@@ -19,17 +19,7 @@ const ActivityManagementCard = ({
 }: {
   prop: ActivityManagementCardProps;
 }) => {
-  const {
-    id,
-    title,
-    description,
-    category,
-    price,
-    address,
-    bannerImageUrl,
-    rating,
-    reviewCount,
-  } = prop;
+  const { id, title, price, bannerImageUrl, rating, reviewCount } = prop;
 
   return (
     <div className="flex h-32 w-full overflow-hidden rounded-3xl bg-white pr-3 shadow-sm outline-[1px] md:h-36 md:pr-4 xl:h-52 xl:pr-6">
