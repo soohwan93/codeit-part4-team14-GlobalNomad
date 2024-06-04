@@ -1,7 +1,10 @@
+"use client";
+
 import Image from "next/image";
 import React, { useCallback, useEffect, useRef } from "react";
-import placeHolderImg from "@/components/common/GNB/세상에서 가장 멋진 석양.png";
+import placeHolderImg from "@/public/icons/userNoImage.svg";
 import { UserData } from "./AuthNavButtons";
+import { Tooltip } from "flowbite-react";
 
 type Props = {
   userData: UserData | null;
@@ -40,7 +43,7 @@ const UserInformation = ({
 
   return (
     <>
-      <div ref={imageRef} className="flex w-32 gap-3">
+      <div ref={imageRef} className="flex gap-3 md:w-32">
         <div onClick={onClick} className="relative h-6 w-6 rounded-full">
           <Image
             id="userImage"
@@ -56,7 +59,7 @@ const UserInformation = ({
           />
           {/* 임시 드롭다운 */}
           <ul
-            className={` absolute ${isClicked ? `block` : `hidden`} right-0 mt-7 w-24 transform text-gray-700 transition-transform duration-300 ease-in-out md:left-0 dark:text-gray-300`}
+            className={`absolute ${isClicked ? `block` : `hidden`} right-0 mt-7 w-24 transform text-gray-700 transition-transform duration-300 ease-in-out dark:text-gray-300 md:left-0`}
           >
             <li className="">
               <a
@@ -76,12 +79,17 @@ const UserInformation = ({
             </li>
           </ul>
         </div>
-        <span
-          className="hidden w-[90px] overflow-hidden truncate md:block"
-          onClick={onClick}
+
+        <Tooltip
+          content={userData?.nickname}
+          placement="bottom"
+          animation={false}
+          arrow={false}
         >
-          {userData?.nickname}
-        </span>
+          <span className="hidden w-[90px] overflow-hidden truncate md:block">
+            {userData?.nickname}
+          </span>
+        </Tooltip>
       </div>
     </>
   );
