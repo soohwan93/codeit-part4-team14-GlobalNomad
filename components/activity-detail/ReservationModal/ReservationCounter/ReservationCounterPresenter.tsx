@@ -6,14 +6,16 @@ import ReservationPopup from "../ReservationPopup";
 interface ReservationCounterPresenterProp {
   count: number;
   setCount: Dispatch<SetStateAction<number>>;
+  showModal: boolean;
+  setShowModal: Dispatch<SetStateAction<boolean>>;
 }
 
 const ReservationCounterPresenter = ({
   count,
   setCount,
+  showModal,
+  setShowModal,
 }: ReservationCounterPresenterProp) => {
-  const [showCounterModal, setShowCounterModal] = useState(false);
-
   return (
     <div className="inline-block md:px-6 xl:p-0">
       <div className="hidden md:block">
@@ -23,13 +25,13 @@ const ReservationCounterPresenter = ({
       <span
         className="inline text-lg font-medium leading-[1.625rem] text-[#0b3b2d] underline md:hidden"
         onClick={() => {
-          setShowCounterModal(true);
+          setShowModal(true);
         }}
       >
         {count}명
       </span>
-      {showCounterModal && (
-        <ReservationPopup title="인원 수" setState={setShowCounterModal}>
+      {showModal && (
+        <ReservationPopup title="인원 수" setState={setShowModal}>
           <div>
             <span className="mb-6 block text-xl font-medium leading-[130%]">
               예약할 인원을 선택해주세요.

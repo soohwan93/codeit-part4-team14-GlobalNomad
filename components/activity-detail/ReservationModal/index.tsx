@@ -8,6 +8,8 @@ import Button from "@/components/common/Button";
 const ReservationModal = () => {
   const [currentReservationCount, setCurrentReservationCount] = useState(1);
   const [reservationDate, setReservationDate] = useState<null | Date>(null);
+  const [showCounterModal, setShowCounterModal] = useState(false);
+  const [showDateModal, setShowDateModal] = useState(false);
 
   const handleSelectDay = (item: CalendarValue) => {
     // fetch 이후 받아온 데이터를 reservation dropdown date에 전달할 예정
@@ -38,6 +40,9 @@ const ReservationModal = () => {
           <ReservationDatePresenter
             date={reservationDate}
             setDate={handleSelectDay}
+            showModal={showDateModal}
+            setShowModal={setShowDateModal}
+            setShowNextModal={setShowCounterModal}
           />
         </div>
 
@@ -45,6 +50,8 @@ const ReservationModal = () => {
           <ReservationCounterPresenter
             count={currentReservationCount}
             setCount={setCurrentReservationCount}
+            showModal={showCounterModal}
+            setShowModal={setShowCounterModal}
           />
         </div>
 

@@ -5,12 +5,14 @@ import React, { Dispatch, SetStateAction } from "react";
 interface ReservationPopupType {
   title: string;
   setState: Dispatch<SetStateAction<boolean>>;
+  setAdditionalState?: Dispatch<SetStateAction<boolean>>;
   children: React.ReactNode;
 }
 
 const ReservationPopup = ({
   title,
   setState,
+  setAdditionalState,
   children,
 }: ReservationPopupType) => {
   return (
@@ -26,7 +28,16 @@ const ReservationPopup = ({
         </header>
         {children}
       </div>
-      <Button onClick={() => setState(false)}>확인</Button>
+      <Button
+        onClick={() => {
+          if (setAdditionalState !== undefined) {
+            setAdditionalState(true);
+          }
+          setState(false);
+        }}
+      >
+        확인
+      </Button>
     </div>
   );
 };
