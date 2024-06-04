@@ -1,4 +1,4 @@
-import React, { ReactNode, useState } from "react";
+import React, { ReactNode } from "react";
 
 interface Option {
   label: string;
@@ -18,13 +18,6 @@ const Dropdown = ({
   dropdownOpen,
   setDropdownOpen,
 }: DropdownProps) => {
-  const [selectedOption, setSelectedOption] = useState<string | null>(null);
-
-  const handleOptionClick = (value: string) => {
-    setSelectedOption(value);
-    setDropdownOpen(false);
-  };
-
   return (
     <div className="relative">
       <div className="cursor-pointer">
@@ -35,12 +28,8 @@ const Dropdown = ({
           {Options.map((option) => (
             <button
               key={option.value}
-              className={`flex items-center justify-center border px-4 py-3 hover:bg-gray-100 ${
-                selectedOption === option.value
-                  ? "bg-nomad-black text-white hover:bg-nomad-black"
-                  : "text-black hover:bg-gray-30"
-              }`}
-              onClick={() => handleOptionClick(option.value)}
+              className="flex items-center justify-center border px-4 py-3 hover:bg-gray-100 text-black"
+              onClick={() => setDropdownOpen(false)}
             >
               {option.label}
             </button>
