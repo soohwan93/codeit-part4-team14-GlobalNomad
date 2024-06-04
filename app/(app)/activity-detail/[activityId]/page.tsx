@@ -1,3 +1,11 @@
+/*{
+  "email": "rhajiit@google.com",
+  "password": "rhajiit!"
+}
+id : 991
+*/
+
+import { GET } from "@/app/api/fetchWithToken/route";
 import ReviewList from "@/components/activity-detail/ReviewList";
 import React from "react";
 
