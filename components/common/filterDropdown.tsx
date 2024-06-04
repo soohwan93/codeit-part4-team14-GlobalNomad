@@ -7,20 +7,11 @@ interface FilterOption {
 
 interface FilterDropdownProps {
   filterOptions: FilterOption[];
-  selectedFilter: string;
-  onFilterChange: (filter: string) => void;
+  defaultLabel: string;
 }
 
-const FilterDropdown = ({
-  filterOptions,
-  selectedFilter,
-  onFilterChange,
-}: FilterDropdownProps) => {
+const FilterDropdown = ({ filterOptions, defaultLabel }: FilterDropdownProps) => {
   const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
-
-  const selectedOptionLabel =
-    filterOptions.find((option) => option.value === selectedFilter)?.label ||
-    "전체";
 
   return (
     <div className="relative">
@@ -29,33 +20,24 @@ const FilterDropdown = ({
         onClick={() => setDropdownOpen(!dropdownOpen)}
       >
         <div className="flex items-center px-2 md:justify-between">
-          <p className="hidden text-emerald-800 font-bold md:block">
-            {selectedOptionLabel}
-          </p>
-          <div className={`bg-[url('/icons/chevron_down.svg')] bg-center bg-no-repeat ${dropdownOpen ? "rotate-180" : "rotate-0"}`}></div>
+          <p className="hidden text-emerald-800 font-bold md:block">{defaultLabel}</p>
         </div>
       </button>
       {dropdownOpen && (
         <div className="absolute top-full mt-2 w-[160px] bg-white border rounded shadow-lg">
           {filterOptions.map((option) => (
-            <a
-              href="#"
+            <button
               key={option.value}
-              className={`flex items-center justify-center border px-4 py-3 hover:bg-gray-100 ${
-                selectedFilter === option.value
-                  ? "bg-nomad-black text-white hover:bg-nomad-black"
-                  : "text-black hover:bg-gray-30"
-              }`}
-              onClick={() => {
-                onFilterChange(option.value);
-                setDropdownOpen(false);
-              }}
+              className="flex items-center justify-center border px-4 py-3 hover:bg-gray-100 text-black hover:bg-gray-30"
+              onClick={() => setDropdownOpen(false)}
             >
               {option.label}
-            </a>
+            </button>
           ))}
         </div>
       )}
     </div>
   );
 };
+
+export default FilterDropdown;
