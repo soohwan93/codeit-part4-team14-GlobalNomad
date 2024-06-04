@@ -1,7 +1,8 @@
 import ActivityManagementCard from "@/components/activity-management/ActivityManagementCard";
-import ReservationListCard from "@/components/activity-management/ReservationListCard";
+
 import ACTIVITY_LIST from "@/components/common/ACTIVITY_LIST";
 import RESERVATION_DATA from "@/components/common/RESERVATION_DATA";
+import ReservationListCard from "@/components/reservation-status/ReservationListCard";
 import React from "react";
 
 type Props = {};
