@@ -17,7 +17,7 @@ const ACTIVITY_LIST: ActivityManagementCardProps[] = [
   {
     id: 11,
     userId: 0,
-    title: "string",
+    title: "오아오아오아오아오아오아",
     description: "string",
     category: "string",
     price: 0,
