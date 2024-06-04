@@ -1,4 +1,4 @@
-import React, { ReactNode, useState } from "react";
+import React, { ReactNode, useEffect, useRef, useState } from "react";
 
 interface CategoryItemProps {
   children: ReactNode;
@@ -32,6 +32,8 @@ export const CategoryItem = ({
 
 export const Category = () => {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [isEndPointScroll, setisEndPointScroll] = useState<boolean>(false);
+  const scrollRef = useRef<HTMLDivElement>(null);
 
   const handleCategoryClick = (category: string) => {
     if (selectedCategory === category) {
@@ -41,10 +43,36 @@ export const Category = () => {
     }
   };
 
+  useEffect(() => {
+    const handleScroll = () => {
+      if (scrollRef.current) {
+        const { scrollLeft, clientWidth, scrollWidth } = scrollRef.current;
+        setisEndPointScroll(scrollLeft + clientWidth >= scrollWidth);
+      }
+    };
+
+    const scrollElement = scrollRef.current;
+    if (scrollElement) {
+      scrollElement.addEventListener("scroll", handleScroll);
+      handleScroll();
+    }
+
+    return () => {
+      if (scrollElement) {
+        scrollElement.removeEventListener("scroll", handleScroll);
+      }
+    };
+  }, []);
+
   return (
     <div>
-      <div className="pointer-events-none absolute z-0 h-[47px] w-[230px] bg-gradient-to-r from-transparent via-transparent via-70% to-white to-100% md:h-[61px] md:w-[523px] xl:hidden xl:w-[882px] " />
-      <div className="z-10 w-[230px] touch-pan-x snap-start overflow-hidden overflow-x-auto bg-transparent md:w-[523px] xl:w-[882px] [&::-webkit-scrollbar]:hidden">
+      {!isEndPointScroll && (
+        <div className="pointer-events-none absolute z-0 h-[47px] w-[230px] bg-gradient-to-r from-transparent via-transparent via-70% to-white to-100% md:h-[61px] md:w-[523px] xl:hidden xl:w-[882px] " />
+      )}
+      <div
+        ref={scrollRef}
+        className="z-10 w-[230px] touch-pan-x snap-start overflow-hidden overflow-x-auto bg-transparent md:w-[523px] xl:w-[882px] [&::-webkit-scrollbar]:hidden"
+      >
         <div className="flex w-[580px] gap-[8px] md:w-[790px] md:gap-[14px] xl:w-[882px] xl:gap-[24px]">
           {CATEGORY_LIST.map((item: string) => {
             return (
