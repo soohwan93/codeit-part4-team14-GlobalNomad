@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 
-interface FilterOption {
+interface Option {
   label: string;
   value: string;
 }
 
-interface FilterDropdownProps {
-  filterOptions: FilterOption[];
+interface DropdownProps {
+  Options: Option[];
   defaultLabel: string;
 }
 
-const FilterDropdown = ({ filterOptions, defaultLabel }: FilterDropdownProps) => {
+const Dropdown = ({ Options, defaultLabel }: DropdownProps) => {
   const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
 
   return (
@@ -25,7 +25,7 @@ const FilterDropdown = ({ filterOptions, defaultLabel }: FilterDropdownProps) =>
       </button>
       {dropdownOpen && (
         <div className="absolute top-full mt-2 w-[160px] bg-white border rounded shadow-lg">
-          {filterOptions.map((option) => (
+          {Options.map((option) => (
             <button
               key={option.value}
               className="flex items-center justify-center border px-4 py-3 hover:bg-gray-100 text-black hover:bg-gray-30"
@@ -40,4 +40,4 @@ const FilterDropdown = ({ filterOptions, defaultLabel }: FilterDropdownProps) =>
   );
 };
 
-export default FilterDropdown;
+export default Dropdown;
