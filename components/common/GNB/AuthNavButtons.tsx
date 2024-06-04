@@ -137,7 +137,7 @@ const AuthNavButtons = () => {
           <AlertSvg onClick={handleAlertClick} isClicked={isAlertClicked} />
           {/* 임시 드롭다운 */}
           <ul
-            className={`absolute ${isAlertClicked ? `block` : `hidden`} right-0 mt-7 w-24 transform text-gray-700 transition-transform duration-300 ease-in-out md:left-0 dark:text-gray-300`}
+            className={`absolute ${isAlertClicked ? `block` : `hidden`} right-0 mt-7 w-24 transform text-gray-700 transition-transform duration-300 ease-in-out dark:text-gray-300 md:left-0`}
           >
             <li className="">
               <a
