@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactNode } from "react";
 
 interface Option {
   label: string;
@@ -7,10 +7,9 @@ interface Option {
 
 interface DropdownProps {
   Options: Option[];
-  defaultLabel: string;
+  defaultLabel: ReactNode;
   dropdownOpen: boolean;
   setDropdownOpen: (isOpen: boolean) => void;
-  imageUrl: string; 
 }
 
 const Dropdown = ({
@@ -18,16 +17,12 @@ const Dropdown = ({
   defaultLabel,
   dropdownOpen,
   setDropdownOpen,
-  imageUrl
 }: DropdownProps) => {
   return (
     <div className="relative">
-      <img 
-        src={imageUrl} 
-        alt="dropdown trigger" 
-        onClick={() => setDropdownOpen(!dropdownOpen)}
-        className="cursor-pointer"
-      />
+      <div className="cursor-pointer">
+        {defaultLabel}
+      </div>
       {dropdownOpen && (
         <div className="absolute top-full mt-2 w-[160px] bg-white border rounded shadow-lg">
           {Options.map((option) => (
