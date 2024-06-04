@@ -30,16 +30,25 @@ const ReservationCounterPresenter = ({
       >
         {count}명
       </span>
-      {showModal && (
-        <ReservationPopup title="인원 수" setState={setShowModal}>
-          <div>
-            <span className="mb-6 block text-xl font-medium leading-[130%]">
-              예약할 인원을 선택해주세요.
-            </span>
-            <ReservationCounter count={count} setCount={setCount} />
-          </div>
-        </ReservationPopup>
-      )}
+      <div className="md:hidden">
+        {showModal && (
+          <ReservationPopup
+            title="인원 수"
+            setState={setShowModal}
+            buttonName="확인"
+            onButtonClick={() => {
+              setShowModal(false);
+            }}
+          >
+            <div>
+              <span className="mb-6 block text-xl font-medium leading-[130%]">
+                예약할 인원을 선택해주세요.
+              </span>
+              <ReservationCounter count={count} setCount={setCount} />
+            </div>
+          </ReservationPopup>
+        )}
+      </div>
     </div>
   );
 };

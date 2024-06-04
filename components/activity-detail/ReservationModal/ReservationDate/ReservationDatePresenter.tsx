@@ -40,7 +40,11 @@ const ReservationDatePresenter = ({
         <ReservationPopup
           title="날짜"
           setState={setShowModal}
-          setAdditionalState={setShowNextModal}
+          buttonName="확인"
+          onButtonClick={() => {
+            setShowNextModal(true);
+            setShowModal(false);
+          }}
         >
           <ReservationDate setDate={setDate} />
         </ReservationPopup>
