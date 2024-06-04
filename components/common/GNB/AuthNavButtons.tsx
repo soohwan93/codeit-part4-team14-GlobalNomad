@@ -176,12 +176,6 @@ const AuthNavButtons = () => {
         ) : (
           <div className="flex w-32 gap-3" />
         )}
-        {/* <UserInformation
-          userData={userData}
-          setIsImageClicked={setIsImageClicked}
-          onClick={handleImageClick}
-          isClicked={isImageClicked}
-        /> */}
       </div>
     </>
   );
