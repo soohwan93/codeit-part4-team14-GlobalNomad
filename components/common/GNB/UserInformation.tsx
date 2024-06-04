@@ -47,7 +47,7 @@ const UserInformation = ({
         <div onClick={onClick} className="relative h-6 w-6 rounded-full">
           <Image
             id="userImage"
-            className="fixed rounded-full object-cover"
+            className="fixed cursor-pointer rounded-full object-cover"
             alt="userImage"
             src={
               userData?.profileImageUrl
