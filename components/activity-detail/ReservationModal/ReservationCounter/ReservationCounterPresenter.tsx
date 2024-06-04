@@ -1,7 +1,7 @@
 "use client";
 import React, { Dispatch, SetStateAction, useState } from "react";
 import ReservationCounter from "./ReservationCounter";
-import ReservationPopup from "../ReservationPopup";
+import ReservationPopup from "../../../common/ModalPortal";
 
 interface ReservationCounterPresenterProp {
   count: number;

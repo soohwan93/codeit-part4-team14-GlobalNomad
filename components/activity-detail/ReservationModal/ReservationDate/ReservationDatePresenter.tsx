@@ -1,6 +1,6 @@
 "use client";
 import React, { Dispatch, SetStateAction, useState } from "react";
-import ReservationPopup from "../ReservationPopup";
+import ReservationPopup from "../../../common/ModalPortal";
 import ReservationDate from "./ReservationDate";
 import "react-calendar/dist/Calendar.css";
 import { CalendarValue } from "../calendarTypes";
