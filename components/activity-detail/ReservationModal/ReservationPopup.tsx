@@ -1,13 +1,14 @@
 "use client";
 import Button from "@/components/common/Button";
 import React, { Dispatch, SetStateAction } from "react";
+import ReactDOM from "react-dom";
 
 interface ReservationPopupType {
   title: string;
   setState: Dispatch<SetStateAction<boolean>>;
   buttonName?: string;
   onButtonClick?: () => void;
-  dim?: boolean;
+  usePortal?: boolean;
   children: React.ReactNode;
 }
 
@@ -17,19 +18,19 @@ const ReservationPopup = ({
   buttonName,
   onButtonClick,
   children,
-  dim = false,
+  usePortal = false,
 }: ReservationPopupType) => {
-  return (
+  const ModalBase = () => (
     <>
-      <div
-        className={`${dim ? "md:fixed md:left-0 md:top-0 md:h-screen md:w-screen md:bg-black md:opacity-70" : ""}`}
-      />
+      {usePortal && (
+        <div className="md:fixed md:left-0 md:top-0 md:h-screen md:w-screen md:bg-black md:opacity-70" />
+      )}
       <div
         className={`md:outline-1px fixed flex h-screen w-screen flex-col justify-between bg-white p-6 pb-10 shadow-sm md:absolute md:h-min md:w-[30rem] md:rounded-xl md:pb-8 md:outline md:outline-[#A4a1aa]
-                    ${dim ? "fixed right-0 top-0 " : "right-0 top-0"} `}
+                  ${usePortal ? "fixed right-0 top-0 md:right-1/2 md:top-1/2 md:-translate-y-1/2 md:translate-x-1/2" : "right-0 top-0"} `}
       >
         <div className="mb-16">
-          <header className="mb-8 flex items-center justify-between text-[1.75rem] font-bold leading-[92.857%]">
+          <header className="mb-8 flex items-center justify-between text-[1.75rem] font-bold leading-[1.675rem]">
             {title}
             <button
               type="button"
@@ -45,6 +46,11 @@ const ReservationPopup = ({
       </div>
     </>
   );
+  if (usePortal) {
+    const el = document.getElementById("portal");
+    return ReactDOM.createPortal(<ModalBase />, el!);
+  }
+  return <ModalBase />;
 };
 
 export default ReservationPopup;
