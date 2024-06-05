@@ -4,26 +4,42 @@
 }
 id : 991
 */
-
-import { GET } from "@/app/api/fetchWithToken/route";
+import { Suspense } from "react";
 import ReviewList from "@/components/activity-detail/ReviewList";
+import Link from "next/link";
 import React from "react";
 
-const page = () => {
+const fetchData = async (endpoint: string) => {
+  const response = await fetch(
+    `https://sp-globalnomad-api.vercel.app/4-14/activities/${endpoint}`,
+  );
+  if (!response.ok) {
+    const errorResponse = await response.json();
+    console.error(errorResponse.message);
+    throw new Error(errorResponse.message);
+  }
+  const data = await response.json();
+
+  return data;
+};
+
+const page = async ({ params }: { params: { activityId: string } }) => {
+  const data = await fetchData(params.activityId);
+
   return (
     <div className="bg-gray-10 px-0 py-4 md:px-6 md:py-6 xl:py-20">
       <div className="mx-auto max-w-[1200px]">
         <header className="flex items-center justify-between px-4 py-4 xl:pt-20">
           <div>
             <span className="mb-2.5 text-sm leading-normal text-black">
-              category
+              {data.category}
             </span>
             <h1 className="mb-4 text-2xl font-bold leading-normal text-nomad-black md:text-3xl">
-              title
+              {data.title}
             </h1>
             <div className="flex gap-3 text-sm text-black ">
-              <span>rating</span>
-              <span>location</span>
+              <span>{data.rating}</span>
+              <span>{data.address}</span>
             </div>
           </div>
           <button>kebab section</button>
@@ -39,9 +55,8 @@ const page = () => {
               <textarea
                 disabled
                 className="w-full resize-none text-wrap bg-transparent text-base leading-[162.5%] text-nomad-black"
-                defaultValue="체험 설명 쫘라라라라락 sfasd;fadjsfkldsjfdls;fsdfasfsd
-                kf;lsakfjas;lfkasjfls;dkfjas;lfaksjf;lsakfjdsl;fkjasdfl;aksdjfals;kfjasdfsadfadsfdasfadsfadsfadsfds"
-              ></textarea>
+                defaultValue={data.description}
+              />
               <hr className="mb-10 mt-10" />
               지도 컴포넌트
               <hr className="my-10" />
