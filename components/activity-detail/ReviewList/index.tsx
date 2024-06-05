@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { Fragment } from "react";
 import Review from "./Review";
 import Pagination from "@/components/common/Pagination";
 
@@ -12,10 +12,10 @@ const ReviewList = (props: Props) => {
       <div className="mb-10 md:mb-20">
         {reviewList.map((item, i) => {
           return (
-            <>
-              <Review key={item.id} />
+            <React.Fragment key={item}>
+              <Review />
               {i !== reviewList.length - 1 && <hr className="bg-nomad-black" />}
-            </>
+            </React.Fragment>
           );
         })}
       </div>
