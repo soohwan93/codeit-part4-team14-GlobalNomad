@@ -4,9 +4,8 @@
 }
 id : 991
 */
-import { Suspense } from "react";
+
 import ReviewList from "@/components/activity-detail/ReviewList";
-import Link from "next/link";
 import React from "react";
 
 const fetchData = async (endpoint: string) => {
@@ -23,8 +22,26 @@ const fetchData = async (endpoint: string) => {
   return data;
 };
 
+interface ActivityDetailType {
+  id: number;
+  userId: number;
+  title: string;
+  description: string;
+  category: string;
+  price: number;
+  address: string;
+  bannerImageUrl: string;
+  rating: number;
+  reviewCount: number;
+  createdAt: string;
+  updatedAt: string;
+  subImages: { id: number; imageUrl: string }[];
+  schedules: { id: number; date: string; startTime: string; endTime: string }[];
+}
+
 const page = async ({ params }: { params: { activityId: string } }) => {
-  const data = await fetchData(params.activityId);
+  const data: ActivityDetailType = await fetchData(params.activityId);
+  console.log(data);
 
   return (
     <div className="bg-gray-10 px-0 py-4 md:px-6 md:py-6 xl:py-20">
@@ -37,8 +54,11 @@ const page = async ({ params }: { params: { activityId: string } }) => {
             <h1 className="mb-4 text-2xl font-bold leading-normal text-nomad-black md:text-3xl">
               {data.title}
             </h1>
-            <div className="flex gap-3 text-sm text-black ">
-              <span>{data.rating}</span>
+            <div className="text-sm text-black ">
+              <span className="mr-3 inline-block">
+                <div className="mr-1.5 inline-block h-4 w-4 bg-[url('/icons/Star.svg')]" />
+                {data.rating.toFixed(1)} ({data.reviewCount})
+              </span>
               <span>{data.address}</span>
             </div>
           </div>
@@ -67,14 +87,17 @@ const page = async ({ params }: { params: { activityId: string } }) => {
                   </h3>
                   <div>
                     <span className="text-[3.125rem] font-semibold text-nomad-black">
-                      4.2
+                      {data.rating.toFixed(1)}
                     </span>
                     <div className="ml-4 inline-block">
                       <span className="text-lg leading-[133%] text-nomad-black">
                         매우 만족
                       </span>
                       <div className="text-sm text-nomad-black">
-                        대충 별 1300개 후기
+                        <span className="mr-3 inline-block">
+                          <div className="mr-1.5 inline-block h-4 w-4 bg-[url('/icons/Star.svg')]" />
+                          {data.reviewCount.toLocaleString()}개 후기
+                        </span>
                       </div>
                     </div>
                   </div>
