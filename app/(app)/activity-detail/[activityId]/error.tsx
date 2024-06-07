@@ -14,6 +14,12 @@ const error = (props: Props) => {
       >
         체험 있는 페이지로 이동하기
       </Link>
+      <Link
+        className="txt-blue-600 font-medium hover:underline dark:text-blue-500"
+        href="http://localhost:3000/activity-detail/993"
+      >
+        체험 없는 페이지로 이동하기
+      </Link>
     </div>
   );
 };

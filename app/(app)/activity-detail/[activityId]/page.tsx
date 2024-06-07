@@ -10,6 +10,7 @@ import BannerImage from "@/components/activity-detail/BannerImage";
 import KakaoMap from "@/components/activity-detail/KakaoMap";
 import ReviewList from "@/components/activity-detail/ReviewList";
 import KebabSvg from "@/components/common/svg/KebabSvg";
+import ActivityDetailHeader from "@/components/activity-detail/ActivityDetailHeader";
 
 const fetchData = async (endpoint: string) => {
   const response = await fetch(
@@ -53,26 +54,7 @@ const page = async ({ params }: { params: { activityId: string } }) => {
   return (
     <div className="bg-gray-10 px-0 py-4 md:px-6 md:py-6 xl:py-20">
       <div className="mx-auto max-w-[1200px]">
-        <header className="flex items-center justify-between px-4 py-4 xl:pt-20">
-          <div>
-            <span className="mb-2.5 text-sm leading-normal text-black">
-              {data.category}
-            </span>
-            <h1 className="mb-4 text-2xl font-bold leading-normal text-nomad-black md:text-3xl">
-              {data.title}
-            </h1>
-            <div className="text-sm text-black ">
-              <span className="mr-3 inline-block">
-                <div className="mr-1.5 inline-block h-4 w-4 bg-[url('/icons/Star.svg')]" />
-                {data.rating.toFixed(1)} ({data.reviewCount})
-              </span>
-              <span>{data.address}</span>
-            </div>
-          </div>
-          <button type="button">
-            <KebabSvg />
-          </button>
-        </header>
+        <ActivityDetailHeader data={data} />
         <main>
           <BannerImage
             banner={data.bannerImageUrl}
