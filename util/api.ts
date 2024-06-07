@@ -27,19 +27,27 @@ import { convertQuery } from "./querySetting";
 // 기본 url
 export const BASE_URL = "https://sp-globalnomad-api.vercel.app/4-14";
 
-async function fetcher(endpoint: string, method: FetchMethod, body?: Object) {
+async function fetcher(
+  endpoint: string,
+  method: FetchMethod,
+  body?: Object,
+  token?: string,
+) {
   console.log(method);
-  const response = await fetch("/api/fetchWithToken", {
-    method: "POST",
-    headers: {
-      "Content-type": "application/json",
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/fetchWithToken`,
+    {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify({
+        endpoint,
+        method,
+        body,
+      }),
     },
-    body: JSON.stringify({
-      endpoint,
-      method,
-      body,
-    }),
-  });
+  );
   if (!response.ok) {
     const errorResponse = await response.json();
     console.error(errorResponse.message);
@@ -178,8 +186,9 @@ export async function checkAccessTokenCookie() {
  */
 
 // 내 체험 리스트 조회
-export function getMyActivities(query: MyActivitiesQuery) {
-  const q = convertQuery(query);
+export function getMyActivities(query?: MyActivitiesQuery) {
+  const q = query ? convertQuery(query) : "";
+  console.log(q);
   return fetcher(`/my-activities${q}`, "GET");
 }
 
