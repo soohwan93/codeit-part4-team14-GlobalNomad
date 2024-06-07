@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 
 interface SubImages {
   id: number;
@@ -13,16 +13,49 @@ interface BannerImageProps {
 }
 
 const BannerImage = ({ banner, subImages }: BannerImageProps) => {
+  const [currentBanner, setCurrentBanner] = useState(banner);
+  const [isMainBannerDisappear, setIsMainBannerDisappear] = useState(false);
+
   return (
-    <section className="grid h-[50rem] w-full grid-cols-4">
-      <div className="relative col-start-1 col-end-5 h-[31.25rem] w-full">
+    <section className="max-h-[50rem] w-full">
+      <div
+        className={`relative col-start-1 col-end-5 mb-2 h-[31.25rem] w-full overflow-hidden rounded-xl border-2 border-black`}
+      >
+        <Image
+          src={currentBanner}
+          alt=""
+          fill
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+        />
         <Image
           src={banner}
           alt="mainImage"
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          className={`duration-500 ${isMainBannerDisappear ? "opacity-0" : "opacity-100"}`}
         />
       </div>
+      <section className="grid h-[14rem] grid-cols-4 gap-2">
+        {subImages.length !== 0 &&
+          subImages.map((item, i) => (
+            <div
+              key={`subImage-${item.id}`}
+              className="relative w-full rounded-xl border-2 border-black"
+              onMouseOver={() => {
+                setCurrentBanner(item.imageUrl);
+                setIsMainBannerDisappear(true);
+              }}
+              onMouseOut={() => setIsMainBannerDisappear(false)}
+            >
+              <Image
+                src={item.imageUrl}
+                alt={`subBanner-${i + 1}`}
+                fill
+                sizes="33vw"
+              />
+            </div>
+          ))}
+      </section>
     </section>
   );
 };

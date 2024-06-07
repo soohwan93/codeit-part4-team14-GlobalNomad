@@ -13,6 +13,7 @@ import React from "react";
 const fetchData = async (endpoint: string) => {
   const response = await fetch(
     `https://sp-globalnomad-api.vercel.app/4-14/activities/${endpoint}`,
+    { cache: "no-cache" },
   );
   if (!response.ok) {
     const errorResponse = await response.json();
