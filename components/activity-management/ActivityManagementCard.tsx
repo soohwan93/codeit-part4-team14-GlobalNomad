@@ -1,29 +1,21 @@
-"use client";
-import Image from "next/image";
 import React from "react";
+import {
+  ActivityApiProps,
+  ActivityManagementCardProps,
+} from "./ActivityManagementCardWrapper";
+import Image from "next/image";
 
-interface ActivityManagementCardProps {
-  id: number;
-  title: string;
-  description: string;
-  category: string;
-  price: number;
-  address: string;
-  bannerImageUrl: string;
-  rating: number;
-  reviewCount: number;
-}
-
-const ActivityManagementCard = ({
-  prop,
-}: {
-  prop: ActivityManagementCardProps;
-}) => {
-  const { id, title, price, bannerImageUrl, rating, reviewCount } = prop;
-
+const ActivityManagementCard = ({ prop }: { prop: ActivityApiProps }) => {
+  const {
+    bannerImageUrl,
+    rating,
+    reviewCount,
+    title,
+    price,
+  }: ActivityManagementCardProps = prop;
   return (
-    <div className="flex h-32 w-full overflow-hidden rounded-3xl bg-white pr-3 shadow-sm outline-[1px] md:h-36 md:pr-4 xl:h-52 xl:pr-6">
-      <div className="relative mr-2 inline-block h-full w-32 shrink-0 md:mr-3 md:w-40 xl:mr-6 xl:w-52">
+    <div className="flex h-32 w-full overflow-hidden rounded-3xl bg-white pr-3 shadow-lg outline-[1px] md:h-52 md:pr-6">
+      <div className="relative mr-2 inline-block h-full w-32 shrink-0 md:mr-6 md:w-52">
         <Image
           src={bannerImageUrl}
           fill
@@ -34,17 +26,17 @@ const ActivityManagementCard = ({
         />
       </div>
       <section className="my-auto inline-block w-full">
-        <div className="mb-7 md:mb-10 xl:mb-16">
+        <div className="mb-7 md:mb-16">
           <span className="flex items-center text-sm text-black md:mb-1.5 md:text-base">
             <div className="my-auto mr-1.5 inline-block h-4 w-4 bg-[url('/icons/star.svg')] md:h-5 md:w-5" />
             {rating} ({reviewCount})
           </span>
-          <h4 className="truncate text-nowrap text-sm font-bold leading-[1.625rem] text-green-20 md:text-lg xl:text-xl">
+          <h4 className="truncate text-nowrap text-sm font-bold leading-[1.625rem] text-green-20 md:text-xl ">
             {title}
           </h4>
         </div>
         <div className="flex items-center justify-between">
-          <span className=" text-base font-medium text-gray-80 md:text-xl xl:text-2xl">
+          <span className=" text-base font-medium text-gray-80 md:text-2xl ">
             ₩{price} /인
           </span>
           <button
