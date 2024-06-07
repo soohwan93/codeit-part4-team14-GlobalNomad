@@ -5,6 +5,7 @@
 id : 991
 */
 
+import KakaoMap from "@/components/activity-detail/KakaoMap";
 import ReviewList from "@/components/activity-detail/ReviewList";
 import React from "react";
 
@@ -78,7 +79,7 @@ const page = async ({ params }: { params: { activityId: string } }) => {
                 defaultValue={data.description}
               />
               <hr className="mb-10 mt-10" />
-              지도 컴포넌트
+              <KakaoMap />
               <hr className="my-10" />
               <section>
                 <header>

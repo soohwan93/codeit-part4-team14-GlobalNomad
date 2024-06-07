@@ -1,24 +1,42 @@
-import Script from "next/script";
-import React from "react";
+"use client";
+declare global {
+  interface Window {
+    kakao: any;
+  }
+}
+import React, { useEffect } from "react";
 
-type Props = {};
+interface KakaoMapProps {
+  address: string;
+}
 
-const KakaoMap = (props: Props) => {
+const KakaoMap = ({ address }: KakaoMapProps) => {
+  useEffect(() => {
+    const kakaoMapScript = document.createElement("script");
+    kakaoMapScript.async = false;
+    kakaoMapScript.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAO_API_KEY}&autoload=false&libraries=services`;
+    document.head.appendChild(kakaoMapScript);
+
+    const onLoadKakaoAPI = () => {
+      window.kakao.maps.load(() => {
+        var container = document.getElementById("map");
+        var options = {
+          center: new window.kakao.maps.LatLng(33.450701, 126.570667),
+          level: 3,
+        };
+
+        var map = new window.kakao.maps.Map(container, options);
+      });
+    };
+
+    kakaoMapScript.addEventListener("load", onLoadKakaoAPI);
+  }, []);
+
   return (
     <div>
       <div id="map" className="h-96 w-96 outline-[1px] outline-black">
         카카오 맵 들어갈 자리
       </div>
-      <Script
-        type="text/javascript"
-        src="//dapi.kakao.com/v2/maps/sdk.js?appkey=da964a62e055d3e70fdf6f70db10c052"
-      />
-      <script>
-		var container = document.getElementById('map');
-		var options = {center: new kakao.maps.LatLng(33.450701, 126.570667), level: 3};
-
-		var map = new kakao.maps.Map(container, options);
-	</script>
       <span>현재 체험의 주소 들어갈 자리</span>
     </div>
   );
