@@ -18,21 +18,20 @@ const BannerImage = ({ banner, subImages }: BannerImageProps) => {
 
   return (
     <section className="max-h-[50rem] w-full">
-      <div
-        className={`relative col-start-1 col-end-5 mb-2 h-[31.25rem] w-full overflow-hidden rounded-xl border-2 border-black`}
-      >
+      <div className="relative col-start-1 col-end-5 mb-2 h-[31.25rem] w-full overflow-hidden rounded-xl">
         <Image
           src={currentBanner}
           alt=""
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          className="object-cover object-center"
         />
         <Image
           src={banner}
           alt="mainImage"
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          className={`duration-500 ${isMainBannerDisappear ? "opacity-0" : "opacity-100"}`}
+          className={`object-cover object-center duration-500 ${isMainBannerDisappear ? "opacity-0" : "opacity-100"}`}
         />
       </div>
       <section className="grid h-[14rem] grid-cols-4 gap-2">
@@ -40,7 +39,7 @@ const BannerImage = ({ banner, subImages }: BannerImageProps) => {
           subImages.map((item, i) => (
             <div
               key={`subImage-${item.id}`}
-              className="relative w-full rounded-xl border-2 border-black"
+              className="relative w-full overflow-hidden rounded-xl"
               onMouseOver={() => {
                 setCurrentBanner(item.imageUrl);
                 setIsMainBannerDisappear(true);
@@ -52,6 +51,7 @@ const BannerImage = ({ banner, subImages }: BannerImageProps) => {
                 alt={`subBanner-${i + 1}`}
                 fill
                 sizes="33vw"
+                className="object-cover object-center"
               />
             </div>
           ))}

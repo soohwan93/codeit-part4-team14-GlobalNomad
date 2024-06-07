@@ -8,6 +8,7 @@ id : 991
 import BannerImage from "@/components/activity-detail/BannerImage";
 import KakaoMap from "@/components/activity-detail/KakaoMap";
 import ReviewList from "@/components/activity-detail/ReviewList";
+import KebabSvg from "@/components/common/svg/KebabSvg";
 import React from "react";
 
 const fetchData = async (endpoint: string) => {
@@ -65,7 +66,9 @@ const page = async ({ params }: { params: { activityId: string } }) => {
               <span>{data.address}</span>
             </div>
           </div>
-          <button>kebab section</button>
+          <button type="button">
+            <KebabSvg />
+          </button>
         </header>
         <main>
           <BannerImage
