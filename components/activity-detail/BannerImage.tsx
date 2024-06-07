@@ -17,13 +17,13 @@ const BannerImage = ({ banner, subImages }: BannerImageProps) => {
 
   return (
     <section className="max-h-[50rem] w-full">
-      <div className="relative mb-2 h-[25rem] w-full overflow-hidden rounded-xl xl:h-[31.25rem]">
+      <div className="relative mb-2 h-[25rem] w-full overflow-hidden rounded-xl bg-gray-40 xl:h-[31.25rem]">
         <Image
           src={banner}
           alt="mainImage"
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          className="object-cover object-center"
+          className={`object-cover object-center duration-500 ${currentBanner !== null ? "opacity-0" : "opacity-100"}`}
         />
         {subImages.map((item, i) => (
           <React.Fragment key={`banner-${item.id}`}>
