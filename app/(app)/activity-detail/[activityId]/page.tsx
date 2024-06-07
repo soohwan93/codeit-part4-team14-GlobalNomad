@@ -5,6 +5,7 @@
 id : 991
 */
 
+import BannerImage from "@/components/activity-detail/BannerImage";
 import KakaoMap from "@/components/activity-detail/KakaoMap";
 import ReviewList from "@/components/activity-detail/ReviewList";
 import React from "react";
@@ -66,7 +67,10 @@ const page = async ({ params }: { params: { activityId: string } }) => {
           <button>kebab section</button>
         </header>
         <main>
-          <section>대충 이미지가 들어갈 장소</section>
+          <BannerImage
+            banner={data.bannerImageUrl}
+            subImages={data.subImages}
+          />
           <div className="flex gap-6 px-6 pt-4">
             <article className="w-full">
               <hr color="nomad-black" className="hidden md:block" />
