@@ -1,10 +1,13 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import KebabSvg from "../common/svg/KebabSvg";
+import Dropdown from "../common/Dropdown";
 
 type Props = {};
 
 const ActivityDetailHeader = ({ data }: any) => {
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+
   return (
     <header className="flex items-center justify-between px-4 py-4 xl:pt-20">
       <div>
@@ -22,9 +25,16 @@ const ActivityDetailHeader = ({ data }: any) => {
           <span>{data.address}</span>
         </div>
       </div>
-      <button type="button">
-        <KebabSvg />
-      </button>
+      <Dropdown
+        defaultLabel={
+          <button type="button" onClick={() => setDropdownOpen(true)}>
+            <KebabSvg />
+          </button>
+        }
+        dropdownOpen={dropdownOpen}
+        setDropdownOpen={setDropdownOpen}
+        Options={[{ label: "asdf", value: "asdf" }]}
+      />
     </header>
   );
 };
