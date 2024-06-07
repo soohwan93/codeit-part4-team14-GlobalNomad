@@ -3,9 +3,24 @@ import React, { useState } from "react";
 import KebabSvg from "../common/svg/KebabSvg";
 import Dropdown from "../common/Dropdown";
 
-type Props = {};
+interface ActivityDetailType {
+  id: number;
+  userId: number;
+  title: string;
+  description: string;
+  category: string;
+  price: number;
+  address: string;
+  bannerImageUrl: string;
+  rating: number;
+  reviewCount: number;
+  createdAt: string;
+  updatedAt: string;
+  subImages: { id: number; imageUrl: string }[];
+  schedules: { id: number; date: string; startTime: string; endTime: string }[];
+}
 
-const ActivityDetailHeader = ({ data }: any) => {
+const ActivityDetailHeader = ({ data }: { data: ActivityDetailType }) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   return (

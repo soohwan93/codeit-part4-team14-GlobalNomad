@@ -22,10 +22,11 @@ const BannerImage = ({ banner, subImages }: BannerImageProps) => {
           src={banner}
           alt="mainImage"
           fill
+          priority
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           className={`object-cover object-center duration-500 ${currentBanner !== null ? "opacity-0" : "opacity-100"}`}
         />
-        {subImages.map((item, i) => (
+        {subImages.map((item) => (
           <React.Fragment key={`banner-${item.id}`}>
             <Image
               src={item.imageUrl}
