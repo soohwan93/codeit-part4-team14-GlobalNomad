@@ -116,7 +116,6 @@ const page = async ({ params }: { params: { activityId: string } }) => {
                 </header>
                 <ReviewList
                   totalCount={reviewData.totalCount}
-                  averageRating={reviewData.averageRating}
                   reviews={reviewData.reviews}
                 />
               </section>

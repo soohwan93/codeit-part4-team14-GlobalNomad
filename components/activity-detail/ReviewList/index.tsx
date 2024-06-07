@@ -18,29 +18,21 @@ interface ReviewsType {
 }
 interface ReviewDataProps {
   totalCount: number;
-  averageRating: number;
   reviews: ReviewsType[];
 }
 
-const ReviewList = ({
-  totalCount,
-  averageRating,
-  reviews,
-}: ReviewDataProps) => {
-  const reviewList: any[] = [];
-  const isReviewExist = reviewList.length !== 0 ? true : false;
+const ReviewList = ({ totalCount, reviews }: ReviewDataProps) => {
+  const isReviewExist = totalCount !== 0 ? true : false;
 
   return (
     <div className="mb-36 md:mb-72">
       <div className="mb-10 md:mb-20">
         {isReviewExist ? (
-          reviewList.map((item, i) => {
+          reviews.map((item, i) => {
             return (
-              <React.Fragment key={item}>
+              <React.Fragment key={`review-${item.id}`}>
                 <Review />
-                {i !== reviewList.length - 1 && (
-                  <hr className="bg-nomad-black" />
-                )}
+                {i !== reviews.length - 1 && <hr className="bg-nomad-black" />}
               </React.Fragment>
             );
           })
