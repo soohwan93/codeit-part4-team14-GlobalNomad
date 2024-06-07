@@ -45,6 +45,9 @@ interface ActivityDetailType {
 
 const page = async ({ params }: { params: { activityId: string } }) => {
   const data: ActivityDetailType = await fetchData(params.activityId);
+  const reviewData = await fetchData(
+    `${params.activityId}/reviews?page=1&size=3`,
+  );
   console.log(data);
 
   return (
@@ -111,7 +114,11 @@ const page = async ({ params }: { params: { activityId: string } }) => {
                     </div>
                   </div>
                 </header>
-                <ReviewList />
+                <ReviewList
+                  totalCount={reviewData.totalCount}
+                  averageRating={reviewData.averageRating}
+                  reviews={reviewData.reviews}
+                />
               </section>
             </article>
 

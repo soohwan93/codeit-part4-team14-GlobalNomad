@@ -3,9 +3,30 @@ import React, { Fragment } from "react";
 import Review from "./Review";
 import Pagination from "@/components/common/Pagination";
 
-type Props = {};
+interface ReviewsType {
+  id: number;
+  user: {
+    profileImageUrl: string;
+    nickname: string;
+    id: number;
+    activityId: number;
+    rating: number;
+    content: string;
+    createdAt: string;
+    updatedAt: string;
+  };
+}
+interface ReviewDataProps {
+  totalCount: number;
+  averageRating: number;
+  reviews: ReviewsType[];
+}
 
-const ReviewList = (props: Props) => {
+const ReviewList = ({
+  totalCount,
+  averageRating,
+  reviews,
+}: ReviewDataProps) => {
   const reviewList: any[] = [];
   const isReviewExist = reviewList.length !== 0 ? true : false;
 
