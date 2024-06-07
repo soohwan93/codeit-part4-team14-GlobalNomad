@@ -8,9 +8,14 @@ async function handleRequest(request: NextRequest) {
   const { endpoint, body, method } = await request.json();
 
   // 서버 측에서 httpOnly 쿠키 읽기
+  // const accessTokenCookie = request.cookies.get("accessToken");
+  // const accessToken = request.cookies.get("accessToken")?.value;
   const cookieStore = cookies();
   const accessToken = cookieStore.get("accessToken")?.value;
-
+  console.log(cookieStore);
+  console.log(cookieStore.get("accessToken"));
+  // console.log(accessTokenCookie);
+  console.log(accessToken);
   // 요청에 필요한 헤더 설정
   const headers = new Headers();
   if (accessToken) {

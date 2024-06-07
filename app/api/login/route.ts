@@ -5,6 +5,7 @@ import {
   setAccessTokenCookie,
   setRefreshTokenCookie,
 } from "@/util/cookieSetting";
+import { cookies } from "next/headers";
 
 async function handleRequest(request: NextRequest) {
   // 클라이언트가 보낸 JSON 데이터를 파싱
@@ -32,12 +33,15 @@ async function handleRequest(request: NextRequest) {
 
     // 응답 데이터를 JSON 형식으로 반환
     const data = await response.json();
+    const res = NextResponse.json(data, { status: 200 });
 
-    //accessToken과 refreshToken 쿠키 설정
     setAccessTokenCookie(data.accessToken);
     setRefreshTokenCookie(data.refreshToken);
 
-    return NextResponse.json(data, { status: 200 });
+    console.log(data);
+    console.log(data.accessToken);
+    console.log(data.refreshToken);
+    return res;
   } catch (error) {
     return NextResponse.json(
       { message: "내부 서버 오류가 발생했습니다." },
