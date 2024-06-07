@@ -79,7 +79,7 @@ const page = async ({ params }: { params: { activityId: string } }) => {
                 defaultValue={data.description}
               />
               <hr className="mb-10 mt-10" />
-              <KakaoMap />
+              <KakaoMap address={data.address} activityTitle={data.title} />
               <hr className="my-10" />
               <section>
                 <header>
@@ -107,7 +107,7 @@ const page = async ({ params }: { params: { activityId: string } }) => {
               </section>
             </article>
 
-            <section className="h-96 w-80 shrink-0 border-2 border-black">
+            <section className="hidden h-96 shrink-0 border-2 border-black md:block md:w-60 xl:w-80">
               asdf
             </section>
           </div>
