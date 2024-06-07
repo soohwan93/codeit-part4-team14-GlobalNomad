@@ -5,11 +5,11 @@
 id : 991
 */
 
+import React from "react";
 import BannerImage from "@/components/activity-detail/BannerImage";
 import KakaoMap from "@/components/activity-detail/KakaoMap";
 import ReviewList from "@/components/activity-detail/ReviewList";
 import KebabSvg from "@/components/common/svg/KebabSvg";
-import React from "react";
 
 const fetchData = async (endpoint: string) => {
   const response = await fetch(
@@ -93,29 +93,9 @@ const page = async ({ params }: { params: { activityId: string } }) => {
               <KakaoMap address={data.address} activityTitle={data.title} />
               <hr className="my-10" />
               <section>
-                <header>
-                  <h3 className="text-xl font-bold leading-[130%] text-nomad-black">
-                    후기
-                  </h3>
-                  <div>
-                    <span className="text-[3.125rem] font-semibold text-nomad-black">
-                      {data.rating.toFixed(1)}
-                    </span>
-                    <div className="ml-4 inline-block">
-                      <span className="text-lg leading-[133%] text-nomad-black">
-                        매우 만족
-                      </span>
-                      <div className="text-sm text-nomad-black">
-                        <span className="mr-3 inline-block">
-                          <div className="mr-1.5 inline-block h-4 w-4 bg-[url('/icons/Star.svg')]" />
-                          {data.reviewCount.toLocaleString()}개 후기
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </header>
                 <ReviewList
                   totalCount={reviewData.totalCount}
+                  averageRating={reviewData.averageRating}
                   reviews={reviewData.reviews}
                 />
               </section>
