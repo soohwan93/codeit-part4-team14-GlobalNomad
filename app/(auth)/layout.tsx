@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "../(app)/globals.css";
 import localFont from "next/font/local";
+import { NotificationProvider } from "@/contexts/NotificationContext";
 
 const pretendard = localFont({
   src: "../../public/fonts/PretendardVariable.woff2",
@@ -21,7 +22,9 @@ export default function AuthLayout({
 }>) {
   return (
     <html lang="ko">
-      <body className={pretendard.variable}>{children}</body>
+      <body className={pretendard.variable}>
+        <NotificationProvider>{children}</NotificationProvider>
+      </body>
     </html>
   );
 }

@@ -1,9 +1,9 @@
-import React from "react";
+import SignInForm from "@/components/signIn/SignInForm";
 
 type Props = {};
 
 const Signin = (props: Props) => {
-  return <div className="text-center text-5xl">SigninComponent</div>;
+  return <SignInForm />;
 };
 
 export default Signin;
