@@ -31,7 +31,7 @@ const ReservationDate = ({
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [selected]);
 
   return (
     <div>

@@ -49,7 +49,10 @@ const ReservationModal = ({
           item.startTime === selectedTime.split(" ~ ")[0] &&
           item.date === reservationDate,
       )[0];
-      console.log(selectedSchedule);
+      setReservationTime([
+        selectedSchedule.startTime,
+        selectedSchedule.endTime,
+      ]);
     }
 
     //dropdown 선택시 시행할 함수를 작성할 예정
