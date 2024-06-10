@@ -6,16 +6,17 @@ interface StarProps {
   onClick: () => void;
 }
 
-const Star = ({ filled, half, onClick }: StarProps) => {
+const Star = ({ filled, half, onClick } : StarProps) => {
   return (
     <svg
       onClick={onClick}
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
       fill={filled ? "gold" : half ? "url(#half)" : "gray"}
-      width="24px"
-      height="24px"
+      width="56px"
+      height="56px"
       className="cursor-pointer"
+      style={{ margin: "0 2px" }}
     >
       <defs>
         <linearGradient id="half">
