@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import KebabSvg from "../common/svg/KebabSvg";
 import Dropdown from "../common/Dropdown";
+import Link from "next/link";
 
 interface ActivityDetailType {
   id: number;
@@ -30,7 +31,9 @@ const ActivityDetailHeader = ({ data }: { data: ActivityDetailType }) => {
           {data.category}
         </span>
         <h1 className="mb-4 text-2xl font-bold leading-normal text-nomad-black md:text-3xl">
-          {data.title}
+          <Link href={"http://localhost:3000/activity-detail/993"}>
+            {data.title}
+          </Link>
         </h1>
         <div className="text-sm text-black ">
           <span className="mr-3 inline-block">

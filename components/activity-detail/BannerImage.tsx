@@ -32,6 +32,7 @@ const BannerImage = ({ banner, subImages }: BannerImageProps) => {
               src={item.imageUrl}
               alt=""
               fill
+              priority={false}
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               className={`object-cover object-center  duration-500 ${currentBanner !== item.id ? "opacity-0" : "opacity-100"}`}
             />

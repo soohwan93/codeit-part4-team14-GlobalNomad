@@ -3,6 +3,19 @@
   "password": "rhajiit!"
 }
 id : 991
+
+{
+  "title": "함께 배우면 즐거운 스트릿댄스",
+  "category": "문화 · 예술",
+  "description": "함께 배우면 즐거운 스트릿댄스 함께 배우면 즐거운 스트릿댄스 함께 배우면 즐거운 스트릿댄스 함께 배우면 즐거운 스트릿댄",
+  "price": 10000,
+  "address": "서울특별시 강남구 테헤란로 427",
+  "bannerImageUrl": "https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/globalnomad/activity_registration_image/4-14_344_1717741467254.jpeg",
+  "subImageIdsToRemove": [],
+  "subImageUrlsToAdd": [],
+  "scheduleIdsToRemove": [],
+  "schedulesToAdd": []
+}
 */
 
 import React from "react";
@@ -13,6 +26,7 @@ import KebabSvg from "@/components/common/svg/KebabSvg";
 import ActivityDetailHeader from "@/components/activity-detail/ActivityDetailHeader";
 
 const fetchData = async (endpoint: string) => {
+  "use server";
   const response = await fetch(
     `https://sp-globalnomad-api.vercel.app/4-14/activities/${endpoint}`,
     { cache: "no-cache" },
