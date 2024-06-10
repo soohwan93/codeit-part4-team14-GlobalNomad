@@ -1,0 +1,77 @@
+"use client";
+import React, { useState } from "react";
+import ReservationCounterPresenter from "./ReservationCounter/ReservationCounterPresenter";
+import ReservationDatePresenter from "./ReservationDate/ReservationDatePresenter";
+import { CalendarValue } from "./calendarTypes";
+import Button from "@/components/common/Button";
+
+const ReservationModal = () => {
+  const [currentReservationCount, setCurrentReservationCount] = useState(1);
+  const [reservationDate, setReservationDate] = useState<null | Date>(null);
+  const [showCounterModal, setShowCounterModal] = useState(false);
+  const [showDateModal, setShowDateModal] = useState(false);
+
+  const handleSelectDay = (item: CalendarValue) => {
+    // fetch 이후 받아온 데이터를 reservation dropdown date에 전달할 예정
+  };
+
+  const handleDropdownSelect = () => {
+    //dropdown 선택시 시행할 함수를 작성할 예정
+  };
+
+  return (
+    <div className="fixed bottom-0 flex w-screen flex-row items-center justify-between bg-white p-4 outline outline-[1px] outline-[#a1a1a1] md:relative md:bottom-0 md:block md:h-max md:min-h-[26.9375rem] md:w-[15.6875rem] md:flex-col md:rounded-xl md:p-0 xl:min-h-[46.625rem] xl:w-[24rem] xl:p-6">
+      <div className="grid md:grid-cols-1">
+        <div className="md:px-6 md:pt-6 xl:p-0">
+          <div className="flex items-center font-bold md:text-2xl xl:text-[1.75rem]">
+            가격&nbsp;
+            <span className="inline text-xl font-normal text-[#4b4b4b] md:text-base">
+              /
+            </span>
+            <span className="hidden text-xl font-normal text-[#4b4b4b] md:inline md:text-base">
+              &nbsp;인
+            </span>
+          </div>
+        </div>
+
+        <hr color="#a1a1a1" className="my-4 hidden md:row-start-2 md:block" />
+
+        <div className="col-start-1 col-end-3 md:row-start-3">
+          <ReservationDatePresenter
+            date={reservationDate}
+            setDate={handleSelectDay}
+            showModal={showDateModal}
+            setShowModal={setShowDateModal}
+            setShowNextModal={setShowCounterModal}
+          />
+        </div>
+
+        <div className="col-start-2 row-start-1 md:col-start-1 md:row-start-6 md:mt-[1.875rem] md:inline xl:mt-0">
+          <ReservationCounterPresenter
+            count={currentReservationCount}
+            setCount={setCurrentReservationCount}
+            showModal={showCounterModal}
+            setShowModal={setShowCounterModal}
+          />
+        </div>
+
+        <hr color="#a1a1a1" className="my-4 hidden md:row-start-5 xl:block" />
+      </div>
+
+      <div className="w-24 md:mt-6 md:h-14 md:w-auto md:px-6 xl:p-0">
+        <Button variant="primary" size="full">
+          예약하기
+        </Button>
+      </div>
+
+      <hr color="#a1a1a1" className="mb-4 mt-6 hidden md:block" />
+
+      <div className="hidden text-xl font-bold leading-[130%] md:flex md:justify-between md:px-6 xl:p-0">
+        <span>총 합계</span>
+        <span>₩ {currentReservationCount * 10}</span>
+      </div>
+    </div>
+  );
+};
+
+export default ReservationModal;
