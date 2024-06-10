@@ -1,18 +1,37 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import Calendar from "react-calendar";
 import { CalendarValue } from "../calendarTypes";
 import useDropdownInput from "@/components/common/useDropdownInput";
 
 interface ReservationDateType {
   setDate: (date: CalendarValue) => void;
+  setTime: (time: string) => void;
+  schedules: {
+    id: number;
+    date: string;
+    startTime: string;
+    endTime: string;
+  }[];
 }
 
-const ReservationDate = ({ setDate }: ReservationDateType) => {
+const ReservationDate = ({
+  setDate,
+  setTime,
+  schedules,
+}: ReservationDateType) => {
   const { selected, renderDropdown } = useDropdownInput(
-    ["1", "2", "3"],
+    schedules.map((item) => item.startTime + " ~ " + item.endTime),
     "예약 가능한 시간",
   );
+
+  useEffect(() => {
+    if (selected !== null) {
+      setTime(selected);
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div>

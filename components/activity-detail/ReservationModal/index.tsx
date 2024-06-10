@@ -1,26 +1,62 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ReservationCounterPresenter from "./ReservationCounter/ReservationCounterPresenter";
 import ReservationDatePresenter from "./ReservationDate/ReservationDatePresenter";
 import { CalendarValue } from "./calendarTypes";
 import Button from "@/components/common/Button";
+import { postActivityReservation } from "@/util/api";
 
-const ReservationModal = () => {
+interface ReservationModalProps {
+  id: number;
+  date: string;
+  startTime: string;
+  endTime: string;
+}
+
+const ReservationModal = ({
+  activityId,
+  schedules,
+}: {
+  schedules: ReservationModalProps[];
+  activityId: string;
+}) => {
   const [currentReservationCount, setCurrentReservationCount] = useState(1);
-  const [reservationDate, setReservationDate] = useState<null | Date>(null);
+  const [reservationDate, setReservationDate] = useState<null | string>(null);
+  const [reservationTime, setReservationTime] = useState<
+    null | [string, string]
+  >(null);
   const [showCounterModal, setShowCounterModal] = useState(false);
   const [showDateModal, setShowDateModal] = useState(false);
+  let selectedSchedule: ReservationModalProps;
 
   const handleSelectDay = (item: CalendarValue) => {
+    const selectedDate = item && new Date(item?.toString()).toISOString();
+    console.log(selectedDate?.slice(0, 10));
+    setReservationDate(selectedDate);
+
     // fetch 이후 받아온 데이터를 reservation dropdown date에 전달할 예정
   };
 
-  const handleDropdownSelect = () => {
+  const handleDropdownSelect = (selectedTime: string) => {
+    if (selectedTime !== null) {
+      selectedSchedule = schedules.filter(
+        (item) =>
+          item.startTime === selectedTime.split(" ~ ")[0] &&
+          item.date === reservationDate,
+      )[0];
+    }
+
     //dropdown 선택시 시행할 함수를 작성할 예정
   };
 
+  useEffect(() => {
+    if (schedules.length !== 0) {
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
-    <div className="fixed bottom-0 z-10 flex w-screen shrink-0 flex-row items-center justify-between bg-white p-4 outline outline-[1px] outline-[#a1a1a1] md:relative md:bottom-0 md:block md:h-max md:min-h-[26.9375rem] md:w-[15.6875rem] md:flex-col md:rounded-xl md:p-0 xl:min-h-[46.625rem] xl:w-[24rem] xl:p-6">
+    <div className="fixed bottom-0 left-0 z-10 flex w-screen shrink-0 flex-row items-center justify-between bg-white p-4 outline outline-[1px] outline-[#a1a1a1] md:relative md:bottom-0 md:block md:h-max md:min-h-[26.9375rem] md:w-[15.6875rem] md:flex-col md:rounded-xl md:p-0 xl:min-h-[46.625rem] xl:w-[24rem] xl:p-6">
       <div className="grid md:grid-cols-1">
         <div className="md:px-6 md:pt-6 xl:p-0">
           <div className="flex items-center font-bold md:text-2xl xl:text-[1.75rem]">
@@ -38,8 +74,11 @@ const ReservationModal = () => {
 
         <div className="col-start-1 col-end-3 md:row-start-3">
           <ReservationDatePresenter
+            schedules={schedules}
             date={reservationDate}
+            time={reservationTime}
             setDate={handleSelectDay}
+            setTime={handleDropdownSelect}
             showModal={showDateModal}
             setShowModal={setShowDateModal}
             setShowNextModal={setShowCounterModal}
@@ -59,7 +98,17 @@ const ReservationModal = () => {
       </div>
 
       <div className="w-24 md:mt-6 md:h-14 md:w-auto md:px-6 xl:p-0">
-        <Button variant="primary" size="full">
+        <Button
+          variant="primary"
+          size="full"
+          onClick={() => {
+            if (selectedSchedule && currentReservationCount)
+              postActivityReservation(Number(activityId), {
+                scheduleId: Number(selectedSchedule.id),
+                headCount: currentReservationCount,
+              });
+          }}
+        >
           예약하기
         </Button>
       </div>

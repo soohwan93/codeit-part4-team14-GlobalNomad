@@ -30,7 +30,7 @@ const fetchData = async (endpoint: string) => {
   "use server";
   const response = await fetch(
     `https://sp-globalnomad-api.vercel.app/4-14/activities/${endpoint}`,
-    { cache: "no-cache" },
+    { next: { revalidate: 0 } },
   );
   if (!response.ok) {
     const errorResponse = await response.json();
@@ -98,7 +98,10 @@ const page = async ({ params }: { params: { activityId: string } }) => {
               </section>
             </article>
 
-            <ReservationModal />
+            <ReservationModal
+              schedules={data.schedules}
+              activityId={params.activityId}
+            />
           </div>
         </main>
       </div>
