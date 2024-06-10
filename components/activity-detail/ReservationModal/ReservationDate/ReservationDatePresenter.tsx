@@ -37,6 +37,8 @@ const ReservationDatePresenter = ({
 
   useEffect(() => {
     if (date !== null) {
+      console.log(schedules[0].date);
+      console.log(date);
       setFilteredSchedule(schedules.filter((item) => item.date === date));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

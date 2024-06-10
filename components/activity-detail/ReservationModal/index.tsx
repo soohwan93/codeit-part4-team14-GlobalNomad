@@ -30,9 +30,14 @@ const ReservationModal = ({
   let selectedSchedule: ReservationModalProps;
 
   const handleSelectDay = (item: CalendarValue) => {
-    const selectedDate = item && new Date(item?.toString()).toISOString();
-    console.log(selectedDate?.slice(0, 10));
-    setReservationDate(selectedDate);
+    if (item !== null) {
+      const selectedDate = item.toLocaleString().split(". ");
+      const month =
+        selectedDate[1].length === 2 ? selectedDate[1] : "0" + selectedDate[1];
+      const day =
+        selectedDate[2].length === 2 ? selectedDate[2] : "0" + selectedDate[2];
+      setReservationDate(selectedDate[0] + "-" + month + "-" + day);
+    }
 
     // fetch 이후 받아온 데이터를 reservation dropdown date에 전달할 예정
   };
@@ -44,6 +49,7 @@ const ReservationModal = ({
           item.startTime === selectedTime.split(" ~ ")[0] &&
           item.date === reservationDate,
       )[0];
+      console.log(selectedSchedule);
     }
 
     //dropdown 선택시 시행할 함수를 작성할 예정
