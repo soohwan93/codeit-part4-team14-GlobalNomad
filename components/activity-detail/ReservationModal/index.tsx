@@ -81,7 +81,7 @@ const ReservationModal = ({
 
         <hr color="#a1a1a1" className="my-4 hidden md:row-start-2 md:block" />
 
-        <div className="col-start-1 col-end-3 md:row-start-3">
+        <div className="col-start-1 col-end-5 md:row-start-3">
           <ReservationDatePresenter
             schedules={schedules}
             date={reservationDate}

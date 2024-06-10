@@ -55,14 +55,18 @@ const ReservationDatePresenter = ({
         />
       </div>
       <span
-        className="inline text-sm font-medium leading-[1.625rem] text-[#0b3b2d] underline md:text-base md:font-semibold xl:hidden"
+        className="inline text-sm font-semibold leading-normal text-[#0b3b2d] underline md:text-base md:leading-6 xl:hidden"
         onClick={() => {
           setShowModal(true);
         }}
       >
         {date === null || time === null
           ? "날짜 선택하기"
-          : String(date) + " " + time[0] + " ~ " + time[1]}
+          : String(date).slice(2).split("-").join("/") +
+            " " +
+            time[0] +
+            " ~ " +
+            time[1]}
       </span>
       {showModal && (
         <ReservationPopup

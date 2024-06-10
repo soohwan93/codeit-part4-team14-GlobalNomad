@@ -22,13 +22,16 @@ const ReservationCounterPresenter = ({
         <h5 className="mb-2 text-xl font-bold leading-[130%]">참여 인원 수</h5>
         <ReservationCounter count={count} setCount={setCount} />
       </div>
-      <span
-        className="inline text-lg font-medium leading-[1.625rem] text-[#0b3b2d] underline md:hidden"
-        onClick={() => {
-          setShowModal(true);
-        }}
-      >
-        {count}명
+      <span>
+        &nbsp;
+        <span
+          className="inline text-lg font-medium leading-[1.625rem] text-[#0b3b2d] underline md:hidden"
+          onClick={() => {
+            setShowModal(true);
+          }}
+        >
+          {count}명
+        </span>
       </span>
       <div className="md:hidden">
         {showModal && (
