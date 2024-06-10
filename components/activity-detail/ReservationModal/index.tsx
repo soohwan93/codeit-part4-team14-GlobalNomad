@@ -5,6 +5,7 @@ import ReservationDatePresenter from "./ReservationDate/ReservationDatePresenter
 import { CalendarValue } from "./calendarTypes";
 import Button from "@/components/common/Button";
 import { postActivityReservation } from "@/util/api";
+import NotificationPopup from "@/components/common/Popup/NotificationPopup";
 
 interface ReservationModalProps {
   id: number;
@@ -27,6 +28,11 @@ const ReservationModal = ({
   >(null);
   const [showCounterModal, setShowCounterModal] = useState(false);
   const [showDateModal, setShowDateModal] = useState(false);
+  const [filteredSchedules, setFilteredSchedule] = useState<
+    ReservationModalProps[]
+  >([]);
+  const [isNotificationOpen, setIsNotificationOpen] = useState(false);
+  const [notificationMessage, setNotificationMessage] = useState("");
   let selectedSchedule: ReservationModalProps;
 
   const handleSelectDay = (item: CalendarValue) => {
@@ -36,7 +42,11 @@ const ReservationModal = ({
         selectedDate[1].length === 2 ? selectedDate[1] : "0" + selectedDate[1];
       const day =
         selectedDate[2].length === 2 ? selectedDate[2] : "0" + selectedDate[2];
-      setReservationDate(selectedDate[0] + "-" + month + "-" + day);
+      const date = selectedDate[0] + "-" + month + "-" + day;
+
+      setReservationDate(date);
+      console.log(date);
+      setFilteredSchedule(schedules.filter((item) => item.date === date));
     }
 
     // fetch 이후 받아온 데이터를 reservation dropdown date에 전달할 예정
@@ -58,12 +68,6 @@ const ReservationModal = ({
     //dropdown 선택시 시행할 함수를 작성할 예정
   };
 
-  useEffect(() => {
-    if (schedules.length !== 0) {
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
   return (
     <div className="fixed bottom-0 left-0 z-10 flex w-screen shrink-0 flex-row items-center justify-between bg-white p-4 outline outline-[1px] outline-[#a1a1a1] md:relative md:bottom-0 md:block md:h-max md:min-h-[26.9375rem] md:w-[15.6875rem] md:flex-col md:rounded-xl md:p-0 xl:min-h-[46.625rem] xl:w-[24rem] xl:p-6">
       <div className="grid md:grid-cols-1">
@@ -83,7 +87,7 @@ const ReservationModal = ({
 
         <div className="col-start-1 col-end-5 md:row-start-3">
           <ReservationDatePresenter
-            schedules={schedules}
+            schedules={filteredSchedules}
             date={reservationDate}
             time={reservationTime}
             setDate={handleSelectDay}
@@ -111,11 +115,15 @@ const ReservationModal = ({
           variant="primary"
           size="full"
           onClick={() => {
-            if (selectedSchedule && currentReservationCount)
+            if (selectedSchedule && currentReservationCount) {
               postActivityReservation(Number(activityId), {
                 scheduleId: Number(selectedSchedule.id),
                 headCount: currentReservationCount,
               });
+            } else {
+              setNotificationMessage("시험용 메시지");
+              setIsNotificationOpen(true);
+            }
           }}
         >
           예약하기
@@ -128,6 +136,13 @@ const ReservationModal = ({
         <span>총 합계</span>
         <span>₩ {currentReservationCount * 10}</span>
       </div>
+      <NotificationPopup
+        message={notificationMessage}
+        onClose={() => {
+          setIsNotificationOpen(false);
+        }}
+        isOpen={isNotificationOpen}
+      />
     </div>
   );
 };

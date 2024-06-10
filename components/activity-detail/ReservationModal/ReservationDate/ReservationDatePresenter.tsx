@@ -33,15 +33,6 @@ const ReservationDatePresenter = ({
   setShowModal,
   setShowNextModal,
 }: ReservationDatePresenterProp) => {
-  const [filteredSchedules, setFilteredSchedule] = useState<Schedules[]>([]);
-
-  useEffect(() => {
-    if (date !== null) {
-      setFilteredSchedule(schedules.filter((item) => item.date === date));
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [date]);
-
   return (
     <div className="md:px-6 xl:p-0">
       <h5 className="mb-2 hidden text-xl font-bold leading-[130%] md:block">
@@ -51,7 +42,7 @@ const ReservationDatePresenter = ({
         <ReservationDate
           setDate={setDate}
           setTime={setTime}
-          schedules={filteredSchedules}
+          schedules={schedules}
         />
       </div>
       <span
@@ -81,7 +72,7 @@ const ReservationDatePresenter = ({
           <ReservationDate
             setDate={setDate}
             setTime={setTime}
-            schedules={filteredSchedules}
+            schedules={schedules}
           />
         </ReservationPopup>
       )}
