@@ -7,3 +7,13 @@
     text-wrap: balance;
   }
 }
+
+.input-number-none-arrow::-webkit-outer-spin-button,
+.input-number-none-arrow::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.input-number-none-arrow {
+  -moz-appearance: textfield;
+}

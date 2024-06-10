@@ -1,9 +1,7 @@
-import React from "react";
+import SignupForm from "@/components/signup/SignupForm";
 
-type Props = {};
-
-const Signup = (props: Props) => {
-  return <div className="text-center text-5xl">SignupComponent</div>;
+const Signup = () => {
+  return <SignupForm />;
 };
 
 export default Signup;
