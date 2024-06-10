@@ -20,7 +20,7 @@ const ReservationModal = () => {
   };
 
   return (
-    <div className="fixed bottom-0 flex w-screen flex-row items-center justify-between bg-white p-4 outline outline-[1px] outline-[#a1a1a1] md:relative md:bottom-0 md:block md:h-max md:min-h-[26.9375rem] md:w-[15.6875rem] md:flex-col md:rounded-xl md:p-0 xl:min-h-[46.625rem] xl:w-[24rem] xl:p-6">
+    <div className="fixed bottom-0 z-10 flex w-screen shrink-0 flex-row items-center justify-between bg-white p-4 outline outline-[1px] outline-[#a1a1a1] md:relative md:bottom-0 md:block md:h-max md:min-h-[26.9375rem] md:w-[15.6875rem] md:flex-col md:rounded-xl md:p-0 xl:min-h-[46.625rem] xl:w-[24rem] xl:p-6">
       <div className="grid md:grid-cols-1">
         <div className="md:px-6 md:pt-6 xl:p-0">
           <div className="flex items-center font-bold md:text-2xl xl:text-[1.75rem]">

@@ -24,6 +24,7 @@ import KakaoMap from "@/components/activity-detail/KakaoMap";
 import ReviewList from "@/components/activity-detail/ReviewList";
 import KebabSvg from "@/components/common/svg/KebabSvg";
 import ActivityDetailHeader from "@/components/activity-detail/ActivityDetailHeader";
+import ReservationModal from "@/components/activity-detail/ReservationModal";
 
 const fetchData = async (endpoint: string) => {
   "use server";
@@ -97,9 +98,7 @@ const page = async ({ params }: { params: { activityId: string } }) => {
               </section>
             </article>
 
-            <section className="hidden h-96 shrink-0 border-2 border-black md:block md:w-60 xl:w-80">
-              asdf
-            </section>
+            <ReservationModal />
           </div>
         </main>
       </div>
