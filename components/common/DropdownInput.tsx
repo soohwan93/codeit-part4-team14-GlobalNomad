@@ -39,7 +39,7 @@ const DropdownInput = ({
 
   return (
     <>
-      <div className="relative z-[1]">
+      <div className="relative">
         <div
           className={`flex h-12 w-full cursor-pointer items-center justify-between overflow-hidden rounded border-[1px] border-black pl-2 pr-1.5 text-sm leading-[162.5%] md:h-14 md:pl-4 md:text-base 
             ${selected === null ? "text-gray-60" : "text-black"}`}
