@@ -10,12 +10,12 @@ interface ReviewsType {
     profileImageUrl: string;
     nickname: string;
     id: number;
-    activityId: number;
-    rating: number;
-    content: string;
-    createdAt: string;
-    updatedAt: string;
   };
+  activityId: number;
+  rating: number;
+  content: string;
+  createdAt: string;
+  updatedAt: string;
 }
 interface ReviewDataProps {
   totalCount: number;
@@ -76,7 +76,11 @@ const ReviewList = ({
             </div>
           )}
         </div>
-        <Pagination count={3} onPageClick={() => {}} pageItemLimit={3} />
+        <Pagination
+          count={totalCount}
+          onPageClick={() => {}}
+          pageItemLimit={3}
+        />
       </div>
     </>
   );
