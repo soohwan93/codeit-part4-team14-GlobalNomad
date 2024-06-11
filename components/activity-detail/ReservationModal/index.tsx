@@ -35,6 +35,7 @@ const ReservationModal = ({
   const [notificationMessage, setNotificationMessage] = useState("");
   let selectedSchedule: ReservationModalProps;
 
+  // calendar에서 날짜가 선택되었을 때 실행하는 함수
   const handleSelectDay = (item: CalendarValue) => {
     if (item !== null) {
       const selectedDate = item.toLocaleString().split(". ");
@@ -45,14 +46,12 @@ const ReservationModal = ({
       const date = selectedDate[0] + "-" + month + "-" + day;
 
       setReservationDate(date);
-      console.log(date);
       setFilteredSchedule(schedules.filter((item) => item.date === date));
       setReservationTime(null);
     }
-
-    // fetch 이후 받아온 데이터를 reservation dropdown date에 전달할 예정
   };
 
+  // 예약할 일정을 선택했을 경우 실행할 함수
   const handleDropdownSelect = (selectedTime: string) => {
     if (selectedTime !== null) {
       selectedSchedule = schedules.filter(
@@ -65,8 +64,6 @@ const ReservationModal = ({
         selectedSchedule.endTime,
       ]);
     }
-
-    //dropdown 선택시 시행할 함수를 작성할 예정
   };
 
   return (
