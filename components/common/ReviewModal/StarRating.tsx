@@ -7,7 +7,11 @@ type StarRatingProps = {
 };
 
 const StarRating = ({ rating, setRating }: StarRatingProps) => {
-  const handleClick = (value: number) => {
+  const handleHalfClick = (value: number) => {
+    setRating(value);
+  };
+
+  const handleFullClick = (value: number) => {
     setRating(value);
   };
 
@@ -17,7 +21,9 @@ const StarRating = ({ rating, setRating }: StarRatingProps) => {
         <Star
           key={star}
           filled={rating >= star}
-          onClick={() => handleClick(star)}
+          halfFilled={rating >= star - 0.5 && rating < star}
+          onClickHalf={() => handleHalfClick(star - 0.5)}
+          onClickFull={() => handleFullClick(star)}
         />
       ))}
     </div>

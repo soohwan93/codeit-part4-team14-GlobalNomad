@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useRef, ChangeEvent, KeyboardEvent } from "react";
+import React, { useState, useRef, ChangeEvent, KeyboardEvent, useCallback } from "react";
 import Image from "next/image";
 import StarRating from "./StarRating";
 import { Reservation } from "./ReviewType";
@@ -8,7 +8,7 @@ import ReservationPopup from "../ModalPortal";
 
 type ReviewModalProps = {
   reservation: Reservation;
-  setState: React.Dispatch<React.SetStateAction<boolean>>
+  setState: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 const ReviewModal = ({ reservation, setState }: ReviewModalProps) => {
@@ -16,27 +16,27 @@ const ReviewModal = ({ reservation, setState }: ReviewModalProps) => {
   const [reviewText, setReviewText] = useState("");
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
-  const handleSubmit = () => {
+  const handleSubmit = useCallback(() => {
     console.log("Review submitted:", { rating, reviewText });
     setState(false);
-  };
+  }, [rating, reviewText, setState]);
 
-  const handleReviewChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
+  const handleReviewChange = useCallback((event: ChangeEvent<HTMLTextAreaElement>) => {
     setReviewText(event.target.value);
-  };
+  }, []);
 
-  const handleKeyDown = (e: KeyboardEvent<HTMLTextAreaElement>) => {
+  const handleKeyDown = useCallback((e: KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
       handleSubmit();
     }
-  };
+  }, [handleSubmit]);
 
-  // useEffect(() => {
-  //   if (textareaRef.current) {
-  //     textareaRef.current.focus();
-  //   }
-  // }, []);
+  const handleFocus = useCallback(() => {
+    if (textareaRef.current) {
+      textareaRef.current.focus();
+    }
+  }, []);
 
   return (
     <ReservationPopup
@@ -80,11 +80,12 @@ const ReviewModal = ({ reservation, setState }: ReviewModalProps) => {
         <div className="flex-grow w-full flex">
           <textarea
             ref={textareaRef}
-            className="flex-grow text-black200 px-[16px] py-[8px] border-2 border-gray-400 rounded-[4px] text-body1-regular mb:h-[346px]"
+            className="flex-grow text-black200 px-[16px] py-[8px] border-2 border-gray-400 rounded-[4px] text-body1-regular md:h-[240px]"
             placeholder="후기를 작성해주세요"
             value={reviewText}
             onChange={handleReviewChange}
             onKeyDown={handleKeyDown}
+            onFocus={handleFocus}
             style={{ resize: "none" }}
           />
         </div>
