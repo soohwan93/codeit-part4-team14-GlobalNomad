@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState, useRef, ChangeEvent, KeyboardEvent } from "react";
+import React, { useState, useRef, ChangeEvent, KeyboardEvent } from "react";
 import Image from "next/image";
 import StarRating from "./StarRating";
 import { Reservation } from "./ReviewType";
@@ -32,11 +32,11 @@ const ReviewModal = ({ reservation, setState }: ReviewModalProps) => {
     }
   };
 
-  useEffect(() => {
-    if (textareaRef.current) {
-      textareaRef.current.focus();
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (textareaRef.current) {
+  //     textareaRef.current.focus();
+  //   }
+  // }, []);
 
   return (
     <ReservationPopup
@@ -46,8 +46,8 @@ const ReviewModal = ({ reservation, setState }: ReviewModalProps) => {
       onButtonClick={handleSubmit}
       usePortal={true}
     >
-      <div className="flex flex-col items-center gap-6">
-        <div className="flex w-full gap-2 md:gap-6 items-center">
+      <div className="flex flex-col items-center justify-center gap-6 h-75vh md:h-full">
+        <div className="flex w-full gap-2 justify-center md:justify-start md:gap-6 items-center">
           <div className="relative rounded-[12px] overflow-hidden w-[100px] h-[100px] md:w-[126px] md:h-[126px]">
             <Image
               src={reservation.activity.bannerImageUrl}
@@ -77,15 +77,17 @@ const ReviewModal = ({ reservation, setState }: ReviewModalProps) => {
         </div>
 
         <StarRating rating={rating} setRating={setRating} />
-        <textarea
-          ref={textareaRef}
-          className="text-black200 w-full px-[16px] py-[8px] border-2 border-gray-400 rounded-[4px] text-body1-regular mobile:h-[346px] h-[240px]"
-          placeholder="후기를 작성해주세요"
-          value={reviewText}
-          onChange={handleReviewChange}
-          onKeyDown={handleKeyDown}
-          style={{ resize: "none" }}
-        />
+        <div className="flex-grow w-full flex">
+          <textarea
+            ref={textareaRef}
+            className="flex-grow text-black200 px-[16px] py-[8px] border-2 border-gray-400 rounded-[4px] text-body1-regular mb:h-[346px]"
+            placeholder="후기를 작성해주세요"
+            value={reviewText}
+            onChange={handleReviewChange}
+            onKeyDown={handleKeyDown}
+            style={{ resize: "none" }}
+          />
+        </div>
       </div>
     </ReservationPopup>
   );

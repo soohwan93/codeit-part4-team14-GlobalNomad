@@ -4,7 +4,6 @@ import ReviewModal from "@/components/common/ReviewModal/ReviewModal";
 import { useState } from "react";
 
 export default function Home() {
-
   const [isModalOpen, setIsModalOpen] = useState(true);
 
   const reservation = {
@@ -12,7 +11,7 @@ export default function Home() {
     teamId: "string",
     userId: 0,
     activity: {
-      bannerImageUrl: "",
+      bannerImageUrl: "/images/다양한 열대어 구경하기.png",  // 수정된 부분
       title: "강아지 배우와 즐거운 댄스",
       id: 0,
     },
