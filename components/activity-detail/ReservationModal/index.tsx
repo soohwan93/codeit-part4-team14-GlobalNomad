@@ -47,6 +47,7 @@ const ReservationModal = ({
       setReservationDate(date);
       console.log(date);
       setFilteredSchedule(schedules.filter((item) => item.date === date));
+      setReservationTime(null);
     }
 
     // fetch 이후 받아온 데이터를 reservation dropdown date에 전달할 예정

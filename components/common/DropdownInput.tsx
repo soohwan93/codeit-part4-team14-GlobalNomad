@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 /**
  *
@@ -14,12 +14,14 @@ interface DropdownInputProps {
   type: string;
   defaultValue?: string | null;
   onClick: (object: string) => void;
+  needReset?: boolean;
 }
 const DropdownInput = ({
   dataArray,
   type,
   defaultValue = null,
   onClick,
+  needReset = false,
 }: DropdownInputProps) => {
   const [selected, setSelected] = useState(defaultValue);
   const [isOpen, setIsOpen] = useState(false);
@@ -29,6 +31,11 @@ const DropdownInput = ({
     setIsOpen(false);
     onClick(select);
   };
+
+  useEffect(() => {
+    setSelected(defaultValue);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [needReset]);
 
   return (
     <>

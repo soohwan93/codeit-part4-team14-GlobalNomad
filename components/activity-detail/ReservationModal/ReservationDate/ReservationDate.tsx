@@ -20,16 +20,12 @@ const ReservationDate = ({
   setTime,
   schedules,
 }: ReservationDateType) => {
-  const [selectedDate, setSelectedDate] = useState<CalendarValue>();
-  const handleDateChange = (selectedDate: CalendarValue) => {
-    () => setDate(selectedDate);
-  };
+  const [resetSwitch, setResetSwitch] = useState(false);
 
-  useEffect(() => {
-    if (selectedDate) {
-      setDate(selectedDate);
-    }
-  }, [selectedDate]);
+  const handleDateChange = (selectedDate: CalendarValue) => {
+    setDate(selectedDate);
+    setResetSwitch(!resetSwitch);
+  };
 
   return (
     <div>
@@ -38,7 +34,7 @@ const ReservationDate = ({
           locale="ko"
           minDate={new Date()}
           onChange={(item) => {
-            setSelectedDate(item);
+            handleDateChange(item);
           }}
           next2Label={null}
           prev2Label={null}
@@ -55,6 +51,7 @@ const ReservationDate = ({
           )}
           type="예약 가능한 시간"
           onClick={setTime}
+          needReset={resetSwitch}
         />
       </div>
     </div>
