@@ -22,10 +22,8 @@ import React from "react";
 import BannerImage from "@/components/activity-detail/BannerImage";
 import KakaoMap from "@/components/activity-detail/KakaoMap";
 import ReviewList from "@/components/activity-detail/ReviewList";
-import KebabSvg from "@/components/common/svg/KebabSvg";
 import ActivityDetailHeader from "@/components/activity-detail/ActivityDetailHeader";
 import ReservationModal from "@/components/activity-detail/ReservationModal";
-import REVIEW_MOCK from "@/components/common/REVIEW_MOCK";
 
 const fetchData = async (endpoint: string) => {
   "use server";
@@ -62,11 +60,9 @@ interface ActivityDetailType {
 
 const page = async ({ params }: { params: { activityId: string } }) => {
   const data: ActivityDetailType = await fetchData(params.activityId);
-  const reviewData = REVIEW_MOCK;
-  //  await fetchData(
-  //   `${params.activityId}/reviews?page=1&size=3`,
-  // );
-  console.log(data);
+  const reviewData = await fetchData(
+    `${params.activityId}/reviews?page=1&size=3`,
+  );
 
   return (
     <div className="bg-gray-10 px-0 py-4 md:px-6 md:py-6 xl:py-20">
@@ -93,6 +89,7 @@ const page = async ({ params }: { params: { activityId: string } }) => {
               <hr className="my-10" />
               <section>
                 <ReviewList
+                  activityId={Number(params.activityId)}
                   totalCount={reviewData.totalCount}
                   averageRating={reviewData.averageRating}
                   reviews={reviewData.reviews}

@@ -1,8 +1,9 @@
 "use client";
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import Review from "./Review";
 import Pagination from "@/components/common/Pagination";
 import ratingString from "@/util/ratingString";
+import { getActivityReviews } from "@/util/api";
 
 interface ReviewsType {
   id: number;
@@ -18,17 +19,28 @@ interface ReviewsType {
   updatedAt: string;
 }
 interface ReviewDataProps {
+  activityId: number;
   totalCount: number;
   averageRating: number;
   reviews: ReviewsType[];
 }
 
 const ReviewList = ({
+  activityId,
   totalCount,
   averageRating,
   reviews,
 }: ReviewDataProps) => {
+  const [reviewData, setReviewData] = useState(reviews);
   const isReviewExist = totalCount !== 0 ? true : false;
+
+  const handleReviewPageChange = async (pageNum: number) => {
+    const reviews = await getActivityReviews(activityId, {
+      page: pageNum,
+      size: 3,
+    });
+    setReviewData(reviews.reviews);
+  };
 
   return (
     <>
@@ -59,11 +71,11 @@ const ReviewList = ({
           </header>
           {isReviewExist ? (
             <>
-              {reviews.map((item, i) => {
+              {reviewData.map((item, i) => {
                 return (
                   <React.Fragment key={`review-${item.id}`}>
                     <Review />
-                    {i !== reviews.length - 1 && (
+                    {i !== reviewData.length - 1 && (
                       <hr className="bg-nomad-black" />
                     )}
                   </React.Fragment>
@@ -78,7 +90,7 @@ const ReviewList = ({
         </div>
         <Pagination
           count={totalCount}
-          onPageClick={() => {}}
+          onPageClick={(pageNum: number) => handleReviewPageChange(pageNum)}
           pageItemLimit={3}
         />
       </div>
