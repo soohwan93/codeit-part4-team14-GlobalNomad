@@ -29,7 +29,7 @@ const fetchData = async (endpoint: string) => {
   "use server";
   const response = await fetch(
     `https://sp-globalnomad-api.vercel.app/4-14/activities/${endpoint}`,
-    { next: { revalidate: 0 } },
+    { cache: "no-cache" },
   );
   if (!response.ok) {
     const errorResponse = await response.json();

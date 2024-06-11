@@ -35,11 +35,18 @@ const ActivityDetailHeader = ({ data }: { data: ActivityDetailType }) => {
             {data.title}
           </Link>
         </h1>
-        <div className="text-sm text-black ">
+        <div className="text-sm text-black">
           <span className="mr-3 inline-block">
             <div className="mr-1.5 inline-block h-4 w-4 bg-[url('/icons/Star.svg')]" />
-            {data.rating.toFixed(1)} ({data.reviewCount})
+            {data.reviewCount !== 0 ? (
+              <>
+                {data.rating.toFixed(1)} ({data.reviewCount})
+              </>
+            ) : (
+              <>후기 없음</>
+            )}
           </span>
+
           <span>{data.address}</span>
         </div>
       </div>
