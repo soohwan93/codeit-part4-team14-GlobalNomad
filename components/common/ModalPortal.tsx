@@ -1,6 +1,6 @@
 "use client";
 import Button from "@/components/common/Button";
-import React, { Dispatch, SetStateAction } from "react";
+import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 
 interface ReservationPopupType {
@@ -11,6 +11,7 @@ interface ReservationPopupType {
   usePortal?: boolean;
   children: React.ReactNode;
 }
+
 /**
  *
  * @param {string} title 현재 모달의 이름입니다.
@@ -21,6 +22,7 @@ interface ReservationPopupType {
  * @param {boolean} usePortal 현재 모달이 portal기능을 사용하여 표시할 것인지를 받습니다. 기본적으로 false상태입니다.
  * @returns
  */
+
 const ReservationPopup = ({
   title,
   setState,
@@ -29,6 +31,17 @@ const ReservationPopup = ({
   children,
   usePortal = false,
 }: ReservationPopupType) => {
+  const [mounted, setMounted] = useState(false);
+  const [portalElement, setPortalElement] = useState<HTMLElement | null>(null);
+
+  useEffect(() => {
+    if (usePortal) {
+      const el = document.getElementById("portal");
+      setPortalElement(el);
+    }
+    setMounted(true);
+  }, [usePortal]);
+
   const ModalBase = () => (
     <>
       {usePortal && (
@@ -36,7 +49,11 @@ const ReservationPopup = ({
       )}
       <div
         className={`md:outline-1px fixed flex h-screen w-screen flex-col justify-between bg-white p-6 pb-10 shadow-sm md:absolute md:h-min md:w-[30rem] md:rounded-xl md:pb-8 md:outline md:outline-[#A4a1aa]
-                  ${usePortal ? "fixed right-0 top-0 md:right-1/2 md:top-1/2 md:-translate-y-1/2 md:translate-x-1/2" : "right-0 top-0"} `}
+                  ${
+                    usePortal
+                      ? "fixed right-0 top-0 md:right-1/2 md:top-1/2 md:-translate-y-1/2 md:translate-x-1/2"
+                      : "right-0 top-0"
+                  } `}
       >
         <div className="mb-16">
           <header className="mb-8 flex items-center justify-between text-[1.75rem] font-bold leading-[1.675rem]">
@@ -55,10 +72,11 @@ const ReservationPopup = ({
       </div>
     </>
   );
-  if (usePortal) {
-    const el = document.getElementById("portal");
-    return ReactDOM.createPortal(<ModalBase />, el!);
+
+  if (usePortal && mounted && portalElement) {
+    return ReactDOM.createPortal(<ModalBase />, portalElement);
   }
+
   return <ModalBase />;
 };
 

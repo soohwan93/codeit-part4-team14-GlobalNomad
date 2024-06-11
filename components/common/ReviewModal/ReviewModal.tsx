@@ -2,13 +2,13 @@
 
 import React, { useEffect, useState, useRef, ChangeEvent, KeyboardEvent } from "react";
 import Image from "next/image";
-import ReservationPopup from "./ReservationPopup";
 import StarRating from "./StarRating";
 import { Reservation } from "./ReviewType";
+import ReservationPopup from "../ModalPortal";
 
 type ReviewModalProps = {
   reservation: Reservation;
-  setState: (state: boolean) => void;
+  setState: React.Dispatch<React.SetStateAction<boolean>>
 };
 
 const ReviewModal = ({ reservation, setState }: ReviewModalProps) => {
@@ -79,7 +79,7 @@ const ReviewModal = ({ reservation, setState }: ReviewModalProps) => {
         <StarRating rating={rating} setRating={setRating} />
         <textarea
           ref={textareaRef}
-          className="text-black200 w-full px-[16px] py-[8px] border border-2 border-gray-400 rounded-[4px] text-body1-regular mobile:h-[346px] h-[240px]"
+          className="text-black200 w-full px-[16px] py-[8px] border-2 border-gray-400 rounded-[4px] text-body1-regular mobile:h-[346px] h-[240px]"
           placeholder="후기를 작성해주세요"
           value={reviewText}
           onChange={handleReviewChange}
