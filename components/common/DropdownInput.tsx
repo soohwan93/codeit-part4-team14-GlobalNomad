@@ -54,18 +54,24 @@ const DropdownInput = ({
         <ul
           className={`absolute flex w-full translate-y-2 flex-col gap-[1px] overflow-hidden rounded bg-white shadow-lg duration-200 ${isOpen ? "h-max max-h-56 p-2" : "h-0"}`}
         >
-          {dataArray.map((item) => (
-            <li
-              key={item}
-              className={`flex cursor-pointer items-center rounded p-2 text-sm md:text-base ${selected === item ? "bg-nomad-black text-white hover:bg-nomad-black" : "text-black hover:bg-gray-30"}`}
-              onClick={() => handleSelectChild(item)}
-            >
-              <div
-                className={`${selected === item ? "bg-[url('/icons/checkmark.svg')]" : ""} mr-2 inline-block h-3 w-3 bg-center`}
-              ></div>
-              {item}
+          {dataArray.length !== 0 ? (
+            dataArray.map((item) => (
+              <li
+                key={item}
+                className={`flex cursor-pointer items-center rounded p-2 text-sm md:text-base ${selected === item ? "bg-nomad-black text-white hover:bg-nomad-black" : "text-black hover:bg-gray-30"}`}
+                onClick={() => handleSelectChild(item)}
+              >
+                <div
+                  className={`${selected === item ? "bg-[url('/icons/checkmark.svg')]" : ""} mr-2 inline-block h-3 w-3 bg-center`}
+                ></div>
+                {item}
+              </li>
+            ))
+          ) : (
+            <li className="flex cursor-default items-center rounded p-2 text-sm text-gray-40 md:text-base">
+              선택 가능한 옵션이 없습니다.
             </li>
-          ))}
+          )}
         </ul>
       </div>
       {isOpen && (
