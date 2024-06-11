@@ -51,6 +51,7 @@ const ReservationModal = ({
       setReservationDate(date);
       setFilteredSchedule(schedules.filter((item) => item.date === date));
       setReservationTime(null);
+      selectedSchedule.current = null;
     }
   };
 
@@ -71,19 +72,19 @@ const ReservationModal = ({
 
   const handleReservationSubmit = async () => {
     // 입력된 정보를 예약 버튼을 눌러 서버에 리퀘스트를 보낼 때 사용할 함수
-    if (!selectedSchedule.current || !currentReservationCount) {
-      setNotificationMessage("시험용 메시지");
+    if (!selectedSchedule.current) {
+      setNotificationMessage("예약하고자 하는 일정을 선택해 주세요!");
       setIsNotificationOpen(true);
       return;
     }
 
-    if (!selectedSchedule.current || !currentReservationCount) {
-      // await postActivityReservation(Number(activityId), {
-      //   scheduleId: Number(selectedSchedule.id),
-      //   headCount: currentReservationCount,
-      // });
-      // isReservationSuccess.current = true
-    }
+    // await postActivityReservation(Number(activityId), {
+    //   scheduleId: Number(selectedSchedule.id),
+    //   headCount: currentReservationCount,
+    // });
+    // isReservationSuccess.current = true
+    setNotificationMessage("예약 정보가 잘 확인이 되요!");
+    setIsNotificationOpen(true);
   };
 
   const handlePopupClose = () => {
