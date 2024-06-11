@@ -59,7 +59,7 @@ const ReservationDatePresenter = ({
             " ~ " +
             time[1]}
       </span>
-      {showModal && (
+      <div className={`${showModal ? "block" : "hidden"}`}>
         <ReservationPopup
           title="날짜"
           setState={setShowModal}
@@ -75,7 +75,7 @@ const ReservationDatePresenter = ({
             schedules={schedules}
           />
         </ReservationPopup>
-      )}
+      </div>
     </div>
   );
 };
