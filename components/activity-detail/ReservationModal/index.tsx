@@ -1,11 +1,12 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import ReservationCounterPresenter from "./ReservationCounter/ReservationCounterPresenter";
 import ReservationDatePresenter from "./ReservationDate/ReservationDatePresenter";
 import { CalendarValue } from "./calendarTypes";
 import Button from "@/components/common/Button";
 import { postActivityReservation } from "@/util/api";
 import NotificationPopup from "@/components/common/Popup/NotificationPopup";
+import { useRouter } from "next/navigation";
 
 interface ReservationModalProps {
   id: number;
@@ -33,7 +34,9 @@ const ReservationModal = ({
   >([]);
   const [isNotificationOpen, setIsNotificationOpen] = useState(false);
   const [notificationMessage, setNotificationMessage] = useState("");
-  let selectedSchedule: ReservationModalProps;
+  const selectedSchedule = useRef<ReservationModalProps | null>(null);
+  const isReservationSuccess = useRef(false);
+  const router = useRouter();
 
   // calendar에서 날짜가 선택되었을 때 실행하는 함수
   const handleSelectDay = (item: CalendarValue) => {
@@ -54,16 +57,37 @@ const ReservationModal = ({
   // 예약할 일정을 선택했을 경우 실행할 함수
   const handleDropdownSelect = (selectedTime: string) => {
     if (selectedTime !== null) {
-      selectedSchedule = schedules.filter(
+      selectedSchedule.current = schedules.filter(
         (item) =>
           item.startTime === selectedTime.split(" ~ ")[0] &&
           item.date === reservationDate,
       )[0];
       setReservationTime([
-        selectedSchedule.startTime,
-        selectedSchedule.endTime,
+        selectedSchedule.current.startTime,
+        selectedSchedule.current.endTime,
       ]);
     }
+  };
+
+  const handleReservationSubmit = async () => {
+    // 입력된 정보를 예약 버튼을 눌러 서버에 리퀘스트를 보낼 때 사용할 함수
+    if (!selectedSchedule.current || !currentReservationCount) {
+      setNotificationMessage("시험용 메시지");
+      setIsNotificationOpen(true);
+      return;
+    }
+
+    if (!selectedSchedule.current || !currentReservationCount) {
+      // await postActivityReservation(Number(activityId), {
+      //   scheduleId: Number(selectedSchedule.id),
+      //   headCount: currentReservationCount,
+      // });
+      // isReservationSuccess.current = true
+    }
+  };
+
+  const handlePopupClose = () => {
+    setIsNotificationOpen(false);
   };
 
   return (
@@ -112,17 +136,7 @@ const ReservationModal = ({
         <Button
           variant="primary"
           size="full"
-          onClick={() => {
-            if (selectedSchedule && currentReservationCount) {
-              postActivityReservation(Number(activityId), {
-                scheduleId: Number(selectedSchedule.id),
-                headCount: currentReservationCount,
-              });
-            } else {
-              setNotificationMessage("시험용 메시지");
-              setIsNotificationOpen(true);
-            }
-          }}
+          onClick={() => handleReservationSubmit()}
         >
           예약하기
         </Button>
@@ -136,9 +150,7 @@ const ReservationModal = ({
       </div>
       <NotificationPopup
         message={notificationMessage}
-        onClose={() => {
-          setIsNotificationOpen(false);
-        }}
+        onClose={() => handlePopupClose()}
         isOpen={isNotificationOpen}
       />
     </div>
