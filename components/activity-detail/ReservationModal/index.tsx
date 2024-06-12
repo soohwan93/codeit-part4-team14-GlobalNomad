@@ -38,7 +38,6 @@ const ReservationModal = ({
   const [notificationMessage, setNotificationMessage] = useState("");
   const selectedSchedule = useRef<ReservationModalProps | null>(null);
 
-  const isReservationSuccess = useRef(false);
   const router = useRouter();
 
   // calendar에서 날짜가 선택되었을 때 실행하는 함수
@@ -81,13 +80,20 @@ const ReservationModal = ({
       return;
     }
 
-    // await postActivityReservation(Number(activityId), {
-    //   scheduleId: Number(selectedSchedule.id),
-    //   headCount: currentReservationCount,
-    // });
-    // isReservationSuccess.current = true
-    setNotificationMessage("예약 정보가 잘 확인이 되요!");
-    setIsNotificationOpen(true);
+    try {
+      const response = await postActivityReservation(Number(activityId), {
+        scheduleId: selectedSchedule.current.id,
+        headCount: currentReservationCount,
+      });
+      setNotificationMessage("예약 신청이 성공했어요!");
+      setIsNotificationOpen(true);
+    } catch (err: any) {
+      if (err.message === "Unauthorized") {
+        setNotificationMessage("로그인을 먼저 해주세요!");
+        setIsNotificationOpen(true);
+        return;
+      }
+    }
   };
 
   const handlePopupClose = () => {
@@ -140,6 +146,7 @@ const ReservationModal = ({
         <Button
           variant="primary"
           size="full"
+          disabled={Boolean(!selectedSchedule.current)}
           onClick={() => handleReservationSubmit()}
         >
           예약하기
