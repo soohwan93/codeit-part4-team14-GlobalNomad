@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import KebabSvg from "../common/svg/KebabSvg";
 import Dropdown from "../common/Dropdown";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 interface ActivityDetailType {
   id: number;
@@ -23,6 +24,18 @@ interface ActivityDetailType {
 
 const ActivityDetailHeader = ({ data }: { data: ActivityDetailType }) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const router = useRouter();
+
+  const handleDropdownEdit = () => {
+    router.push(`/activity-management/${data.id}`);
+  };
+
+  const handleDropdownDelete = async () => {};
+
+  const dropdownProps = [
+    { label: "수정하기", value: "수정하기", onClick: handleDropdownEdit },
+    { label: "삭제하기", value: "삭제하기", onClick: () => {} },
+  ];
 
   return (
     <header className="flex items-center justify-between px-4 py-4 xl:pt-20">
@@ -59,10 +72,7 @@ const ActivityDetailHeader = ({ data }: { data: ActivityDetailType }) => {
         originPositionRight
         dropdownOpen={dropdownOpen}
         setDropdownOpen={setDropdownOpen}
-        Options={[
-          { label: "수정하기", value: "수정하기", onClick: () => {} },
-          { label: "삭제하기", value: "삭제하기", onClick: () => {} },
-        ]}
+        Options={dropdownProps}
       />
     </header>
   );
