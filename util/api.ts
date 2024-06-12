@@ -24,48 +24,10 @@ import {
 } from "./apiType";
 
 import { convertQuery } from "./querySetting";
+import { fetcher } from "./actions";
 
 // 기본 url
 export const BASE_URL = "https://sp-globalnomad-api.vercel.app/4-14";
-
-async function fetcher(
-  endpoint: string,
-  method: FetchMethod,
-  body?: Object,
-  token?: string,
-) {
-  // 서버 측에서 next-auth에서 설정한 session값 확인
-  const session = await auth();
-  const accessToken = session?.accessToken;
-  console.log(session);
-  console.log(accessToken);
-  // 요청에 필요한 헤더 설정
-  const headers = new Headers();
-  if (accessToken) {
-    headers.append("Authorization", `Bearer ${accessToken}`);
-  }
-
-  if (body) {
-    headers.append("Content-Type", "application/json");
-  }
-
-  const options: RequestInit = {
-    method,
-    headers,
-    body: body ? JSON.stringify(body) : null,
-  };
-
-  // 원격 서버로 요청을 전송
-  const response = await fetch(`${BASE_URL}${endpoint}`, options);
-
-  if (!response.ok) {
-    const errorResponse = await response.json();
-    console.error(errorResponse.message);
-    throw new Error(errorResponse.message);
-  }
-
-  return response.json();
-}
 
 /** Activities
  * 체험 리스트 조회
