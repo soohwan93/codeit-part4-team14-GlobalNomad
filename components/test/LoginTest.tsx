@@ -1,9 +1,5 @@
 "use client";
-import {
-  getMyActivityReservationDashBoard,
-  logout,
-  postLogin,
-} from "@/util/api";
+import { getMyActivityReservationDashBoard, postLogin } from "@/util/api";
 import { LoginBody } from "@/util/apiType";
 import React from "react";
 
@@ -29,7 +25,6 @@ const LoginTest = (props: Props) => {
     <>
       {" "}
       <div onClick={loginTest}>로그인</div>
-      <div onClick={logout}>로그아웃</div>
       <div onClick={testReservation}>체험 예약 목록</div>
     </>
   );
