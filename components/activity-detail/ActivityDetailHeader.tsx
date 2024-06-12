@@ -52,13 +52,17 @@ const ActivityDetailHeader = ({ data }: { data: ActivityDetailType }) => {
       </div>
       <Dropdown
         defaultLabel={
-          <button type="button" onClick={() => setDropdownOpen(true)}>
+          <button type="button" onClick={() => setDropdownOpen(!dropdownOpen)}>
             <KebabSvg />
           </button>
         }
+        originPositionRight
         dropdownOpen={dropdownOpen}
         setDropdownOpen={setDropdownOpen}
-        Options={[{ label: "asdf", value: "asdf" }]}
+        Options={[
+          { label: "수정하기", value: "수정하기", onClick: () => {} },
+          { label: "삭제하기", value: "삭제하기", onClick: () => {} },
+        ]}
       />
     </header>
   );
