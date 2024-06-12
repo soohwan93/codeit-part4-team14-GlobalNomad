@@ -1,3 +1,4 @@
+import { auth } from "@/auth";
 import {
   ActivityImagesBody,
   ActivityQuerys,
@@ -33,21 +34,30 @@ async function fetcher(
   body?: Object,
   token?: string,
 ) {
-  console.log(method);
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/fetchWithToken`,
-    {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify({
-        endpoint,
-        method,
-        body,
-      }),
-    },
-  );
+  // 서버 측에서 next-auth에서 설정한 session값 확인
+  const session = await auth();
+  const accessToken = session?.accessToken;
+  console.log(session);
+  console.log(accessToken);
+  // 요청에 필요한 헤더 설정
+  const headers = new Headers();
+  if (accessToken) {
+    headers.append("Authorization", `Bearer ${accessToken}`);
+  }
+
+  if (body) {
+    headers.append("Content-Type", "application/json");
+  }
+
+  const options: RequestInit = {
+    method,
+    headers,
+    body: body ? JSON.stringify(body) : null,
+  };
+
+  // 원격 서버로 요청을 전송
+  const response = await fetch(`${BASE_URL}${endpoint}`, options);
+
   if (!response.ok) {
     const errorResponse = await response.json();
     console.error(errorResponse.message);
@@ -116,63 +126,11 @@ export function postActivityImages(body: ActivityImagesBody) {
 
 /** Auth
  * 로그인
- * 로그아웃
- * accessToken 쿠키 확인
  */
 
-// 로그인(httpOnly 쿠키는 클라이언트에서 저장할 수 없어 서버에서 저장)
+// 로그인
 export async function postLogin(body: LoginBody) {
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/login`,
-    {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify({
-        endpoint: "/auth/login",
-        method: "POST",
-        body,
-      }),
-    },
-  );
-  if (!response.ok) {
-    const errorResponse = await response.json();
-    console.error(errorResponse.message);
-    throw new Error(errorResponse.message);
-  }
-
-  return response.json();
-}
-
-// 로그아웃(쿠키제거 로직)
-export async function logout() {
-  await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/logout`, {
-    method: "POST",
-  });
-}
-
-// accessToken 쿠키 확인
-export async function checkAccessTokenCookie() {
-  try {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/check-cookie`,
-      {
-        method: "GET",
-        credentials: "include",
-      },
-    );
-
-    if (!response.ok) {
-      throw new Error("네트워크 응답에 실패했습니다.");
-    }
-    const result = await response.json();
-    console.log(result);
-    return result.cookieExists;
-  } catch (error) {
-    console.error("쿠키 확인에 실패: ", error);
-    return false;
-  }
+  return fetcher(`/auth/login`, "POST", body);
 }
 
 /** MyActivities
