@@ -39,6 +39,12 @@ const DropdownInput = ({
 
   return (
     <>
+      {isOpen && (
+        <div
+          className="fixed left-0 top-0 h-screen w-screen bg-transparent"
+          onClick={() => setIsOpen(false)}
+        />
+      )}
       <div className="relative">
         <div
           className={`flex h-12 w-full cursor-pointer items-center justify-between overflow-hidden rounded border-[1px] border-black pl-2 pr-1.5 text-sm leading-[162.5%] md:h-14 md:pl-4 md:text-base 
@@ -74,12 +80,6 @@ const DropdownInput = ({
           )}
         </ul>
       </div>
-      {isOpen && (
-        <div
-          className="fixed h-screen w-screen bg-transparent"
-          onClick={() => setIsOpen(false)}
-        />
-      )}
     </>
   );
 };
