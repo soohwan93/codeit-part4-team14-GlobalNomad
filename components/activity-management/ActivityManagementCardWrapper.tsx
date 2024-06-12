@@ -1,11 +1,7 @@
-"use client";
 import { getMyActivities } from "@/util/api";
-import Image from "next/image";
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment } from "react";
 import ActivityManagementCard from "./ActivityManagementCard";
 import { MyActivitiesQuery } from "@/util/apiType";
-import { cookies } from "next/headers";
-import { InView } from "react-intersection-observer";
 
 export interface ActivityManagementCardProps {
   title: string;
@@ -27,42 +23,48 @@ export interface ActivityApiProps {
   reviewCount: number;
 }
 
-const ActivityManagementCardWrapper = () => {
+const ActivityManagementCardWrapper = async () => {
+  const query: MyActivitiesQuery = {
+    size: 5,
+  };
+  // const res = await getMyActivities(query);
+
+  const { activities } = await getMyActivities(query);
   // const cookieStore = cookies();
   // const token = cookieStore.get("accessToken")?.value;
   // console.log(token);
 
-  const [activities, setActivities] = useState<ActivityApiProps[]>([]);
-  const [lastCursorId, setLastCursorId] = useState<number | null>(null);
+  // const [activities, setActivities] = useState<ActivityApiProps[]>([]);
+  // const [lastCursorId, setLastCursorId] = useState<number | null>(null);
 
-  const callMyActivities = async () => {
-    const query: MyActivitiesQuery = {
-      size: 5,
-    };
-    const { activities } = await getMyActivities(query);
-    setActivities(activities);
-    console.log(activities);
-  };
+  // const callMyActivities = async () => {
+  // const query: MyActivitiesQuery = {
+  //   size: 5,
+  // };
+  //   const { activities } = await getMyActivities(query);
+  //   setActivities(activities);
+  //   console.log(activities);
+  // };
 
-  const handleIntersection = async (inView: boolean) => {
-    if (inView && lastCursorId !== null) {
-      console.log("In view:", inView);
-      const query: MyActivitiesQuery = {
-        size: 3,
-        cursorId: lastCursorId,
-      };
-      const { activities: newActivities } = await getMyActivities(query);
-      setActivities((prevActivities) => [...prevActivities, ...newActivities]);
-      if (newActivities.length > 0) {
-        setLastCursorId(newActivities[newActivities.length - 1].id);
-        console.log(lastCursorId);
-      }
-    }
-  };
+  // const handleIntersection = async (inView: boolean) => {
+  //   if (inView && lastCursorId !== null) {
+  //     console.log("In view:", inView);
+  //     const query: MyActivitiesQuery = {
+  //       size: 3,
+  //       cursorId: lastCursorId,
+  //     };
+  //     const { activities: newActivities } = await getMyActivities(query);
+  //     setActivities((prevActivities) => [...prevActivities, ...newActivities]);
+  //     if (newActivities.length > 0) {
+  //       setLastCursorId(newActivities[newActivities.length - 1].id);
+  //       console.log(lastCursorId);
+  //     }
+  //   }
+  // };
 
-  useEffect(() => {
-    callMyActivities();
-  }, []);
+  // useEffect(() => {
+  //   callMyActivities();
+  // }, []);
 
   return (
     <>
@@ -74,7 +76,7 @@ const ActivityManagementCardWrapper = () => {
       {/* <InView as="div" onChange={handleIntersection} threshold={1}>
         {({ ref }) => <div ref={ref} style={{ height: "1px" }}></div>}
       </InView> */}
-      <InView
+      {/* <InView
         as="div"
         onChange={handleIntersection}
         rootMargin="100px"
@@ -82,10 +84,10 @@ const ActivityManagementCardWrapper = () => {
       >
         {({ ref }) => (
           <div ref={ref} style={{ height: "50px", background: "lightgray" }}>
-            {/* 이 부분이 스크롤이 해당 영역에 도달했을 때 호출되는 지점입니다. */}
+            이 부분이 스크롤이 해당 영역에 도달했을 때 호출되는 지점입니다.
           </div>
         )}
-      </InView>
+      </InView> */}
     </>
   );
 };
