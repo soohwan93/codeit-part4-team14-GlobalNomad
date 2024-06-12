@@ -5,7 +5,6 @@ import ColorTest from "@/components/test/ColorTest";
 import {
   getMyActivities,
   getMyActivityReservationDashBoard,
-  logout,
   postLogin,
 } from "@/util/api";
 import type { LoginBody, MyActivitiesQuery } from "@/util/apiType";
