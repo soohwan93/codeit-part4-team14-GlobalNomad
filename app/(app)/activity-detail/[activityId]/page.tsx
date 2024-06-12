@@ -98,6 +98,7 @@ const page = async ({ params }: { params: { activityId: string } }) => {
             </article>
 
             <ReservationModal
+              price={data.price}
               schedules={data.schedules}
               activityId={params.activityId}
             />

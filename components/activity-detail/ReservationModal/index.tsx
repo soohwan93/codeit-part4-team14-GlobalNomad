@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import ReservationCounterPresenter from "./ReservationCounter/ReservationCounterPresenter";
 import ReservationDatePresenter from "./ReservationDate/ReservationDatePresenter";
 import { CalendarValue } from "./calendarTypes";
@@ -16,9 +16,11 @@ interface ReservationModalProps {
 }
 
 const ReservationModal = ({
+  price,
   activityId,
   schedules,
 }: {
+  price: number;
   schedules: ReservationModalProps[];
   activityId: string;
 }) => {
@@ -35,6 +37,7 @@ const ReservationModal = ({
   const [isNotificationOpen, setIsNotificationOpen] = useState(false);
   const [notificationMessage, setNotificationMessage] = useState("");
   const selectedSchedule = useRef<ReservationModalProps | null>(null);
+
   const isReservationSuccess = useRef(false);
   const router = useRouter();
 
@@ -92,11 +95,11 @@ const ReservationModal = ({
   };
 
   return (
-    <div className="fixed bottom-0 left-0 z-10 flex w-screen shrink-0 flex-row items-center justify-between bg-white p-4 outline outline-[1px] outline-[#a1a1a1] md:relative md:bottom-0 md:block md:h-max md:min-h-[26.9375rem] md:w-[15.6875rem] md:flex-col md:rounded-xl md:p-0 xl:min-h-[46.625rem] xl:w-[24rem] xl:p-6">
+    <div className="fixed bottom-0 left-0 z-10 flex w-screen shrink-0 flex-row items-center justify-between bg-white p-4 outline outline-[1px] outline-[#a1a1a1] md:relative md:bottom-0 md:block md:h-max md:min-h-[26.9375rem] md:w-[15.6875rem] md:flex-col md:rounded-xl md:p-0 md:pb-5 xl:min-h-[46.625rem] xl:w-[24rem] xl:p-6">
       <div className="grid md:grid-cols-1">
         <div className="md:px-6 md:pt-6 xl:p-0">
           <div className="flex items-center font-bold md:text-2xl xl:text-[1.75rem]">
-            가격&nbsp;
+            ₩&nbsp;{price.toLocaleString("ko-KR")}&nbsp;
             <span className="inline text-xl font-normal text-[#4b4b4b] md:text-base">
               /
             </span>
@@ -146,8 +149,10 @@ const ReservationModal = ({
       <hr color="#a1a1a1" className="mb-4 mt-6 hidden md:block" />
 
       <div className="hidden text-xl font-bold leading-[130%] md:flex md:justify-between md:px-6 xl:p-0">
-        <span>총 합계</span>
-        <span>₩ {currentReservationCount * 10}</span>
+        <span className="text-nowrap">총 합계&nbsp;</span>
+        <span className="truncate">
+          ₩ {(currentReservationCount * price).toLocaleString("ko-KR")}
+        </span>
       </div>
       <NotificationPopup
         message={notificationMessage}
