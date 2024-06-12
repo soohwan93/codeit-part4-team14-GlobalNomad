@@ -3,6 +3,7 @@ import React, { ReactNode } from "react";
 interface Option {
   label: string;
   value: string;
+  onClick?: () => void;
 }
 
 interface DropdownProps {
@@ -10,6 +11,7 @@ interface DropdownProps {
   defaultLabel: ReactNode;
   dropdownOpen: boolean;
   setDropdownOpen: (isOpen: boolean) => void;
+  originPositionRight: boolean;
 }
 
 const Dropdown = ({
@@ -17,19 +19,26 @@ const Dropdown = ({
   defaultLabel,
   dropdownOpen,
   setDropdownOpen,
+  originPositionRight = false,
 }: DropdownProps) => {
   return (
-    <div className="relative">
-      <div className="cursor-pointer">
-        {defaultLabel}
-      </div>
+    <div className="relative z-[1]">
+      <div className="cursor-pointer">{defaultLabel}</div>
       {dropdownOpen && (
-        <div className="absolute top-full mt-2 w-[160px] bg-white border rounded shadow-lg">
+        <div
+          className={`absolute top-full mt-2 w-[160px] rounded border bg-white shadow-lg
+                        ${originPositionRight ? "right-0" : "left-0"}`}
+        >
           {Options.map((option) => (
             <button
               key={option.value}
-              className="flex items-center justify-center border px-4 py-3 hover:bg-gray-100 text-black"
-              onClick={() => setDropdownOpen(false)}
+              className="flex w-full items-center justify-center border px-4 py-3 text-black hover:bg-gray-100"
+              onClick={() => {
+                if (option.onClick !== undefined) {
+                  option.onClick();
+                }
+                setDropdownOpen(false);
+              }}
             >
               {option.label}
             </button>
