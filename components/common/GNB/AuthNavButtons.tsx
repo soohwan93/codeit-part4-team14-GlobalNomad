@@ -64,11 +64,11 @@ const AuthNavButtons = () => {
     }
   };
 
-  const callUserInformation = async () => {
-    const res = await getUser();
-    setUserData(res);
-    console.log(res);
-  };
+  // const callUserInformation = async () => {
+  //   const res = await getUser();
+  //   setUserData(res);
+  //   console.log(res);
+  // };
 
   useEffect(() => {
     document.addEventListener("mousedown", handleClickDropdownOutside);
@@ -79,9 +79,9 @@ const AuthNavButtons = () => {
     };
   }, []);
 
-  useEffect(() => {
-    callUserInformation();
-  }, []);
+  // useEffect(() => {
+  //   callUserInformation();
+  // }, []);
 
   return (
     <>
