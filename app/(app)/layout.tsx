@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-import Header from "@/components/common/Header";
+import GNB from "@/components/common/GNB";
 import Footer from "@/components/common/Footer";
+import { SessionProviderWrapper } from "@/contexts/SessionProviderWrapper";
+import { SessionProvider } from "next-auth/react";
 
 const pretendard = localFont({
   src: "../../public/fonts/PretendardVariable.woff2",
@@ -23,11 +25,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
-      <body className={pretendard.variable}>
-        <Header />
-        {children}
-        <Footer />
-        <div id="portal"></div>
+      <body className={pretendard.className}>
+        <SessionProvider>
+          <SessionProviderWrapper>
+            <GNB />
+            {children}
+            <Footer />
+            <div id="portal"></div>
+          </SessionProviderWrapper>
+        </SessionProvider>
       </body>
     </html>
   );
