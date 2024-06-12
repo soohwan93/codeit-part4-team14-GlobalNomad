@@ -2,7 +2,7 @@ import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import { authConfig } from "./auth.config";
 import { z } from "zod";
-import { postLoginTest } from "./util/api";
+import { postLogin } from "./util/api";
 import { getTokenExpiry } from "./auth.util";
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
@@ -16,7 +16,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 
         if (parsedCredentials.success) {
           const loginBody = parsedCredentials.data;
-          const res = await postLoginTest(loginBody);
+          const res = await postLogin(loginBody);
 
           if (!res) return null;
 
