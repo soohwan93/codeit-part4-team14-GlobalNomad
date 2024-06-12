@@ -1,5 +1,6 @@
 import { jwtDecode } from "jwt-decode";
 import { JWT } from "next-auth/jwt";
+import { BASE_URL } from "./util/api";
 
 export async function refreshAccessToken(token: JWT) {
   try {
@@ -13,16 +14,13 @@ export async function refreshAccessToken(token: JWT) {
       };
     }
 
-    const response = await fetch(
-      "https://sp-globalnomad-api.vercel.app/4-14/auth/tokens",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token.refreshToken}`,
-        },
+    const response = await fetch(`${BASE_URL}/auth/tokens`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token.refreshToken}`,
       },
-    );
+    });
 
     const refreshedTokens = await response.json();
     const accessTokenExpiry = getTokenExpiry(refreshedTokens.accessToken);
