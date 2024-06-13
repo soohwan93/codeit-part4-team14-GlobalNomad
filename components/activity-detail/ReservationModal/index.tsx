@@ -156,7 +156,7 @@ const ReservationModal = ({
           disabled={Boolean(!selectedSchedule.current) || isUserOwner}
           onClick={() => handleReservationSubmit()}
         >
-          예약하기
+          {isUserOwner ? "자신의 체험은 예약 불가" : "예약하기"}
         </Button>
       </div>
 

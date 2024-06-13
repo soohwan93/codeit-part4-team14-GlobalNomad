@@ -53,7 +53,7 @@ const ActivityDetailHeader = ({ activityId }: { activityId: number }) => {
   ];
 
   return (
-    <>
+    <div className="z-[1]">
       <Dropdown
         defaultLabel={
           <button
@@ -81,7 +81,7 @@ const ActivityDetailHeader = ({ activityId }: { activityId: number }) => {
         isOpen={isPopupOpen}
         onClose={handlePopupClose}
       />
-    </>
+    </div>
   );
 };
 
