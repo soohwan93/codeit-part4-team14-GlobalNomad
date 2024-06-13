@@ -14,9 +14,9 @@ const DropdownArrow = () => {
           id="Vector"
           d="M5.25 9L12 15.75L18.75 9"
           stroke="#1B1B1B"
-          stroke-width="1.5"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         />
       </g>
     </svg>
