@@ -39,11 +39,18 @@ const ActivityDetailHeader = ({ activityId }: { activityId: number }) => {
       deleteSuccess.current = true;
       setPopupMessage("이 활동을 성공적으로 삭제했어요!");
       setIsPopupOpen(true);
-    } catch {
-      setPopupMessage(
-        "예기치 못한 오류로 활동을 삭제하지 못했어요. 잠시후 다시 시도해 주세요.",
-      );
-      setIsPopupOpen(true);
+    } catch (err: any) {
+      console.log(String(err.message));
+      if (String(err.message) === "Unexpected end of JSON input") {
+        deleteSuccess.current = true;
+        setPopupMessage("이 활동을 성공적으로 삭제했어요!");
+        setIsPopupOpen(true);
+      } else {
+        setPopupMessage(
+          "예기치 못한 오류로 활동을 삭제하지 못했어요. 잠시후 다시 시도해 주세요.",
+        );
+        setIsPopupOpen(true);
+      }
     }
   };
 
