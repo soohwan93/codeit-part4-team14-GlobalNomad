@@ -37,7 +37,7 @@ const config: Config = {
         "blue-10": "#E5F3FF",
       },
       height: {
-        '75vh': '75vh',
+        "75vh": "75vh",
       },
     },
   },
