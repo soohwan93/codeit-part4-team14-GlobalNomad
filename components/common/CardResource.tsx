@@ -12,6 +12,7 @@ export const CardResourcePopular = () => {
         fill
         src={image}
         alt="image"
+        sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
       />
       <div className="from-0.1% absolute z-[1] h-full w-full rounded-[20px] bg-gradient-to-t from-black/80"></div>
       <div className="absolute bottom-[8px] z-[1] flex w-[186px] flex-col gap-[6px] px-[20px] py-[12px] text-[#ffffff] md:bottom-0 md:w-[384px] md:gap-[20px] md:py-[30px]">
@@ -42,6 +43,7 @@ export const CardResourceCategory = () => {
           fill
           src={image}
           alt="image"
+          sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
         />
       </div>
       <div className="flex w-[168px] flex-col gap-[10px] text-[#1b1b1b] md:w-[282px]">
