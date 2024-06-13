@@ -24,22 +24,7 @@ import KakaoMap from "@/components/activity-detail/KakaoMap";
 import ReviewList from "@/components/activity-detail/ReviewList";
 import ActivityDetailHeader from "@/components/activity-detail/ActivityDetailHeader";
 import ReservationModal from "@/components/activity-detail/ReservationModal";
-
-const fetchData = async (endpoint: string) => {
-  "use server";
-  const response = await fetch(
-    `https://sp-globalnomad-api.vercel.app/4-14/activities/${endpoint}`,
-    { cache: "no-cache" },
-  );
-  if (!response.ok) {
-    const errorResponse = await response.json();
-    console.error(errorResponse.message);
-    throw new Error(errorResponse.message);
-  }
-  const data = await response.json();
-
-  return data;
-};
+import { getActivityById, getActivityReviews } from "@/util/api";
 
 interface ActivityDetailType {
   id: number;
@@ -59,10 +44,13 @@ interface ActivityDetailType {
 }
 
 const page = async ({ params }: { params: { activityId: string } }) => {
-  const data: ActivityDetailType = await fetchData(params.activityId);
-  const reviewData = await fetchData(
-    `${params.activityId}/reviews?page=1&size=3`,
+  const data: ActivityDetailType = await getActivityById(
+    Number(params.activityId),
   );
+  const reviewData = await getActivityReviews(Number(params.activityId), {
+    page: 1,
+    size: 3,
+  });
 
   return (
     <div className="bg-gray-10 px-0 py-4 md:px-6 md:py-6 xl:py-20">
