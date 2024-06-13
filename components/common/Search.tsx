@@ -17,12 +17,12 @@ export const Search = () => {
   };
 
   return (
-    <form className="flex w-[343px] flex-col gap-[15px] rounded-[16px] bg-white px-[24px] py-[16px] shadow-lg md:w-[696px] md:gap-[20px] md:py-[32px] xl:w-[1200px] xl:gap-[32px]">
+    <form className="flex w-full max-w-[1200px] flex-col gap-[15px] rounded-[16px] bg-white px-[24px] py-[16px] shadow-lg md:gap-[32px]">
       <span className="text-[16px] font-[700] leading-[26px] md:text-[20px]">
         무엇을 체험하고 싶으신가요?
       </span>
-      <div className="flex h-[56px] w-[295px] gap-[12px] py-[4px] md:w-[648px] xl:w-[1152px]">
-        <div className="relative flex rounded-[4px] border-[1px] border-gray-70">
+      <div className="flex h-[56px] w-full max-w-[1152px] gap-[12px] py-[4px] ">
+        <div className="relative flex w-full max-w-[1004px] rounded-[4px] border-[1px] border-gray-70">
           <div className="h-[48px] w-[48px] p-[12px]">
             <SearchLogoSvg />
           </div>
@@ -37,7 +37,7 @@ export const Search = () => {
             내가 원하는 체험은
           </span>
         </div>
-        <button className="w-[96px] rounded-[4px] bg-nomad-black px-[20px] py-[8px] text-[16px] font-[700] leading-[26px] text-[#ffffff] md:w-[136px] md:px-[40px]">
+        <button className="w-full max-w-[96px] rounded-[4px] bg-nomad-black px-[20px] py-[8px] text-[16px] font-[700] leading-[26px] text-[#ffffff] md:max-w-[136px] md:px-[40px]">
           검색하기
         </button>
       </div>
