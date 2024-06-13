@@ -81,7 +81,7 @@ const page = async ({ params }: { params: { activityId: string } }) => {
               </h3>
               <textarea
                 disabled
-                className="w-full resize-none text-wrap bg-transparent text-base leading-[162.5%] text-nomad-black"
+                className="w-full resize-none text-wrap border-none bg-transparent text-base leading-[162.5%] text-nomad-black"
                 defaultValue={data.description}
               />
               <hr className="mb-10 mt-10" />
