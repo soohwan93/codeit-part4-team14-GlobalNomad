@@ -10,31 +10,13 @@ import {
 import { Category, CategoryItem } from "@/components/common/Category";
 import Pagination from "@/components/common/Pagination";
 import Arrow from "@/components/common/svg/Arrow";
+import { Banner } from "@/components/common/Banner";
 
 export default function Home() {
   const handleClick = () => {};
   return (
     <div className="relative w-full min-w-[375px] md:min-w-[743px]">
-      <div className="relative h-full min-h-[240px] overflow-hidden md:min-h-[550px]">
-        <Image
-          className="absolute z-0 scale-150 object-cover"
-          fill
-          src={Banner_image}
-          alt="Banner_image"
-          priority
-        />
-        <div className="from-0.1% absolute z-[1] h-full w-full bg-gradient-to-r from-black/100"></div>
-        <div className="absolute z-[1] h-full w-full px-[24px] pt-[56px] text-[#ffffff] md:pt-[130px] xl:pt-[130px]">
-          <div className="mx-auto flex w-full max-w-[1200px] flex-col gap-[8px]">
-            <div className="line-clamp-2 w-[200px] break-keep text-[24px] font-[700] md:w-[440px] md:text-[54px] xl:w-[550px] xl:text-[68px]">
-              함께 배우면 즐거운 스트릿 댄스
-            </div>
-            <div className="text-[14px] font-[700] leading-[26px] md:text-[20px] xl:text-[24px]">
-              1월의 인기 체험 BEST 🔥
-            </div>
-          </div>
-        </div>
-      </div>
+      <Banner />
 
       <div className="absolute left-1/2 z-[2] -mt-[61px] w-full max-w-[1246px] -translate-x-1/2 transform px-[16px] md:-mt-[54px] md:px-[23px]">
         <Search />
