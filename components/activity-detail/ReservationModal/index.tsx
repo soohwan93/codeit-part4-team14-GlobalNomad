@@ -74,9 +74,11 @@ const ReservationModal = ({
     }
   };
 
+  // 예약 일정을 결정하고 제출할 시에 실행되는 함수
   const handleReservationSubmit = async () => {
     // 입력된 정보를 예약 버튼을 눌러 서버에 리퀘스트를 보낼 때 사용할 함수
     if (!selectedSchedule.current) {
+      // 혹시 모를 오류를 대비한 안전장치
       setNotificationMessage("예약하고자 하는 일정을 선택해 주세요!");
       setIsNotificationOpen(true);
       return;
@@ -95,6 +97,9 @@ const ReservationModal = ({
         setIsNotificationOpen(true);
         return;
       }
+
+      setNotificationMessage(err.message);
+      setIsNotificationOpen(true);
     }
   };
 
@@ -165,7 +170,7 @@ const ReservationModal = ({
       </div>
       <NotificationPopup
         message={notificationMessage}
-        onClose={() => handlePopupClose()}
+        onClose={handlePopupClose}
         isOpen={isNotificationOpen}
       />
     </div>
