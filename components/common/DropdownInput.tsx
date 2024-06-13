@@ -1,5 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
+import DropdownArrow from "./svg/DropdownArrowSvg";
+import Check from "./svg/CheckSvg";
 
 /**
  *
@@ -54,8 +56,10 @@ const DropdownInput = ({
           {selected === null ? type : selected}
 
           <div
-            className={`ml-1 inline-block h-6 w-6 bg-[url('/icons/chevron_down.svg')] bg-center bg-no-repeat duration-100 md:h-5 md:w-5 md:p-6 ${isOpen ? "rotate-180" : "rotate-0"}`}
-          />
+            className={`mr-1 flex h-6 w-6 items-center justify-center duration-100 md:h-5 md:w-5 ${isOpen ? "rotate-180" : "rotate-0"}`}
+          >
+            <DropdownArrow />
+          </div>
         </div>
         <ul
           className={`absolute flex w-full translate-y-2 flex-col gap-[1px] overflow-hidden rounded bg-white shadow-lg duration-200 ${isOpen ? "h-max max-h-56 p-2" : "h-0"}`}
@@ -67,9 +71,9 @@ const DropdownInput = ({
                 className={`flex cursor-pointer items-center rounded p-2 text-sm md:text-base ${selected === item ? "bg-nomad-black text-white hover:bg-nomad-black" : "text-black hover:bg-gray-30"}`}
                 onClick={() => handleSelectChild(item)}
               >
-                <div
-                  className={`${selected === item ? "bg-[url('/icons/checkmark.svg')]" : ""} mr-2 inline-block h-3 w-3 bg-center`}
-                ></div>
+                <div className="mr-2 flex h-3 w-3 items-center justify-center bg-center">
+                  {selected === item && <Check />}
+                </div>
                 {item}
               </li>
             ))

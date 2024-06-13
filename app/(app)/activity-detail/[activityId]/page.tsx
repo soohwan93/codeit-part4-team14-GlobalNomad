@@ -24,7 +24,9 @@ import KakaoMap from "@/components/activity-detail/KakaoMap";
 import ReviewList from "@/components/activity-detail/ReviewList";
 import ActivityDetailHeader from "@/components/activity-detail/ActivityDetailHeader";
 import ReservationModal from "@/components/activity-detail/ReservationModal";
-import { getActivityById, getActivityReviews } from "@/util/api";
+import { getActivityById, getActivityReviews, getUser } from "@/util/api";
+import fetchCurrentUserData from "@/components/activity-detail/fetchCurrentUserData";
+import StarSvg from "@/components/common/svg/StarSvg";
 
 interface ActivityDetailType {
   id: number;
@@ -44,6 +46,7 @@ interface ActivityDetailType {
 }
 
 const page = async ({ params }: { params: { activityId: string } }) => {
+  const userData = await fetchCurrentUserData();
   const data: ActivityDetailType = await getActivityById(
     Number(params.activityId),
   );
@@ -51,11 +54,38 @@ const page = async ({ params }: { params: { activityId: string } }) => {
     page: 1,
     size: 3,
   });
+  const isUserOwner = data.userId === userData.id;
 
   return (
     <div className="bg-gray-10 px-0 py-4 md:px-6 md:py-6 xl:py-20">
       <div className="mx-auto max-w-[1200px]">
-        <ActivityDetailHeader data={data} />
+        <header className="flex items-center justify-between px-4 py-4 xl:pt-20">
+          <div>
+            <span className="mb-2.5 text-sm leading-normal text-black">
+              {data.category}
+            </span>
+            <h1 className="mb-4 text-2xl font-bold leading-normal text-nomad-black md:text-3xl">
+              {data.title}
+            </h1>
+            <div className="flex items-center gap-3 text-sm text-black">
+              <span className="flex items-center gap-1.5">
+                <StarSvg />
+                {data.reviewCount !== 0 ? (
+                  <>
+                    {data.rating.toFixed(1)} ({data.reviewCount})
+                  </>
+                ) : (
+                  <>후기 없음</>
+                )}
+              </span>
+
+              <span>{data.address}</span>
+            </div>
+          </div>
+
+          {isUserOwner && <ActivityDetailHeader activityId={data.id} />}
+        </header>
+
         <main>
           <BannerImage
             banner={data.bannerImageUrl}
@@ -89,6 +119,7 @@ const page = async ({ params }: { params: { activityId: string } }) => {
               price={data.price}
               schedules={data.schedules}
               activityId={params.activityId}
+              isUserOwner={isUserOwner}
             />
           </div>
         </main>

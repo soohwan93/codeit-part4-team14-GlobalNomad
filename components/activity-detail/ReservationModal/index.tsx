@@ -19,10 +19,12 @@ const ReservationModal = ({
   price,
   activityId,
   schedules,
+  isUserOwner,
 }: {
   price: number;
   schedules: ReservationModalProps[];
   activityId: string;
+  isUserOwner: boolean;
 }) => {
   const [currentReservationCount, setCurrentReservationCount] = useState(1);
   const [reservationDate, setReservationDate] = useState<null | string>(null);
@@ -146,7 +148,7 @@ const ReservationModal = ({
         <Button
           variant="primary"
           size="full"
-          disabled={Boolean(!selectedSchedule.current)}
+          disabled={Boolean(!selectedSchedule.current) || isUserOwner}
           onClick={() => handleReservationSubmit()}
         >
           예약하기

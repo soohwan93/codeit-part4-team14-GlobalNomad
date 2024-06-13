@@ -50,7 +50,9 @@ const ReviewList = ({
             <h3 className="text-xl font-bold leading-[130%] text-nomad-black">
               후기
             </h3>
-            {isReviewExist && (
+          </header>
+          {isReviewExist ? (
+            <>
               <div>
                 <span className="text-[3.125rem] font-semibold text-nomad-black">
                   {averageRating.toFixed(1)}
@@ -67,10 +69,6 @@ const ReviewList = ({
                   </div>
                 </div>
               </div>
-            )}
-          </header>
-          {isReviewExist ? (
-            <>
               {reviewData.map((item, i) => {
                 return (
                   <React.Fragment key={`review-${item.id}`}>
