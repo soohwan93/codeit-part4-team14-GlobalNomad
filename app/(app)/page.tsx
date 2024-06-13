@@ -13,33 +13,28 @@ import Arrow from "@/components/common/svg/Arrow";
 import { Banner } from "@/components/common/Banner";
 import Dropdown from "@/components/common/Dropdown";
 import { useState } from "react";
+import DropdownArrowSvg from "@/components/common/svg/DropdownArrowSvg";
 
 export default function Home() {
-  const handleClick = () => {};
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const options = [
     {
-      label: "Option 1",
-      value: "option1",
+      label: "가격이 낮은 순",
+      value: "가격이 낮은 순",
       onClick: () => {
         console.log("Option 1 clicked");
       },
     },
     {
-      label: "Option 2",
-      value: "option2",
+      label: "가격이 높은 순",
+      value: "가격이 높은 순",
       onClick: () => {
         console.log("Option 2 clicked");
       },
     },
-    {
-      label: "Option 3",
-      value: "option3",
-      onClick: () => {
-        console.log("Option 3 clicked");
-      },
-    },
   ];
+
+  const handleClick = () => {};
 
   return (
     <div className="relative w-full min-w-[375px] md:min-w-[743px]">
@@ -65,19 +60,22 @@ export default function Home() {
           <div className="flex justify-between pb-[24px] pt-[40px]">
             <Category />
 
-            <div className="w-[90px] rounded-[15px] border-[1px] border-green-20 px-[16px] py-[12px]  text-center text-[14px] font-[400] leading-normal tracking-tighter hover:bg-nomad-black hover:text-white min-[720px]:w-[120px] min-[720px]:px-[24px] min-[720px]:py-[16px] min-[720px]:text-[18px] min-[830px]:w-[127px]">
-              <div
-                className="cursor-pointer"
-                onClick={() => setDropdownOpen(!dropdownOpen)}
-              >
-                <Dropdown
-                  Options={options}
-                  defaultLabel={"가격"}
-                  dropdownOpen={dropdownOpen}
-                  setDropdownOpen={setDropdownOpen}
-                  originPositionRight={false}
-                />
-              </div>
+            <div className="w-[90px] rounded-[15px] border-[1px] border-green-20 px-[16px] py-[12px]  text-center text-[14px] font-[400] leading-normal tracking-tighter min-[720px]:w-[120px] min-[720px]:px-[24px] min-[720px]:py-[16px] min-[720px]:text-[18px] min-[830px]:w-[127px]">
+              <Dropdown
+                Options={options}
+                defaultLabel={
+                  <div
+                    className="flex cursor-pointer items-center justify-between"
+                    onClick={() => setDropdownOpen(!dropdownOpen)}
+                  >
+                    <div>가격</div>
+                    <DropdownArrowSvg />
+                  </div>
+                }
+                dropdownOpen={dropdownOpen}
+                setDropdownOpen={setDropdownOpen}
+                originPositionRight={false}
+              />
             </div>
           </div>
 
