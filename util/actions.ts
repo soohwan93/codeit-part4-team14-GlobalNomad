@@ -1,9 +1,10 @@
 "use server";
-import { auth, signIn } from "@/auth";
+import { auth, signIn, signOut } from "@/auth";
 import { AuthError } from "next-auth";
 import { FetchMethod, LoginBody } from "./apiType";
 import { BASE_URL } from "./api";
 
+// 로그인 함수
 export async function authenticate(
   prevState: string | undefined,
   formData: LoginBody,
@@ -68,4 +69,9 @@ export async function fetcher(
   }
 
   return response.json();
+}
+
+// 로그아웃 함수
+export async function logout() {
+  await signOut();
 }
