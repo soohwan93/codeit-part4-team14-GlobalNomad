@@ -2,6 +2,7 @@ import React from "react";
 import Image from "next/image";
 import Star from "@/public/icons/Star.svg";
 import image from "@/public/images/함께 배우면 즐거운 스트릿 댄스.png";
+import StarSvg from "./svg/StarSvg";
 
 export const CardResourcePopular = () => {
   return (
@@ -15,7 +16,7 @@ export const CardResourcePopular = () => {
       <div className="from-0.1% absolute z-[1] h-full w-full rounded-[20px] bg-gradient-to-t from-black/80"></div>
       <div className="absolute bottom-[8px] z-[1] flex w-[186px] flex-col gap-[6px] px-[20px] py-[12px] text-[#ffffff] md:bottom-0 md:w-[384px] md:gap-[20px] md:py-[30px]">
         <div className="flex gap-[5px]">
-          <Image src={Star} alt="star icon" />
+          <StarSvg />
           <span className="text-[14px] font-[600]">4.9 (793)</span>
         </div>
         <div className="line-clamp-2 w-[146px] break-keep text-[18px] font-[700] md:w-[230px] md:text-[30px]">
@@ -45,7 +46,7 @@ export const CardResourceCategory = () => {
       </div>
       <div className="flex w-[168px] flex-col gap-[10px] text-[#1b1b1b] md:w-[282px]">
         <div className="flex gap-[5px]">
-          <Image src={Star} alt="star icon" />
+          <StarSvg />
           <span className="text-[16px] font-[500]">
             4.9 <span className="text-[#a1a1a1]">(793)</span>
           </span>

@@ -21,6 +21,7 @@ export default function Home() {
           fill
           src={Banner_image}
           alt="Banner_image"
+          priority
         />
         <div className="from-0.1% absolute z-[1] h-full w-full bg-gradient-to-r from-black/100"></div>
         <div className="absolute z-[1] flex h-full w-full flex-col gap-[8px] px-[24px] pt-[56px] text-[#ffffff] md:pt-[130px] xl:pt-[130px]">
