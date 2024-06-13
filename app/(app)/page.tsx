@@ -24,8 +24,8 @@ export default function Home() {
           priority
         />
         <div className="from-0.1% absolute z-[1] h-full w-full bg-gradient-to-r from-black/100"></div>
-        <div className="absolute z-[1] flex h-full w-full flex-col gap-[8px] px-[24px] pt-[56px] text-[#ffffff] md:pt-[130px] xl:pt-[130px]">
-          <div className="mx-auto w-full max-w-[1200px]">
+        <div className="absolute z-[1] h-full w-full px-[24px] pt-[56px] text-[#ffffff] md:pt-[130px] xl:pt-[130px]">
+          <div className="mx-auto flex w-full max-w-[1200px] flex-col gap-[8px]">
             <div className="line-clamp-2 w-[200px] break-keep text-[24px] font-[700] md:w-[440px] md:text-[54px] xl:w-[550px] xl:text-[68px]">
               함께 배우면 즐거운 스트릿 댄스
             </div>
