@@ -37,22 +37,22 @@ const contributorData = [
 const Footer = () => {
   return (
     <footer className="bg-nomad-black text-center text-gray-30">
-      <div className="m-auto max-w-[80rem] p-1 md:p-2">
-        <div className="flex items-center justify-between p-1 md:p-2">
+      <div className="m-auto max-w-[95rem] p-1 md:p-2">
+        <div className="flex items-center justify-between p-2">
           <HeaderLogoSvg color="#EEEEEE " />
           <div className="text-right">
-            <span>Contributor</span>
+            <span className="bold mb-1 block">Contributor</span>
             <div className="flex justify-between gap-2">
               {contributorData.map((item) => (
                 <Link
                   href={item.github}
-                  className="overflow-hidden rounded-full"
+                  className="relative h-6 w-6 overflow-hidden rounded-full md:h-8 md:w-8 "
                   key={`footer-${item.name}`}
                 >
                   <Image
                     src={item.imageUrl}
-                    height={32}
-                    width={32}
+                    sizes="32px"
+                    fill
                     alt={item.name}
                   />
                 </Link>
