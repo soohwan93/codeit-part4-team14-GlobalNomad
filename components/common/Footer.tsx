@@ -36,7 +36,7 @@ const contributorData = [
 
 const Footer = () => {
   return (
-    <footer className="bg-nomad-black text-center text-gray-30">
+    <footer className="bg-nomad-black pb-3 text-center text-gray-30 md:p-0">
       <div className="m-auto max-w-[95rem] p-1 md:p-2">
         <div className="flex items-center justify-between p-2">
           <HeaderLogoSvg color="#EEEEEE " />
