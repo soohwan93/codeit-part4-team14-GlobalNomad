@@ -45,6 +45,7 @@ const Footer = () => {
             <div className="flex justify-between gap-2">
               {contributorData.map((item) => (
                 <Link
+                  target="_blank"
                   href={item.github}
                   className="relative h-6 w-6 overflow-hidden rounded-full md:h-8 md:w-8 "
                   key={`footer-${item.name}`}
@@ -64,16 +65,16 @@ const Footer = () => {
         <div className="flex items-center justify-between p-1 md:p-2">
           ⓒcodeit - 2024
           <div className="flex justify-between gap-2">
-            <Link href="https://x.com/">
+            <Link href="https://x.com/" target="_blank">
               <FooterTwitterSvg />
             </Link>
-            <Link href="https://www.facebook.com/">
+            <Link href="https://www.facebook.com/" target="_blank">
               <FooterFacebookSvg />
             </Link>
-            <Link href="https://www.instagram.com/">
+            <Link href="https://www.instagram.com/" target="_blank">
               <FooterInstagramSvg />
             </Link>
-            <Link href="https://www.youtube.com/">
+            <Link href="https://www.youtube.com/" target="_blank">
               <FooterYoutubeSvg />
             </Link>
           </div>
