@@ -37,10 +37,10 @@ const contributorData = [
 const Footer = () => {
   return (
     <footer className="bg-nomad-black text-center text-gray-30">
-      <div className="m-auto max-w-[80rem] p-1">
-        <div className="flex items-center justify-between p-1">
-          <HeaderLogoSvg />
-          <div className="text-left">
+      <div className="m-auto max-w-[80rem] p-1 md:p-2">
+        <div className="flex items-center justify-between p-1 md:p-2">
+          <HeaderLogoSvg color="#EEEEEE " />
+          <div className="text-right">
             <span>Contributor</span>
             <div className="flex justify-between gap-2">
               {contributorData.map((item) => (
@@ -60,8 +60,8 @@ const Footer = () => {
             </div>
           </div>
         </div>
-        <hr className="my-1" />
-        <div className="flex items-center justify-between p-1">
+        <hr className="my-1 md:my-2" />
+        <div className="flex items-center justify-between p-1 md:p-2">
           ⓒcodeit - 2024
           <div className="flex justify-between gap-2">
             <Link href="https://x.com/">
