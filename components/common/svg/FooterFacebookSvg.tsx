@@ -2,7 +2,7 @@ import React from "react";
 
 type Props = {};
 
-const Facebook = (props: Props) => {
+const FooterFacebookSvg = (props: Props) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -21,4 +21,4 @@ const Facebook = (props: Props) => {
   );
 };
 
-export default Facebook;
+export default FooterFacebookSvg;
