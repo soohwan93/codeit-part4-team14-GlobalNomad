@@ -4,26 +4,64 @@ import FooterTwitterSvg from "./svg/FooterTwitterSvg";
 import FooterFacebookSvg from "./svg/FooterFacebookSvg";
 import FooterInstagramSvg from "./svg/FooterInstagramSvg";
 import FooterYoutubeSvg from "./svg/FooterYoutubeSvg";
+import Image from "next/image";
+import HeaderLogoSvg from "./svg/HeaderLogoSvg";
+const contributorData = [
+  {
+    name: "김수환",
+    github: "https://github.com/soohwan93",
+    imageUrl: "https://avatars.githubusercontent.com/u/155133655?s=64&v=4",
+  },
+  {
+    name: "김세동",
+    github: "https://github.com/Rhajiit",
+    imageUrl: "https://avatars.githubusercontent.com/u/155033024?s=64&v=4",
+  },
+  {
+    name: "구승모",
+    github: "https://github.com/Trophy198",
+    imageUrl: "https://avatars.githubusercontent.com/u/100824183?s=64&v=4",
+  },
+  {
+    name: "신민철",
+    github: "https://github.com/MinCheolS",
+    imageUrl: "https://avatars.githubusercontent.com/u/97032929?s=64&v=4",
+  },
+  {
+    name: "한태욱",
+    github: "https://github.com/TaeUk471",
+    imageUrl: "https://avatars.githubusercontent.com/u/90249043?s=64&v=4",
+  },
+];
 
 const Footer = () => {
   return (
-    <footer className="bg-nomad-black text-center text-white">
-      <div className="m-auto max-w-[80rem] p-2">
-        <div className="flex justify-between p-2">
-          Global-Nomad
+    <footer className="bg-nomad-black text-center text-gray-30">
+      <div className="m-auto max-w-[80rem] p-1">
+        <div className="flex items-center justify-between p-1">
+          <HeaderLogoSvg />
           <div className="text-left">
             <span>Contributor</span>
             <div className="flex justify-between gap-2">
-              <Link href="https://github.com/soohwan93">김수환</Link>
-              <Link href="https://github.com/Rhajiit">김세동</Link>
-              <Link href="https://github.com/Trophy198">구승모</Link>
-              <Link href="https://github.com/MinCheolS">신민철</Link>
-              <Link href="https://github.com/TaeUk471">한태욱</Link>
+              {contributorData.map((item) => (
+                <Link
+                  href={item.github}
+                  className="overflow-hidden rounded-full"
+                  key={`footer-${item.name}`}
+                >
+                  <Image
+                    src={item.imageUrl}
+                    height={32}
+                    width={32}
+                    alt={item.name}
+                  />
+                </Link>
+              ))}
             </div>
           </div>
         </div>
-        <hr />
-        <div className="flex justify-between p-2">
+        <hr className="my-1" />
+        <div className="flex items-center justify-between p-1">
           ⓒcodeit - 2024
           <div className="flex justify-between gap-2">
             <Link href="https://x.com/">
