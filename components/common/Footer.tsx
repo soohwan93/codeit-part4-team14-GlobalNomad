@@ -1,5 +1,9 @@
 import Link from "next/link";
 import React from "react";
+import FooterTwitterSvg from "./svg/FooterTwitterSvg";
+import FooterFacebookSvg from "./svg/FooterFacebookSvg";
+import FooterInstagramSvg from "./svg/FooterInstagramSvg";
+import FooterYoutubeSvg from "./svg/FooterYoutubeSvg";
 
 const Footer = () => {
   return (
@@ -21,11 +25,19 @@ const Footer = () => {
         <hr />
         <div className="flex justify-between p-2">
           ⓒcodeit - 2024
-          <div className="flex justify-between gap-1">
-            <Link href="">twitter</Link>
-            <Link href="">facebook</Link>
-            <Link href="">instagram</Link>
-            <Link href="">youtube</Link>
+          <div className="flex justify-between gap-2">
+            <Link href="https://x.com/">
+              <FooterTwitterSvg />
+            </Link>
+            <Link href="https://www.facebook.com/">
+              <FooterFacebookSvg />
+            </Link>
+            <Link href="https://www.instagram.com/">
+              <FooterInstagramSvg />
+            </Link>
+            <Link href="https://www.youtube.com/">
+              <FooterYoutubeSvg />
+            </Link>
           </div>
         </div>
       </div>
