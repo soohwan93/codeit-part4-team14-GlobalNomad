@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import React, { Fragment, useState } from "react";
+import React, { useState } from "react";
 
 interface SubImages {
   id: number;
@@ -44,7 +44,7 @@ const BannerImage = ({ banner, subImages }: BannerImageProps) => {
           subImages.map((item, i) => (
             <div
               key={`subImage-${item.id}`}
-              className="relative w-full min-w-[10.9375rem] overflow-hidden rounded-xl "
+              className="relative w-full min-w-[10.9375rem] overflow-hidden rounded-xl bg-gray-20 "
               onMouseOver={() => {
                 setCurrentBanner(item.id);
               }}
