@@ -119,7 +119,7 @@ export interface PostUserBody {
 // 내 정보 수정 body 타입
 export interface PatchUserBody {
   nickname: string;
-  profileImageUrl: string;
+  profileImageUrl: string | null;
   newPassword: string;
 }
 
