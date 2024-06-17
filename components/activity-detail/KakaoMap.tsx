@@ -64,7 +64,7 @@ const KakaoMap = ({ address, activityTitle }: KakaoMapProps) => {
     <div>
       <div
         id="map"
-        className="flex h-[28.125rem] w-full items-center justify-center rounded-2xl outline-[1px] outline-black"
+        className="flex h-[18rem] w-full items-center justify-center rounded-2xl outline-[1px] outline-black md:h-[24rem] xl:h-[28.125rem]"
       >
         지도를 불러오는 중입니다...
       </div>
