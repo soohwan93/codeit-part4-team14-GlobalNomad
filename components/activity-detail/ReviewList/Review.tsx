@@ -1,3 +1,4 @@
+import UserNoImageSvg from "@/components/common/svg/UserNoImageSvg";
 import Image from "next/image";
 import React from "react";
 
@@ -19,17 +20,19 @@ const Review = ({ reviewData }: { reviewData: ReviewProps }) => {
   const { createdAt, content, user } = reviewData;
   return (
     <section className="my-6 flex items-start justify-start gap-4">
-      <Image
-        src={
-          user.profileImageUrl !== null
-            ? user.profileImageUrl
-            : "/testProfile.png"
-        }
-        alt=""
-        width={45}
-        height={45}
-        className="rounded-full"
-      />
+      {user.profileImageUrl !== null ? (
+        <Image
+          src={user.profileImageUrl}
+          alt=""
+          width={45}
+          height={45}
+          className="rounded-full"
+        />
+      ) : (
+        <div className="max-h-[45px] max-w-[45px]">
+          <UserNoImageSvg width={45} height={45} />
+        </div>
+      )}
       <div className="block">
         <div className="mb-2">
           <span className="font-bold">
