@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import Header from "@/components/common/Header";
 import Footer from "@/components/common/Footer";
+import ClientProviders from "@/components/common/NotificationModal/ClientProvider";
 
 const pretendard = localFont({
   src: "../../public/fonts/PretendardVariable.woff2",
@@ -25,7 +26,9 @@ export default function RootLayout({
     <html lang="ko">
       <body className={pretendard.variable}>
         <Header />
-        {children}
+        <ClientProviders>
+          {children}
+        </ClientProviders>
         <Footer />
         <div id="portal"></div>
       </body>

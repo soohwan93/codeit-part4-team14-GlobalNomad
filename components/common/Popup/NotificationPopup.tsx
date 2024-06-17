@@ -1,30 +1,65 @@
-import Button from "../Button";
-import PopupWrapper from "./PopupWrapper";
+"use client";
+import React, { useEffect, useRef } from 'react';
 
-interface NotificationPopupProps {
-  message: string;
-  isOpen: boolean;
-  onClose: () => void;
+interface Notification {
+  id: number;
+  teamId: number;
+  userId: number;
+  content: string;
+  createdAt: string;
+  updatedAt: string;
+  deletedAt?: string;
 }
 
-const NotificationPopup = ({
-  message,
-  isOpen,
-  onClose,
-}: NotificationPopupProps) => {
+interface NotificationPopupProps {
+  setState: React.Dispatch<React.SetStateAction<boolean>>;
+  notifications: Notification[];
+}
+
+const NotificationPopup: React.FC<NotificationPopupProps> = ({ setState, notifications }) => {
+  const popupRef = useRef<HTMLDivElement>(null);
+
+  const handleClickOutside = (event: MouseEvent) => {
+    if (popupRef.current && !popupRef.current.contains(event.target as Node)) {
+      setState(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
   return (
-    <PopupWrapper isOpen={isOpen} onClose={onClose}>
-      <div className="m-3 flex h-[220px] w-[327px] max-w-full flex-col items-center justify-between rounded-xl bg-white p-6 md:h-[250px] md:w-[540px]">
-        <div className="flex flex-grow items-center justify-center">
-          <p className="text-center">{message}</p>
-        </div>
-        <div className="flex w-full justify-center md:justify-end">
-          <Button onClick={onClose} size="md">
-            확인
-          </Button>
-        </div>
+    <div ref={popupRef} className="fixed top-4 right-4 w-80 bg-white shadow-lg rounded-lg z-50">
+      <div className="p-4 border-b border-gray-200 flex justify-between items-center">
+        <h2 className="text-xl font-semibold">알림 {notifications.length}개</h2>
+        <button onClick={() => setState(false)} className="text-gray-400 hover:text-gray-600">
+          &times;
+        </button>
       </div>
-    </PopupWrapper>
+      <div className="p-4 space-y-4 max-h-96 overflow-y-auto">
+        {notifications.map(notification => (
+          <div key={notification.id} className="flex justify-between items-center p-4 border-b border-gray-200">
+            <div className="flex-1">
+              <p>{notification.content}</p>
+              <span className="text-sm text-gray-500">{new Date(notification.createdAt).toLocaleString()}</span>
+            </div>
+            <button
+              onClick={() => {
+                // 더미 데이터 삭제 로직 (실제 API 호출 아님)
+                setState(prev => prev.filter(n => n.id !== notification.id));
+              }}
+              className="text-red-500"
+            >
+              &times;
+            </button>
+          </div>
+        ))}
+      </div>
+    </div>
   );
 };
 
