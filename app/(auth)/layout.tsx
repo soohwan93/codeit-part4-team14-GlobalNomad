@@ -22,7 +22,7 @@ export default function AuthLayout({
 }>) {
   return (
     <html lang="ko">
-      <body className={pretendard.variable}>
+      <body className={pretendard.className}>
         <NotificationProvider>{children}</NotificationProvider>
       </body>
     </html>

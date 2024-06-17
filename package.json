@@ -15,12 +15,17 @@
     "autoprefixer": "^10.4.19",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
+    "flowbite": "^2.3.0",
+    "flowbite-react": "^0.9.0",
+    "jwt-decode": "^4.0.0",
     "next": "14.2.3",
+    "next-auth": "^5.0.0-beta.19",
     "react": "^18",
     "react-calendar": "^5.0.0",
     "react-dom": "^18",
-    "react-intersection-observer": "^9.10.3",
-    "tailwind-merge": "^2.3.0"
+    "react-intersection-observer": "^9.10.2",
+    "tailwind-merge": "^2.3.0",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@types/node": "^20",
