@@ -72,7 +72,7 @@ const ReviewList = ({
               {reviewData.map((item, i) => {
                 return (
                   <React.Fragment key={`review-${item.id}`}>
-                    <Review />
+                    <Review reviewData={item} />
                     {i !== reviewData.length - 1 && (
                       <hr className="bg-nomad-black" />
                     )}

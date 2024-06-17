@@ -1,13 +1,30 @@
 import Image from "next/image";
 import React from "react";
 
-type Props = {};
+interface ReviewProps {
+  activityId: number;
+  content: string;
+  createdAt: string;
+  id: number;
+  rating: number;
+  updatedAt: string;
+  user: {
+    id: number;
+    nickname: string;
+    profileImageUrl: null | string;
+  };
+}
 
-const Review = (props: Props) => {
+const Review = ({ reviewData }: { reviewData: ReviewProps }) => {
+  const { createdAt, content, user } = reviewData;
   return (
     <section className="my-6 flex items-start justify-start gap-4">
       <Image
-        src="/testProfile.png"
+        src={
+          user.profileImageUrl !== null
+            ? user.profileImageUrl
+            : "/testProfile.png"
+        }
         alt=""
         width={45}
         height={45}
@@ -16,11 +33,14 @@ const Review = (props: Props) => {
       <div className="block">
         <div className="mb-2">
           <span className="font-bold">
-            이름<span className="font-normal">&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+            {user.nickname}
+            <span className="font-normal">&nbsp;&nbsp;|&nbsp;&nbsp;</span>
           </span>
-          <span className="leading-[162.5%] text-gray-60">작성 날짜</span>
+          <span className="leading-[162.5%] text-gray-60">
+            {createdAt.split("T")[0]}
+          </span>
         </div>
-        <p>후기 쫘라라라ㅏ라라락</p>
+        <p>{content}</p>
       </div>
     </section>
   );
