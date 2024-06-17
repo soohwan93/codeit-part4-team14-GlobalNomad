@@ -23,6 +23,7 @@ const KakaoMap = ({ address, activityTitle }: KakaoMapProps) => {
         var container = document.getElementById("map");
         var options = {
           center: new window.kakao.maps.LatLng(33.450701, 126.570667),
+          draggable: true,
           level: 4,
         };
 
