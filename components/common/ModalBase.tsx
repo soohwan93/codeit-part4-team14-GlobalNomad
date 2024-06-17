@@ -60,7 +60,7 @@ const ModalBase = ({
       <div
         id="modal"
         ref={modalRef}
-        className={`fixed flex h-screen w-screen flex-col justify-between bg-white p-6 pb-10 shadow-sm md:h-min md:w-[30rem] md:rounded-xl md:pb-8 md:outline md:outline-[#A4a1aa]
+        className={`fixed flex h-screen w-screen flex-col justify-between bg-white p-6 pb-10 shadow-sm md:h-min md:w-[30rem] md:rounded-xl md:pb-8 ${usePortal ? `md:outline-none ` : `md:outline md:outline-[#A4a1aa]`}
                   ${
                     usePortal
                       ? "right-0 top-0 md:fixed md:right-1/2 md:top-1/2 md:-translate-y-1/2 md:translate-x-1/2"
