@@ -2,6 +2,9 @@
 import React, { useEffect, useState } from "react";
 import useDropdownInput from "../common/useDropdownInput";
 import Image from "next/image";
+import useCalendar from "./useCalendar";
+import { subMonths } from "date-fns";
+import ReservationCalendar from "./ReservationCalendar";
 
 interface ActivityData {
   address: string;
@@ -29,6 +32,7 @@ const ReservationStatus = ({
     activitiesList,
     "체험 선택하기",
   );
+  const calendar = useCalendar();
 
   useEffect(() => {
     if (selected !== null) {
@@ -44,10 +48,7 @@ const ReservationStatus = ({
     <div className="w-full">
       {renderDropdown()}
       {selectedActivity !== null ? (
-        <section className="mb-24">
-          <div className="mx-auto w-fit">달력 좌우</div>
-          <div className="h-[800px] rounded bg-white">달력</div>
-        </section>
+        <ReservationCalendar />
       ) : (
         <div className="mx-auto mt-20 flex w-fit flex-col items-center">
           <Image
