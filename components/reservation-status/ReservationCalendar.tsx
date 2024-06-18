@@ -1,19 +1,23 @@
 "use client";
 import React from "react";
 import useCalendar from "./useCalendar";
+import { subMonths } from "date-fns";
 
 type Props = {};
 const DAY_LIST = ["SUN", "MON", "TUE", "WED", "THUR", "FRI", "SAT"];
 
 const ReservationCalendar = (props: Props) => {
   const calendar = useCalendar();
-  console.log(calendar.currentDate.toLocaleDateString().split(". "));
+  const handleMonthChange = (direction: number) => {
+    calendar.setCurrentDate(subMonths(calendar.currentDate, -direction));
+  };
 
   return (
     <section className="">
       <div className="mx-auto mb-6 mt-9 flex w-full max-w-[21.375rem] items-center justify-between py-1 text-xl font-bold leading-6 text-black">
         <button
           className="h-6 w-6 shrink-0 rotate-180 rounded-full bg-[url('/icons/arrow.svg')] bg-center bg-no-repeat hover:bg-gray-20"
+          onClick={() => handleMonthChange(-1)}
           type="button"
         />
         {calendar.currentDate.toLocaleDateString().split(". ")[0] +
@@ -22,6 +26,7 @@ const ReservationCalendar = (props: Props) => {
           "월"}
         <button
           className="h-6 w-6 shrink-0 rounded-full bg-[url('/icons/arrow.svg')] bg-center bg-no-repeat hover:bg-gray-20"
+          onClick={() => handleMonthChange(1)}
           type="button"
         />
       </div>
