@@ -4,6 +4,7 @@ import useCalendar from "./useCalendar";
 import { subMonths } from "date-fns";
 import { getMyActivityReservationDashBoard } from "@/util/api";
 import StatusChipList from "./StatusChipList";
+import ReservationPopup from "../common/ModalPortal";
 
 interface ReservationCalendarProps {
   selectedActivityId: number;
@@ -23,10 +24,13 @@ const DAY_LIST = ["SUN", "MON", "TUE", "WED", "THUR", "FRI", "SAT"];
 const ReservationCalendar = ({
   selectedActivityId,
 }: ReservationCalendarProps) => {
-  const calendar = useCalendar();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalType, setModalType] = useState("pending");
   const [reservationStatusOfMonth, setReservationStatusOfMonth] = useState<
     ReservationStatusOfMonth[]
   >([]);
+
+  const calendar = useCalendar();
   const currentMonth = useRef(
     calendar.currentDate.getFullYear() +
       "-" +
@@ -58,7 +62,11 @@ const ReservationCalendar = ({
     });
 
     setReservationStatusOfMonth(convertedArray);
-    console.log(calendar.currentDate.getDate());
+  };
+
+  const handleChipSelect = (type: string) => {
+    setModalType(type);
+    setIsModalOpen(true);
   };
 
   useEffect(() => {
@@ -113,9 +121,7 @@ const ReservationCalendar = ({
                     reservationInfo={
                       reservationStatusOfMonth[dayItem].reservations
                     }
-                    onChipClick={(chipType: string) => {
-                      console.log(chipType);
-                    }}
+                    onChipClick={handleChipSelect}
                   />
                 ) : (
                   ""
@@ -127,6 +133,11 @@ const ReservationCalendar = ({
           ),
         )}
       </div>
+      {isModalOpen && (
+        <ReservationPopup title="예약 정보" usePortal setState={setIsModalOpen}>
+          asdf
+        </ReservationPopup>
+      )}
     </section>
   );
 };
