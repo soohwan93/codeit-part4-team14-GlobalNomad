@@ -6,6 +6,7 @@ import { getMyActivityReservationDashBoard } from "@/util/api";
 import StatusChipList from "./StatusChipList";
 import ReservationPopup from "../common/ModalPortal";
 import ReservationModalContents from "./ReservationModalContents";
+import { ReservationsStatus } from "@/util/apiType";
 
 interface ReservationCalendarProps {
   selectedActivityId: number;
@@ -26,7 +27,7 @@ const ReservationCalendar = ({
   selectedActivityId,
 }: ReservationCalendarProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [modalType, setModalType] = useState("pending");
+  const [modalType, setModalType] = useState<ReservationsStatus>("pending");
   const [reservationStatusOfMonth, setReservationStatusOfMonth] = useState<
     ReservationStatusOfMonth[]
   >([]);
@@ -66,8 +67,13 @@ const ReservationCalendar = ({
     setReservationStatusOfMonth(convertedArray);
   };
 
-  const handleChipSelect = (type: string) => {
-    setModalType(type);
+  const handleChipSelect = (type: ReservationsStatus) => {
+    if (type === "declined" || "pending" || "confirmed") {
+      setModalType(type);
+    } else {
+      setModalType("pending");
+    }
+
     setIsModalOpen(true);
   };
 
@@ -143,6 +149,7 @@ const ReservationCalendar = ({
           <ReservationModalContents
             reservationData={reservationStatusOfMonth[selectedDay]}
             type={modalType}
+            activityId={selectedActivityId}
           />
         </ReservationPopup>
       )}
