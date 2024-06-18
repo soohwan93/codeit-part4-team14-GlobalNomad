@@ -30,6 +30,7 @@ const ReservationCalendar = ({
   const [reservationStatusOfMonth, setReservationStatusOfMonth] = useState<
     ReservationStatusOfMonth[]
   >([]);
+  const [selectedDay, setSelectedDay] = useState(1);
 
   const calendar = useCalendar();
   const currentMonth = useRef(
@@ -122,7 +123,10 @@ const ReservationCalendar = ({
                     reservationInfo={
                       reservationStatusOfMonth[dayItem].reservations
                     }
-                    onChipClick={handleChipSelect}
+                    onChipClick={(type) => {
+                      handleChipSelect(type);
+                      setSelectedDay(dayItem);
+                    }}
                   />
                 ) : (
                   ""
@@ -136,7 +140,10 @@ const ReservationCalendar = ({
       </div>
       {isModalOpen && (
         <ReservationPopup title="예약 정보" usePortal setState={setIsModalOpen}>
-          <ReservationModalContents type={modalType} />
+          <ReservationModalContents
+            reservationData={reservationStatusOfMonth[selectedDay]}
+            type={modalType}
+          />
         </ReservationPopup>
       )}
     </section>
