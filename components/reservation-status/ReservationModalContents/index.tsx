@@ -6,7 +6,7 @@ import {
   getMyActivityReservations,
   getMyActivityReservedSchedule,
 } from "@/util/api";
-import { ReservationsStatus } from "@/util/apiType";
+import ReservationCardList from "./ReservationCardList";
 
 interface ReservationModalContents {
   reservationData: {
@@ -40,7 +40,7 @@ interface ScheduleReservationType {
   activityId: number;
   status: string;
   reviewSubmitted: boolean;
-  totlaPrice: number;
+  totalPrice: number;
   headCount: number;
   date: string;
   startTime: string;
@@ -52,6 +52,7 @@ interface ScheduleReservationResponseType {
   totalCount: number;
   reservations: ScheduleReservationType[];
 }
+type ReservationsStatus = "declined" | "pending" | "confirmed" | "completed";
 
 const ReservationModalContents = ({
   type,
@@ -92,10 +93,17 @@ const ReservationModalContents = ({
     const selectedTime = wholeScheduleData.current.filter(
       (item) => item.startTime === time.split(" ~ ")[0],
     )[0];
-    const response = await getMyActivityReservations(activityId, {
-      scheduleId: selectedTime.scheduleId,
-      status: currentModalType,
-    });
+    const response: ScheduleReservationResponseType =
+      await getMyActivityReservations(activityId, {
+        scheduleId: selectedTime.scheduleId,
+        status: currentModalType,
+      });
+    setSelectedReservationStatusArray([
+      response.reservations.filter((item) => item.status === "pending").length,
+      response.reservations.filter((item) => item.status === "confirmed")
+        .length,
+      response.reservations.filter((item) => item.status === "declined").length,
+    ]);
     setScheduleReservationArray(response);
   };
   useEffect(() => {
@@ -124,7 +132,11 @@ const ReservationModalContents = ({
       <span className="mb-4 mt-7 block text-xl font-semibold leading-normal text-black">
         예약 내역
       </span>
-      {scheduleReservationArray && <div>aaaa</div>}
+      {scheduleReservationArray && (
+        <ReservationCardList
+          reservationList={scheduleReservationArray.reservations}
+        />
+      )}
     </div>
   );
 };
