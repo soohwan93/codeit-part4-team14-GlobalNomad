@@ -3,6 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import useCalendar from "./useCalendar";
 import { subMonths } from "date-fns";
 import { getMyActivityReservationDashBoard } from "@/util/api";
+import StatusChipList from "./StatusChipList";
 
 interface ReservationCalendarProps {
   selectedActivityId: number;
@@ -57,7 +58,7 @@ const ReservationCalendar = ({
     });
 
     setReservationStatusOfMonth(convertedArray);
-    console.log(convertedArray);
+    console.log(calendar.currentDate.getDate());
   };
 
   useEffect(() => {
@@ -97,10 +98,28 @@ const ReservationCalendar = ({
             dayItem !== 0 ? (
               <div
                 key={currentMonth.current + String(dayItem).padStart(2, "0")}
-                className="min-h-40 cursor-default flex-col justify-between bg-white p-4 font-mono text-xl font-medium leading-normal text-gray-50"
+                className="flex min-h-40 cursor-default flex-col justify-between bg-white p-0.5 font-mono text-xl font-medium leading-normal text-gray-50"
               >
-                {dayItem}
-                {reservationStatusOfMonth[dayItem] ? "asdf" : ""}
+                <div className="ml-4 mt-4 flex">
+                  {dayItem}
+                  {reservationStatusOfMonth[dayItem] && (
+                    <div
+                      className={`ml-1 mt-1 h-2 w-2 rounded-full ${calendar.currentDate.getDate() > dayItem ? "bg-gray-80" : "bg-blue-30"}`}
+                    />
+                  )}
+                </div>
+                {reservationStatusOfMonth[dayItem] ? (
+                  <StatusChipList
+                    reservationInfo={
+                      reservationStatusOfMonth[dayItem].reservations
+                    }
+                    onChipClick={(chipType: string) => {
+                      console.log(chipType);
+                    }}
+                  />
+                ) : (
+                  ""
+                )}
               </div>
             ) : (
               <div key={`dummyDay-${i}`} />
