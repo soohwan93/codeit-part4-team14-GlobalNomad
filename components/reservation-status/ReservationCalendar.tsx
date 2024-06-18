@@ -30,7 +30,7 @@ const ReservationCalendar = (props: Props) => {
           type="button"
         />
       </div>
-      <div className="grid h-[800px] auto-rows-min grid-cols-7 gap-0.5 overflow-hidden rounded border-[0.125rem] border-gray-20 bg-gray-20">
+      <div className="grid h-fit auto-rows-min grid-cols-7 gap-0.5 overflow-hidden rounded border-[0.125rem] border-gray-20 bg-gray-20">
         {DAY_LIST.map((item) => (
           <div
             className="h-fit bg-white py-2 text-center font-mono text-base font-medium leading-normal text-gray-60"
