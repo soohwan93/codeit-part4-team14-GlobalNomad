@@ -3,11 +3,16 @@ import React from "react";
 import useCalendar from "./useCalendar";
 import { subMonths } from "date-fns";
 
-type Props = {};
+interface ReservationCalendarProps {
+  selectedActivityId: number;
+}
 const DAY_LIST = ["SUN", "MON", "TUE", "WED", "THUR", "FRI", "SAT"];
 
-const ReservationCalendar = (props: Props) => {
+const ReservationCalendar = ({
+  selectedActivityId,
+}: ReservationCalendarProps) => {
   const calendar = useCalendar();
+
   const handleMonthChange = (direction: number) => {
     calendar.setCurrentDate(subMonths(calendar.currentDate, -direction));
   };
@@ -20,9 +25,9 @@ const ReservationCalendar = (props: Props) => {
           onClick={() => handleMonthChange(-1)}
           type="button"
         />
-        {calendar.currentDate.toLocaleDateString().split(". ")[0] +
+        {calendar.currentDate.getFullYear() +
           "년 " +
-          calendar.currentDate.toLocaleDateString().split(". ")[1] +
+          calendar.currentDate.getMonth() +
           "월"}
         <button
           className="h-6 w-6 shrink-0 rounded-full bg-[url('/icons/arrow.svg')] bg-center bg-no-repeat hover:bg-gray-20"
@@ -44,7 +49,7 @@ const ReservationCalendar = (props: Props) => {
             dayItem !== 0 ? (
               <div
                 key={`${dayItem}일`}
-                className="min-h-40 flex-col justify-between bg-white p-3 font-mono text-xl font-medium leading-normal text-gray-50"
+                className="min-h-40 flex-col justify-between bg-white p-4 font-mono text-xl font-medium leading-normal text-gray-50"
               >
                 {dayItem}
               </div>

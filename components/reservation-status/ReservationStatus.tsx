@@ -45,7 +45,7 @@ const ReservationStatus = ({
     <div className="w-full">
       {renderDropdown()}
       {selectedActivity !== null ? (
-        <ReservationCalendar />
+        <ReservationCalendar selectedActivityId={selectedActivity} />
       ) : (
         <div className="mx-auto mt-20 flex w-fit flex-col items-center">
           <Image
