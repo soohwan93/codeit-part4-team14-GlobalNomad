@@ -5,6 +5,7 @@ import { subMonths } from "date-fns";
 import { getMyActivityReservationDashBoard } from "@/util/api";
 import StatusChipList from "./StatusChipList";
 import ReservationPopup from "../common/ModalPortal";
+import ReservationModalContents from "./ReservationModalContents";
 
 interface ReservationCalendarProps {
   selectedActivityId: number;
@@ -108,7 +109,7 @@ const ReservationCalendar = ({
                 key={currentMonth.current + String(dayItem).padStart(2, "0")}
                 className="flex min-h-40 cursor-default flex-col justify-between bg-white p-0.5 font-mono text-xl font-medium leading-normal text-gray-50"
               >
-                <div className="ml-4 mt-4 flex">
+                <div className="ml-3 mt-4 flex">
                   {dayItem}
                   {reservationStatusOfMonth[dayItem] && (
                     <div
@@ -135,7 +136,7 @@ const ReservationCalendar = ({
       </div>
       {isModalOpen && (
         <ReservationPopup title="예약 정보" usePortal setState={setIsModalOpen}>
-          asdf
+          <ReservationModalContents type={modalType} />
         </ReservationPopup>
       )}
     </section>
