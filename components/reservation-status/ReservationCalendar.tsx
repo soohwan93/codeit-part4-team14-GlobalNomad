@@ -67,7 +67,7 @@ const ReservationCalendar = ({
 
   return (
     <section className="">
-      <div className="mx-auto mb-6 mt-9 flex w-full max-w-[21.375rem] items-center justify-between py-1 text-xl font-bold leading-6 text-black">
+      <div className="mx-auto mb-6 mt-9 flex w-full max-w-[21.375rem] cursor-default items-center justify-between py-1 text-xl font-bold leading-6 text-black">
         <button
           className="h-6 w-6 shrink-0 rotate-180 rounded-full bg-[url('/icons/arrow.svg')] bg-center bg-no-repeat hover:bg-gray-20"
           onClick={() => handleClickMonthChangeButton(-1)}
@@ -97,7 +97,7 @@ const ReservationCalendar = ({
             dayItem !== 0 ? (
               <div
                 key={currentMonth.current + String(dayItem).padStart(2, "0")}
-                className="min-h-40 flex-col justify-between bg-white p-4 font-mono text-xl font-medium leading-normal text-gray-50"
+                className="min-h-40 cursor-default flex-col justify-between bg-white p-4 font-mono text-xl font-medium leading-normal text-gray-50"
               >
                 {dayItem}
                 {reservationStatusOfMonth[dayItem] ? "asdf" : ""}
