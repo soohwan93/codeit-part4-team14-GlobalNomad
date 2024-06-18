@@ -12,7 +12,7 @@ const useCalendar = () => {
   const totalMonthDays = getDaysInMonth(currentDate);
 
   const prevDayList = Array.from({
-    length: Math.max(0, currentDate.getDay() + 5),
+    length: Math.max(0, currentDate.getDay() + 4),
   }).map(() => DEFAULT_TRASH_VALUE);
 
   const currentDayList = Array.from({ length: totalMonthDays }).map(
@@ -35,7 +35,9 @@ const useCalendar = () => {
     [],
   );
   return {
-    weekCalendarList: weekCalendarList,
+    weekCalendarList: weekCalendarList.filter(
+      (item) => item.indexOf(0) !== 0 || item.lastIndexOf(0) !== 6,
+    ),
     currentDate: currentDate,
     setCurrentDate: setCurrentDate,
   };

@@ -2,8 +2,6 @@
 import React, { useEffect, useState } from "react";
 import useDropdownInput from "../common/useDropdownInput";
 import Image from "next/image";
-import useCalendar from "./useCalendar";
-import { subMonths } from "date-fns";
 import ReservationCalendar from "./ReservationCalendar";
 
 interface ActivityData {
@@ -32,7 +30,6 @@ const ReservationStatus = ({
     activitiesList,
     "체험 선택하기",
   );
-  const calendar = useCalendar();
 
   useEffect(() => {
     if (selected !== null) {
