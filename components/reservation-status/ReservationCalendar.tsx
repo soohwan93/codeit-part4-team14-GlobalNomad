@@ -35,6 +35,7 @@ const ReservationCalendar = ({
   const [refreshSwitch, setRefreshSwitch] = useState(false);
 
   const calendar = useCalendar();
+  const initialized = useRef(false);
   const currentMonth = useRef(
     calendar.currentDate.getFullYear() +
       "-" +
@@ -42,9 +43,7 @@ const ReservationCalendar = ({
       "-",
   );
 
-  const handleClickMonthChangeButton = async (direction: number) => {
-    setReservationStatusOfMonth([]);
-    const directionInFunc = -direction;
+  const handleCalendarRefresh = async (directionInFunc: number) => {
     const year = subMonths(calendar.currentDate, directionInFunc).getFullYear();
     const month = String(
       subMonths(calendar.currentDate, directionInFunc).getMonth() + 1,
@@ -68,6 +67,12 @@ const ReservationCalendar = ({
     setReservationStatusOfMonth(convertedArray);
   };
 
+  const handleClickMonthChangeButton = async (direction: number) => {
+    setReservationStatusOfMonth([]);
+    const directionInFunc = -direction;
+    await handleCalendarRefresh(directionInFunc);
+  };
+
   const handleChipSelect = (type: ReservationsStatus) => {
     if (type === "declined" || "pending" || "confirmed") {
       setModalType(type);
@@ -79,7 +84,13 @@ const ReservationCalendar = ({
   };
 
   useEffect(() => {
-    handleClickMonthChangeButton(0);
+    if (initialized.current === false) {
+      handleClickMonthChangeButton(0);
+      initialized.current = true;
+    } else {
+      handleCalendarRefresh(0);
+    }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [refreshSwitch]);
 
@@ -151,9 +162,9 @@ const ReservationCalendar = ({
             reservationData={reservationStatusOfMonth[selectedDay]}
             type={modalType}
             activityId={selectedActivityId}
-            refresh={{
-              refreshSwitch: refreshSwitch,
-              setRefreshSwitch: setRefreshSwitch,
+            refreshSwitch={refreshSwitch}
+            setRefreshSwitch={() => {
+              setRefreshSwitch(!refreshSwitch);
             }}
           />
         </ReservationPopup>
