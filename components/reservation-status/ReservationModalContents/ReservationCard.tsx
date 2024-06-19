@@ -20,8 +20,10 @@ interface ScheduleReservationType {
 
 const ReservationCard = ({
   reservation,
+  setRefresh,
 }: {
   reservation: ScheduleReservationType;
+  setRefresh: () => void;
 }) => {
   const handleReservationConfirmed = async () => {
     const response = await patchMyActivityReservation(
@@ -31,12 +33,14 @@ const ReservationCard = ({
         status: "confirmed",
       },
     );
+    setRefresh();
   };
 
   const handleReservationDecline = async () => {
     await patchMyActivityReservation(reservation.activityId, reservation.id, {
       status: "declined",
     });
+    setRefresh();
   };
 
   return (

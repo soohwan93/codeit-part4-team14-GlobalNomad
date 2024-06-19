@@ -67,8 +67,8 @@ const ReservationModalContents = ({
   >(null);
   const [selectedReservationStatusArray, setSelectedReservationStatusArray] =
     useState<[number, number, number]>([0, 0, 0]);
+  const [refreshSwitch, setRefreshSwitch] = useState(false);
 
-  const wholeScheduleStatusData = useRef<ActivitySchedule[]>([]);
   const reservationCursorId = useRef<number>(0);
   const { selected, renderDropdown } = useDropdownInput(
     dayScheduleArray,
@@ -80,7 +80,6 @@ const ReservationModalContents = ({
     const response = await getMyActivityReservedSchedule(activityId, {
       date: reservationData.date,
     });
-    wholeScheduleStatusData.current = response;
     const scheduleArray = response.map(
       (item: ActivitySchedule) => item.startTime + " ~ " + item.endTime,
     );
@@ -88,7 +87,10 @@ const ReservationModalContents = ({
   };
 
   const handleChangeSchedule = async (time: string) => {
-    const selectedTime = wholeScheduleStatusData.current.filter(
+    const aresponse = await getMyActivityReservedSchedule(activityId, {
+      date: reservationData.date,
+    });
+    const selectedTime = aresponse.filter(
       (item) => item.startTime === time.split(" ~ ")[0],
     )[0];
     const response: ScheduleReservationResponseType =
@@ -120,7 +122,7 @@ const ReservationModalContents = ({
       handleChangeSchedule(selected);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selected, currentModalType]);
+  }, [selected, currentModalType, refreshSwitch]);
 
   return (
     <div className="h-[33rem] max-h-[33rem] overflow-hidden">
@@ -142,7 +144,10 @@ const ReservationModalContents = ({
         예약 내역
       </span>
 
-      <ReservationCardList reservationList={scheduleReservationArray} />
+      <ReservationCardList
+        reservationList={scheduleReservationArray}
+        setRefresh={() => setRefreshSwitch(!refreshSwitch)}
+      />
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { SetStateAction } from "react";
 import ReservationCard from "./ReservationCard";
 import { ReservationsStatus } from "@/util/apiType";
 
@@ -19,15 +19,17 @@ interface ScheduleReservationType {
 
 const ReservationCardList = ({
   reservationList,
+  setRefresh,
 }: {
-  reservationList: ScheduleReservationType[];
+  reservationList: ScheduleReservationType[] | null;
+  setRefresh: () => void;
 }) => {
   return (
     <div className="flex max-h-[15rem] flex-col gap-2 overflow-scroll">
       {reservationList !== null && reservationList.length !== 0 ? (
         reservationList.map((item) => (
           <React.Fragment key={item.id}>
-            <ReservationCard reservation={item} />
+            <ReservationCard reservation={item} setRefresh={setRefresh} />
           </React.Fragment>
         ))
       ) : (
