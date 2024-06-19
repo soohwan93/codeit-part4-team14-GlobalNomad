@@ -5,6 +5,8 @@ import GNB from "@/components/common/GNB";
 import Footer from "@/components/common/Footer";
 import { SessionProviderWrapper } from "@/contexts/SessionProviderWrapper";
 import { SessionProvider } from "next-auth/react";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { useState } from "react";
 
 const pretendard = localFont({
   src: "../../public/fonts/PretendardVariable.woff2",
@@ -23,16 +25,21 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // Create a client
+  const [queryClient] = useState(() => new QueryClient());
+
   return (
     <html lang="ko">
       <body className={pretendard.className}>
         <SessionProvider>
-          <SessionProviderWrapper>
-            <GNB />
-            {children}
-            <Footer />
-            <div id="portal"></div>
-          </SessionProviderWrapper>
+          <QueryClientProvider client={queryClient}>
+            <SessionProviderWrapper>
+              <GNB />
+              {children}
+              <Footer />
+              <div id="portal"></div>
+            </SessionProviderWrapper>
+          </QueryClientProvider>
         </SessionProvider>
       </body>
     </html>
