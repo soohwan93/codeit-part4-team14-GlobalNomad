@@ -1,32 +1,66 @@
 "use client";
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 
 /**
  *
  * @param {string[]} dataArray 현재 드롭다운에서 보여줄 데이터 목록을 받습니다.
  * @param {string} type 현재 드롭다운이 어떤 종류인지 보여줄 항목입니다. defaultValue가 null일 경우, 이것을 보여줍니다.
  * @param {string} defaultValue 수정 등의 경우 현재 드롭다운에서 기본으로 선택할 값을 받습니다. 없을 경우 null로 처리됩니다.
+ * @param {boolean} error 에러가 있을 시 테두리가 빨간색으로 지정됩니다.
+ * @param {string} errorMessage 에러에 대한 메시지입니다.
  * @returns
  */
 const useDropdownInput = (
   dataArray: string[],
   type: string,
   defaultValue: string | null = null,
+  error?: boolean,
+  setCategoryError?: React.Dispatch<React.SetStateAction<boolean>>,
+  errorMessage?: string,
 ) => {
+  const inputDropdownRef = useRef<HTMLDivElement>(null);
   const [selected, setSelected] = useState(defaultValue);
   const [isOpen, setIsOpen] = useState(false);
 
   const handleSelectChild = (select: string) => {
     setSelected(select);
     setIsOpen(false);
+    setCategoryError?.(false);
   };
+
+  const handleClickOutside = useCallback(
+    (event: MouseEvent) => {
+      if (
+        inputDropdownRef.current &&
+        !inputDropdownRef.current.contains(event.target as Node)
+      ) {
+        if (!selected) {
+          setCategoryError?.(true);
+        }
+        setIsOpen(false);
+      }
+    },
+    [selected, setCategoryError],
+  );
+
+  useEffect(() => {
+    if (isOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isOpen, handleClickOutside]);
 
   const renderDropdown = () => {
     return (
       <>
-        <div className="relative z-[1]">
+        <div className="relative z-[1]" ref={inputDropdownRef}>
           <div
-            className={`flex h-12 w-full cursor-pointer items-center justify-between overflow-hidden rounded border-[1px] border-black pl-2 pr-1.5 text-sm leading-[162.5%] md:h-14 md:pl-4 md:text-base 
+            className={`flex h-[62px] w-full cursor-pointer items-center justify-between overflow-hidden rounded border-[1px] ${error ? "border-red-20" : "border-gray-70"} pl-2 pr-1.5 text-sm leading-[162.5%] md:h-14 md:pl-4 md:text-base 
             ${selected === null ? "text-gray-60" : "text-black"}`}
             onClick={() => setIsOpen(!isOpen)}
           >
@@ -52,6 +86,9 @@ const useDropdownInput = (
               </li>
             ))}
           </ul>
+          <div className="ml-2 mt-2 h-[14px] text-start text-xs font-normal text-red-20">
+            {error && <span>{errorMessage}</span>}
+          </div>
         </div>
         {isOpen && (
           <div
