@@ -1,6 +1,7 @@
 import React, { InputHTMLAttributes } from "react";
 
-interface Props extends InputHTMLAttributes<HTMLInputElement> {
+interface Props {
+  required?: boolean;
   fontSize?: "lg" | "md";
   htmlFor: string;
   labelText: string;
@@ -14,19 +15,20 @@ interface Props extends InputHTMLAttributes<HTMLInputElement> {
  * @returns
  */
 const Label = ({
+  required,
   fontSize = "md",
   htmlFor,
   labelText,
   children,
-  ...props
 }: Props) => {
   return (
-    <div className="flex flex-col gap-3" {...props}>
+    <div className="flex w-full flex-col gap-3">
       <label
         htmlFor={htmlFor}
         className={`${fontSize === "lg" ? `text-2xl` : `text-xl`} font-bold`}
       >
         {labelText}
+        {required && <span className="pl-2 text-red-500">*</span>}
       </label>
       {children}
     </div>
