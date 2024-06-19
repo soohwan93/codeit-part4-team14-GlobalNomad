@@ -44,14 +44,14 @@ const ReservationTypeSelector = ({
 
         <button
           className="group flex h-10 flex-col justify-between"
-          onClick={() => setType("denied")}
+          onClick={() => setType("declined")}
           type="button"
         >
           <span className="col-start-1 row-start-1 px-3 py-1">
             거절 {selectedReservationData[2]}
           </span>
           <div
-            className={`w-full rounded-t border-[1px] border-white duration-200 ${type === "denied" ? "h-1 bg-nomad-black" : "h-0"} 
+            className={`w-full rounded-t border-[1px] border-white duration-200 ${type === "declined" ? "h-1 bg-nomad-black" : "h-0"} 
                         group-hover:h-full group-hover:border-nomad-black`}
           />
         </button>

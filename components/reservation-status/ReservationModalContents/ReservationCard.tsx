@@ -1,4 +1,6 @@
 import Button from "@/components/common/Button";
+import { patchMyActivityReservation } from "@/util/api";
+import { ReservationsStatus } from "@/util/apiType";
 import React from "react";
 
 interface ScheduleReservationType {
@@ -7,7 +9,7 @@ interface ScheduleReservationType {
   userId: number;
   teamId: string;
   activityId: number;
-  status: string;
+  status: ReservationsStatus;
   reviewSubmitted: boolean;
   totalPrice: number;
   headCount: number;
@@ -21,8 +23,24 @@ const ReservationCard = ({
 }: {
   reservation: ScheduleReservationType;
 }) => {
+  const handleReservationConfirmed = async () => {
+    const response = await patchMyActivityReservation(
+      reservation.activityId,
+      reservation.id,
+      {
+        status: "confirmed",
+      },
+    );
+  };
+
+  const handleReservationDecline = async () => {
+    await patchMyActivityReservation(reservation.activityId, reservation.id, {
+      status: "declined",
+    });
+  };
+
   return (
-    <div className="rounded border-[1px] border-gray-30 p-3 ">
+    <div className="min-h-[7.125rem] rounded border-[1px] border-gray-30 p-3">
       <div className="flex flex-col">
         <span className="text-base font-semibold leading-normal text-gray-70">
           닉네임:&nbsp;
@@ -40,18 +58,28 @@ const ReservationCard = ({
       <div className="flex justify-end gap-2">
         {reservation.status === "pending" ? (
           <>
-            <Button variant="primary" size="sm">
+            <Button
+              variant="primary"
+              size="sm"
+              onClick={() => handleReservationConfirmed()}
+            >
               승인하기
             </Button>
-            <Button variant="white" size="sm">
+            <Button
+              variant="white"
+              size="sm"
+              onClick={() => handleReservationDecline()}
+            >
               거절하기
             </Button>
           </>
         ) : (
           <div
-            className={`px-4 py-2.5 text-sm font-bold leading-normal 
+            className={`rounded-full px-4 py-2 text-sm font-bold leading-normal
             ${reservation.status === "confirmed" ? "bg-blue-30 text-white" : "bg-red-10 text-red-20"}`}
-          ></div>
+          >
+            {reservation.status === "confirmed" ? "예약 승인" : "예약 거절"}
+          </div>
         )}
       </div>
     </div>

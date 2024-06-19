@@ -1,5 +1,6 @@
 import React from "react";
 import ReservationCard from "./ReservationCard";
+import { ReservationsStatus } from "@/util/apiType";
 
 interface ScheduleReservationType {
   id: number;
@@ -7,7 +8,7 @@ interface ScheduleReservationType {
   userId: number;
   teamId: string;
   activityId: number;
-  status: string;
+  status: ReservationsStatus;
   reviewSubmitted: boolean;
   totalPrice: number;
   headCount: number;
@@ -30,7 +31,7 @@ const ReservationCardList = ({
           </React.Fragment>
         ))
       ) : (
-        <div className="m-auto flex w-fit items-center justify-center text-center">
+        <div className="flex h-[12rem] w-full items-center justify-center text-center">
           해당 유형의 예약 내역이 없습니다.
         </div>
       )}

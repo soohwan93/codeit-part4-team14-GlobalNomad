@@ -67,71 +67,66 @@ const ReservationModalContents = ({
   >(null);
   const [selectedReservationStatusArray, setSelectedReservationStatusArray] =
     useState<[number, number, number]>([0, 0, 0]);
-  const wholeScheduleData = useRef<ActivitySchedule[]>([]);
-  const wholeReservationOfScheduleData = useRef<ScheduleReservationType[]>([]);
-  const selectedDate = reservationData.date.split("-");
 
+  const wholeScheduleStatusData = useRef<ActivitySchedule[]>([]);
+  const reservationCursorId = useRef<number>(0);
   const { selected, renderDropdown } = useDropdownInput(
     dayScheduleArray,
     "예약 일정을 선택해 주세요.",
   );
-
-  const handleModalType = (type: ReservationsStatus) => {
-    setCurrentModalType(type);
-    setScheduleReservationArray(
-      wholeReservationOfScheduleData.current.filter(
-        (item) => item.status === type,
-      ),
-    );
-  };
+  const selectedDate = reservationData.date.split("-");
 
   const handleGetCurrentDaySchedule = async () => {
     const response = await getMyActivityReservedSchedule(activityId, {
       date: reservationData.date,
     });
-    wholeScheduleData.current = response;
+    wholeScheduleStatusData.current = response;
     const scheduleArray = response.map(
       (item: ActivitySchedule) => item.startTime + " ~ " + item.endTime,
     );
     setDayScheduleArray(scheduleArray);
   };
-  useEffect(() => {
-    handleGetCurrentDaySchedule();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   const handleChangeSchedule = async (time: string) => {
-    const selectedTime = wholeScheduleData.current.filter(
+    const selectedTime = wholeScheduleStatusData.current.filter(
       (item) => item.startTime === time.split(" ~ ")[0],
     )[0];
     const response: ScheduleReservationResponseType =
       await getMyActivityReservations(activityId, {
         scheduleId: selectedTime.scheduleId,
-        status: currentModalType,
+        status: currentModalType === "completed" ? "pending" : currentModalType,
+        size: "10",
       });
+
     setSelectedReservationStatusArray([
-      response.reservations.filter((item) => item.status === "pending").length,
-      response.reservations.filter((item) => item.status === "confirmed")
-        .length,
-      response.reservations.filter((item) => item.status === "declined").length,
+      selectedTime.count.pending,
+      selectedTime.count.confirmed,
+      selectedTime.count.declined,
     ]);
-    wholeReservationOfScheduleData.current = response.reservations;
-    setScheduleReservationArray(
-      response.reservations.filter((item) => item.status === type),
-    );
+
+    reservationCursorId.current = response.cursorId;
+    console.log(response);
+
+    setScheduleReservationArray(response.reservations);
   };
+
+  useEffect(() => {
+    handleGetCurrentDaySchedule();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   useEffect(() => {
     if (selected) {
       handleChangeSchedule(selected);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selected]);
+  }, [selected, currentModalType]);
 
   return (
     <div className="h-[33rem] max-h-[33rem] overflow-hidden">
       <ReservationTypeSelector
         type={currentModalType}
-        setType={handleModalType}
+        setType={setCurrentModalType}
         selectedReservationData={selectedReservationStatusArray}
       />
       <div>

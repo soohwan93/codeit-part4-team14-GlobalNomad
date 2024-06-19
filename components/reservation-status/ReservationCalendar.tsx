@@ -120,7 +120,7 @@ const ReservationCalendar = ({
                   {dayItem}
                   {reservationStatusOfMonth[dayItem] && (
                     <div
-                      className={`ml-1 mt-1 h-2 w-2 rounded-full ${calendar.currentDate.getDate() > dayItem ? "bg-gray-80" : "bg-blue-30"}`}
+                      className={`ml-1 mt-1 h-2 w-2 rounded-full ${new Date().getDate() > dayItem ? "bg-gray-80" : "bg-blue-30"}`}
                     />
                   )}
                 </div>
