@@ -48,16 +48,22 @@ export async function fetcher(
     headers.append("Authorization", `Bearer ${accessToken}`);
   }
 
-  if (body) {
-    headers.append("Content-Type", "application/json");
-  }
-
   const options: RequestInit = {
     method,
     headers,
     body: body ? JSON.stringify(body) : null,
   };
 
+  if (body) {
+    if (body instanceof FormData) {
+      options.body = body;
+    } else {
+      headers.append("Content-Type", "application/json");
+      options.body = JSON.stringify(body);
+    }
+  }
+  console.log(options);
+  console.log(endpoint);
   // 원격 서버로 요청을 전송
   const response = await fetch(`${BASE_URL}${endpoint}`, options);
 
