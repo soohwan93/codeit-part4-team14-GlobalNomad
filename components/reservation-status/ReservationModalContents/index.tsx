@@ -114,7 +114,7 @@ const ReservationModalContents = ({
   }, [selected]);
 
   return (
-    <div className="h-[37.5rem] max-h-[37.5rem] overflow-hidden">
+    <div className="h-[33rem] max-h-[33rem] overflow-hidden">
       <ReservationTypeSelector
         type={currentModalType}
         setType={setCurrentModalType}

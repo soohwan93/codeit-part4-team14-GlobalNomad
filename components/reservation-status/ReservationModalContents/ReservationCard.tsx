@@ -25,19 +25,19 @@ const ReservationCard = ({
     <div className="rounded border-[1px] border-gray-30 p-3 ">
       <div className="flex flex-col">
         <span className="text-base font-semibold leading-normal text-gray-70">
-          닉네임
+          닉네임:&nbsp;
           <span className="text-base font-medium leading-normal text-black">
             {reservation.nickname}
           </span>
         </span>
         <span className="text-base font-semibold leading-normal text-gray-70">
-          인원
+          인원:&nbsp;
           <span className="text-base font-medium leading-normal text-black">
             {reservation.headCount}
           </span>
         </span>
       </div>
-      <div>
+      <div className="flex justify-end gap-2">
         {reservation.status === "pending" ? (
           <>
             <Button variant="primary" size="sm">

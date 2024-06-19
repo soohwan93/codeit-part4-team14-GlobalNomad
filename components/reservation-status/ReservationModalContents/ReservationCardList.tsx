@@ -22,13 +22,13 @@ const ReservationCardList = ({
   reservationList: ScheduleReservationType[];
 }) => {
   return (
-    <>
+    <div className="flex max-h-[15rem] flex-col gap-2 overflow-scroll">
       {reservationList.map((item) => (
         <React.Fragment key={item.id}>
           <ReservationCard reservation={item} />
         </React.Fragment>
       ))}
-    </>
+    </div>
   );
 };
 
