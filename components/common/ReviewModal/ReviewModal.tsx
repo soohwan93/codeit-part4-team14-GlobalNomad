@@ -1,10 +1,9 @@
-"use client";
-
 import React, { useState, useRef, ChangeEvent, KeyboardEvent, useCallback } from "react";
 import Image from "next/image";
 import StarRating from "./StarRating";
 import { Reservation } from "./ReviewType";
 import ReservationPopup from "../ModalPortal";
+import { postMyReservationReview } from "@/util/api";
 
 type ReviewModalProps = {
   reservation: Reservation;
@@ -16,10 +15,21 @@ const ReviewModal = ({ reservation, setState }: ReviewModalProps) => {
   const [reviewText, setReviewText] = useState("");
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
-  const handleSubmit = useCallback(() => {
-    console.log("Review submitted:", { rating, reviewText });
-    setState(false);
-  }, [rating, reviewText, setState]);
+  const handleSubmit = useCallback(async () => {
+    try {
+      const reviewData = {
+        rating,
+        content: reviewText, 
+      };
+
+      await postMyReservationReview(reservation.id, reviewData);
+      console.log("Review submitted:", { rating, reviewText });
+
+      setState(false);
+    } catch (error) {
+      console.error("Error submitting review:", error);
+    }
+  }, [rating, reviewText, reservation.id, setState]);
 
   const handleReviewChange = useCallback((event: ChangeEvent<HTMLTextAreaElement>) => {
     setReviewText(event.target.value);
