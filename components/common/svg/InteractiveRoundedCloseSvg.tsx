@@ -6,13 +6,10 @@ type Props = { onClick?: () => void };
 const InteractiveRoundedCloseSvg = ({ onClick }: Props) => {
   return (
     <>
-      <div className="hidden md:hidden xl:block" onClick={onClick}>
-        <RoundedCloseSvg size="large" />
-      </div>
-      <div className="hidden md:block xl:hidden" onClick={onClick}>
+      <div className="hidden md:block " onClick={onClick}>
         <RoundedCloseSvg size="middle" />
       </div>
-      <div className="block md:hidden xl:hidden" onClick={onClick}>
+      <div className="block md:hidden " onClick={onClick}>
         <RoundedCloseSvg size="small" />
       </div>
     </>
