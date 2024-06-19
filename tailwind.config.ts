@@ -1,7 +1,8 @@
 import type { Config } from "tailwindcss";
-
+const flowbite = require("flowbite-react/tailwind");
 const config: Config = {
   content: [
+    flowbite.content(),
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
@@ -38,6 +39,6 @@ const config: Config = {
       },
     },
   },
-  plugins: [require("@tailwindcss/line-clamp")],
+  plugins: [require("@tailwindcss/line-clamp"), flowbite.plugin()],
 };
 export default config;

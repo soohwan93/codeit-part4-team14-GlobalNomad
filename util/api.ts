@@ -1,3 +1,4 @@
+import { auth } from "@/auth";
 import {
   ActivityImagesBody,
   ActivityQuerys,
@@ -23,31 +24,10 @@ import {
 } from "./apiType";
 
 import { convertQuery } from "./querySetting";
+import { fetcher } from "./actions";
 
 // 기본 url
 export const BASE_URL = "https://sp-globalnomad-api.vercel.app/4-14";
-
-async function fetcher(endpoint: string, method: FetchMethod, body?: Object) {
-  console.log(method);
-  const response = await fetch("/api/fetchWithToken", {
-    method: "POST",
-    headers: {
-      "Content-type": "application/json",
-    },
-    body: JSON.stringify({
-      endpoint,
-      method,
-      body,
-    }),
-  });
-  if (!response.ok) {
-    const errorResponse = await response.json();
-    console.error(errorResponse.message);
-    throw new Error(errorResponse.message);
-  }
-
-  return response.json();
-}
 
 /** Activities
  * 체험 리스트 조회
@@ -108,34 +88,11 @@ export function postActivityImages(body: ActivityImagesBody) {
 
 /** Auth
  * 로그인
- * 로그아웃
  */
 
-// 로그인(httpOnly 쿠키는 클라이언트에서 저장할 수 없어 서버에서 저장)
+// 로그인
 export async function postLogin(body: LoginBody) {
-  const response = await fetch("/api/login", {
-    method: "POST",
-    headers: {
-      "Content-type": "application/json",
-    },
-    body: JSON.stringify({
-      endpoint: "/auth/login",
-      method: "POST",
-      body,
-    }),
-  });
-  if (!response.ok) {
-    const errorResponse = await response.json();
-    console.error(errorResponse.message);
-    throw new Error(errorResponse.message);
-  }
-
-  return response.json();
-}
-
-// 로그아웃(쿠키제거 로직)
-export async function logout() {
-  await fetch("/api/logout", { method: "POST" });
+  return fetcher(`/auth/login`, "POST", body);
 }
 
 /** MyActivities
@@ -149,8 +106,9 @@ export async function logout() {
  */
 
 // 내 체험 리스트 조회
-export function getMyActivities(query: MyActivitiesQuery) {
-  const q = convertQuery(query);
+export function getMyActivities(query?: MyActivitiesQuery) {
+  const q = query ? convertQuery(query) : "";
+  console.log(q);
   return fetcher(`/my-activities${q}`, "GET");
 }
 

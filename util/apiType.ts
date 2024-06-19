@@ -42,9 +42,9 @@ export interface AvailableScheduleQuery {
 
 // 내 체험 리스트 조회 쿼리 타입
 export interface MyActivitiesQuery {
-  [key: string]: number;
-  cursorId: number;
-  size: number;
+  [key: string]: number | undefined;
+  cursorId?: number;
+  size?: number;
 }
 
 // 내 체험 월별 예약 현황 조회 쿼리 타입
