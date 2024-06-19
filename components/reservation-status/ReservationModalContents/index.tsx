@@ -62,17 +62,28 @@ const ReservationModalContents = ({
   const [currentModalType, setCurrentModalType] =
     useState<ReservationsStatus>(type);
   const [dayScheduleArray, setDayScheduleArray] = useState<string[]>([]);
-  const [scheduleReservationArray, setScheduleReservationArray] =
-    useState<ScheduleReservationResponseType | null>(null);
+  const [scheduleReservationArray, setScheduleReservationArray] = useState<
+    ScheduleReservationType[] | null
+  >(null);
   const [selectedReservationStatusArray, setSelectedReservationStatusArray] =
     useState<[number, number, number]>([0, 0, 0]);
   const wholeScheduleData = useRef<ActivitySchedule[]>([]);
+  const wholeReservationOfScheduleData = useRef<ScheduleReservationType[]>([]);
   const selectedDate = reservationData.date.split("-");
 
   const { selected, renderDropdown } = useDropdownInput(
     dayScheduleArray,
     "예약 일정을 선택해 주세요.",
   );
+
+  const handleModalType = (type: ReservationsStatus) => {
+    setCurrentModalType(type);
+    setScheduleReservationArray(
+      wholeReservationOfScheduleData.current.filter(
+        (item) => item.status === type,
+      ),
+    );
+  };
 
   const handleGetCurrentDaySchedule = async () => {
     const response = await getMyActivityReservedSchedule(activityId, {
@@ -104,7 +115,10 @@ const ReservationModalContents = ({
         .length,
       response.reservations.filter((item) => item.status === "declined").length,
     ]);
-    setScheduleReservationArray(response);
+    wholeReservationOfScheduleData.current = response.reservations;
+    setScheduleReservationArray(
+      response.reservations.filter((item) => item.status === type),
+    );
   };
   useEffect(() => {
     if (selected) {
@@ -117,7 +131,7 @@ const ReservationModalContents = ({
     <div className="h-[33rem] max-h-[33rem] overflow-hidden">
       <ReservationTypeSelector
         type={currentModalType}
-        setType={setCurrentModalType}
+        setType={handleModalType}
         selectedReservationData={selectedReservationStatusArray}
       />
       <div>
@@ -132,11 +146,8 @@ const ReservationModalContents = ({
       <span className="mb-4 mt-7 block text-xl font-semibold leading-normal text-black">
         예약 내역
       </span>
-      {scheduleReservationArray && (
-        <ReservationCardList
-          reservationList={scheduleReservationArray.reservations}
-        />
-      )}
+
+      <ReservationCardList reservationList={scheduleReservationArray} />
     </div>
   );
 };

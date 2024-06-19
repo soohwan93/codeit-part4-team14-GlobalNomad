@@ -23,11 +23,17 @@ const ReservationCardList = ({
 }) => {
   return (
     <div className="flex max-h-[15rem] flex-col gap-2 overflow-scroll">
-      {reservationList.map((item) => (
-        <React.Fragment key={item.id}>
-          <ReservationCard reservation={item} />
-        </React.Fragment>
-      ))}
+      {reservationList !== null && reservationList.length !== 0 ? (
+        reservationList.map((item) => (
+          <React.Fragment key={item.id}>
+            <ReservationCard reservation={item} />
+          </React.Fragment>
+        ))
+      ) : (
+        <div className="m-auto flex w-fit items-center justify-center text-center">
+          해당 유형의 예약 내역이 없습니다.
+        </div>
+      )}
     </div>
   );
 };
