@@ -66,9 +66,8 @@ const ReservationModalContents = ({
   const [currentModalType, setCurrentModalType] =
     useState<ReservationsStatus>(type);
   const [dayScheduleArray, setDayScheduleArray] = useState<string[]>([]);
-  const [scheduleReservationArray, setScheduleReservationArray] = useState<
-    ScheduleReservationType[] | null
-  >(null);
+  const [firstScheduleReservationArray, setFirstScheduleReservationArray] =
+    useState<ScheduleReservationType[] | null>(null);
   const [selectedReservationStatusArray, setSelectedReservationStatusArray] =
     useState<[number, number, number]>([0, 0, 0]);
   const selectedDateBuffer = useRef<string[]>([]);
@@ -101,12 +100,6 @@ const ReservationModalContents = ({
     const selectedTime = statusResponse.filter(
       (item) => item.startTime === time.split(" ~ ")[0],
     )[0];
-    const response: ScheduleReservationResponseType =
-      await getMyActivityReservations(activityId, {
-        scheduleId: selectedTime.scheduleId,
-        status: currentModalType === "completed" ? "pending" : currentModalType,
-        size: "10",
-      });
 
     setSelectedReservationStatusArray([
       selectedTime.count.pending,
@@ -114,9 +107,15 @@ const ReservationModalContents = ({
       selectedTime.count.declined,
     ]);
 
+    const response: ScheduleReservationResponseType =
+      await getMyActivityReservations(activityId, {
+        scheduleId: selectedTime.scheduleId,
+        status: currentModalType === "completed" ? "pending" : currentModalType,
+        size: "3",
+      });
+    console.log(response.cursorId);
     reservationCursorId.current = response.cursorId;
-
-    setScheduleReservationArray(response.reservations);
+    setFirstScheduleReservationArray(response.reservations);
   };
 
   useEffect(() => {
@@ -152,7 +151,8 @@ const ReservationModalContents = ({
       </span>
 
       <ReservationCardList
-        reservationList={scheduleReservationArray}
+        firstReservationList={firstScheduleReservationArray}
+        firstCursorId={reservationCursorId.current}
         setRefresh={setRefreshSwitch}
       />
     </div>
