@@ -62,8 +62,7 @@ export async function fetcher(
       options.body = JSON.stringify(body);
     }
   }
-  console.log(options);
-  console.log(endpoint);
+
   // 원격 서버로 요청을 전송
   const response = await fetch(`${BASE_URL}${endpoint}`, options);
 
