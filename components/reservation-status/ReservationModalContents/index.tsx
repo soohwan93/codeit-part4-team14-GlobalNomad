@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
+import React, { SetStateAction, useEffect, useRef, useState } from "react";
 import ReservationTypeSelector from "./ReservationTypeSelector";
 import useDropdownInput from "@/components/common/useDropdownInput";
 import {
@@ -19,6 +19,10 @@ interface ReservationModalContents {
   };
   type: string;
   activityId: number;
+  refresh: {
+    refreshSwitch: boolean;
+    setRefreshSwitch: React.Dispatch<SetStateAction<boolean>>;
+  };
 }
 
 interface ActivitySchedule {
@@ -58,6 +62,7 @@ const ReservationModalContents = ({
   type,
   reservationData,
   activityId,
+  refresh,
 }: ReservationModalContents) => {
   const [currentModalType, setCurrentModalType] =
     useState<ReservationsStatus>(type);
@@ -67,7 +72,6 @@ const ReservationModalContents = ({
   >(null);
   const [selectedReservationStatusArray, setSelectedReservationStatusArray] =
     useState<[number, number, number]>([0, 0, 0]);
-  const [refreshSwitch, setRefreshSwitch] = useState(false);
 
   const reservationCursorId = useRef<number>(0);
   const { selected, renderDropdown } = useDropdownInput(
@@ -122,7 +126,7 @@ const ReservationModalContents = ({
       handleChangeSchedule(selected);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selected, currentModalType, refreshSwitch]);
+  }, [selected, currentModalType, refresh.refreshSwitch]);
 
   return (
     <div className="h-[33rem] max-h-[33rem] overflow-hidden">
@@ -146,7 +150,7 @@ const ReservationModalContents = ({
 
       <ReservationCardList
         reservationList={scheduleReservationArray}
-        setRefresh={() => setRefreshSwitch(!refreshSwitch)}
+        setRefresh={() => refresh.setRefreshSwitch(!refresh.refreshSwitch)}
       />
     </div>
   );

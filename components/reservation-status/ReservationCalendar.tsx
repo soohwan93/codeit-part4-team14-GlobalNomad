@@ -32,6 +32,7 @@ const ReservationCalendar = ({
     ReservationStatusOfMonth[]
   >([]);
   const [selectedDay, setSelectedDay] = useState(1);
+  const [refreshSwitch, setRefreshSwitch] = useState(false);
 
   const calendar = useCalendar();
   const currentMonth = useRef(
@@ -80,7 +81,7 @@ const ReservationCalendar = ({
   useEffect(() => {
     handleClickMonthChangeButton(0);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [refreshSwitch]);
 
   return (
     <section className="">
@@ -150,6 +151,10 @@ const ReservationCalendar = ({
             reservationData={reservationStatusOfMonth[selectedDay]}
             type={modalType}
             activityId={selectedActivityId}
+            refresh={{
+              refreshSwitch: refreshSwitch,
+              setRefreshSwitch: setRefreshSwitch,
+            }}
           />
         </ReservationPopup>
       )}
