@@ -24,7 +24,7 @@ interface Props {
   setFormattedSchedules: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const ActivityCreateForm = (props: Props) => {
+const ActivityCreateOrUpdateForm = (props: Props) => {
   const {
     titleError,
     descriptionError,
@@ -181,4 +181,4 @@ const ActivityCreateForm = (props: Props) => {
   );
 };
 
-export default ActivityCreateForm;
+export default ActivityCreateOrUpdateForm;

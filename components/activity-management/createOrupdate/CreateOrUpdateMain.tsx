@@ -2,18 +2,22 @@
 
 import useDropdownInput from "@/components/common/useDropdownInput";
 import React, { useEffect, useState } from "react";
-import ActivityCreateHeader from "./ActivityCreateHeader";
-import ActivityCreateForm from "./ActivityCreateForm";
+import ActivityCreateOrUpdateHeader from "./ActivityCreateOrUpdateHeader";
+import ActivityCreateOrUpdateForm from "./ActivityCreateOrUpdateForm";
 import { PostActivityBody } from "@/util/apiType";
 import { postActivity } from "@/util/api";
 import { useNotification } from "@/contexts/NotificationContext";
 import { useRouter } from "next/navigation";
 import { validateActivityCreate } from "@/util/validation";
 import { ERROR_MESSAGE, NO_IMAGE_URL } from "@/util/constraints";
+import { ActivityResponseById } from "@/app/(app)/activity-management/[activityId]/page";
 
-type Props = {};
+interface CreateMainProps {
+  responseApiData?: ActivityResponseById | null;
+}
 
-const CreateMain = (props: Props) => {
+const CreateOrUpdateMain = ({ responseApiData }: CreateMainProps) => {
+  console.log(responseApiData);
   const router = useRouter();
   const { isOpen, showNotification } = useNotification();
 
@@ -104,8 +108,8 @@ const CreateMain = (props: Props) => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <ActivityCreateHeader isDisabled={isDisabled} />
-      <ActivityCreateForm
+      <ActivityCreateOrUpdateHeader isDisabled={isDisabled} />
+      <ActivityCreateOrUpdateForm
         titleError={titleError}
         descriptionError={descriptionError}
         addressError={addressError}
@@ -123,4 +127,4 @@ const CreateMain = (props: Props) => {
   );
 };
 
-export default CreateMain;
+export default CreateOrUpdateMain;

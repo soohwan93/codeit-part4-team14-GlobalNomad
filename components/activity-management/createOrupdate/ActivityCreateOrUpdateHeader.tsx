@@ -4,7 +4,7 @@ interface Props {
   isDisabled: boolean;
 }
 
-const ActivityCreateHeader = ({ isDisabled }: Props) => {
+const ActivityCreateOrUpdateHeader = ({ isDisabled }: Props) => {
   return (
     <div className="flex items-center justify-between pb-6">
       <div className="text-[32px] font-bold">내 체험 등록</div>
@@ -17,4 +17,4 @@ const ActivityCreateHeader = ({ isDisabled }: Props) => {
   );
 };
 
-export default ActivityCreateHeader;
+export default ActivityCreateOrUpdateHeader;

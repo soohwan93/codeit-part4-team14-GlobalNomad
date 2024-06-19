@@ -1,4 +1,4 @@
-import { ScheduleType } from "@/components/activity-management/create/ReservationTimeInputs";
+import { ScheduleType } from "@/components/activity-management/createOrupdate/ReservationTimeInputs";
 
 export const formatSchedule = (schedule: ScheduleType) => {
   const { date, startTime, endTime } = schedule;

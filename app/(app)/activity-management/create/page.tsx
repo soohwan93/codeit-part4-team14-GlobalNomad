@@ -1,14 +1,15 @@
-import CreateMain from "@/components/activity-management/create/CreateMain";
-import CreateWrapper from "@/components/activity-management/create/CreateWrapper";
+import CreateOrUpdateMain from "@/components/activity-management/createOrupdate/CreateOrUpdateMain";
+import CreateOrUpdateWrapper from "@/components/activity-management/createOrupdate/CreateOrUpdateWrapper";
+
 import React from "react";
 
 type Props = {};
 
 const page = (props: Props) => {
   return (
-    <CreateWrapper>
-      <CreateMain />
-    </CreateWrapper>
+    <CreateOrUpdateWrapper>
+      <CreateOrUpdateMain />
+    </CreateOrUpdateWrapper>
   );
 };
 
