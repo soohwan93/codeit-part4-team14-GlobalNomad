@@ -1,23 +1,25 @@
 import { getDaysInMonth, subMonths } from "date-fns";
-import React from "react";
+import React, { useEffect, useRef } from "react";
 
-const DATE_MONTH_FIXER = 1;
 const CALENDER_LENGTH = 42;
 const DEFAULT_TRASH_VALUE = 0;
 const DAY_OF_WEEK = 7;
-const DAY_LIST = ["일", "월", "화", "수", "목", "금", "토"];
 
 const useCalendar = () => {
   const [currentDate, setCurrentDate] = React.useState(new Date());
   const totalMonthDays = getDaysInMonth(currentDate);
 
+  const firstDate = useRef(new Date().setDate(1));
+  const firstDay = useRef(new Date(firstDate.current).getDay());
+
   const prevDayList = Array.from({
-    length: Math.max(0, currentDate.getDay() + 4),
+    length: Math.max(0, firstDay.current),
   }).map(() => DEFAULT_TRASH_VALUE);
 
   const currentDayList = Array.from({ length: totalMonthDays }).map(
     (_, i) => i + 1,
   );
+
   const nextDayList = Array.from({
     length: CALENDER_LENGTH - currentDayList.length - prevDayList.length,
   }).map(() => DEFAULT_TRASH_VALUE);
@@ -34,6 +36,12 @@ const useCalendar = () => {
     },
     [],
   );
+
+  useEffect(() => {
+    firstDate.current = currentDate.setDate(1);
+    firstDay.current = new Date(firstDate.current).getDay();
+  }, [currentDate]);
+
   return {
     weekCalendarList: weekCalendarList.filter(
       (item) => item.indexOf(0) !== 0 || item.lastIndexOf(0) !== 6,
