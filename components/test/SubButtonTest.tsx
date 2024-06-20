@@ -45,7 +45,7 @@ const SubButtonTest = (props: Props) => {
         <PlainCloseSvg size="large" thickness="thin" color="black" />
       </div>
       <div className="flex flex-col gap-3">
-        <AlertSvg isClicked={false} onClick={() => console.log()} />
+        {/* <AlertSvg isClicked={false} onClick={() => console.log()} /> */}
       </div>
       <div className="flex flex-col gap-3">
         <KebabSvg />
