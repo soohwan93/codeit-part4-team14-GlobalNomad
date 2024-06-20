@@ -48,7 +48,12 @@ const ReservationCardList = ({
   const reservationList = useRef<ScheduleReservationType[] | null>(null);
 
   const handleInfiniteScroll = async () => {
-    if (cursorId.current === null || reservationList.current === null) return;
+    if (
+      cursorId.current === null ||
+      reservationList.current === null ||
+      reservationList.current.length === 0
+    )
+      return;
     const response: ScheduleReservationResponseType =
       await getMyActivityReservations(activityId!, {
         scheduleId: scheduleId.current,
@@ -83,7 +88,7 @@ const ReservationCardList = ({
   useEffect(() => {
     setRenderingReservationList(firstReservationList);
     reservationList.current = firstReservationList;
-    console.log(firstReservationList);
+
     scheduleId.current = currentScheduleId;
     cursorId.current = firstCursorId;
   }, [firstReservationList]);

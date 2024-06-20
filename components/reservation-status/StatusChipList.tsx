@@ -7,7 +7,7 @@ interface StatusChipProps {
     confirmed: number;
     pending: number;
   };
-  onChipClick: (chipType: string) => void;
+  onChipClick: (chipType: "pending" | "confirmed") => void;
 }
 
 const StatusChipList = ({ reservationInfo, onChipClick }: StatusChipProps) => {

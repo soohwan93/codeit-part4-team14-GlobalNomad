@@ -74,11 +74,7 @@ const ReservationCalendar = ({
   };
 
   const handleChipSelect = (type: ReservationsStatus) => {
-    if (type === "declined" || "pending" || "confirmed") {
-      setModalType(type);
-    } else {
-      setModalType("pending");
-    }
+    setModalType(type);
 
     setIsModalOpen(true);
   };

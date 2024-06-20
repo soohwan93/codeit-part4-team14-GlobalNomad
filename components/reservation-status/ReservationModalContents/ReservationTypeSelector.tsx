@@ -1,8 +1,9 @@
+import { ReservationsStatus } from "@/util/apiType";
 import React, { SetStateAction } from "react";
 
 interface ReservationTypeSelectorProps {
-  type: string;
-  setType: React.Dispatch<SetStateAction<string>>;
+  type: ReservationsStatus;
+  setType: React.Dispatch<SetStateAction<ReservationsStatus>>;
   selectedReservationData: [number, number, number];
 }
 

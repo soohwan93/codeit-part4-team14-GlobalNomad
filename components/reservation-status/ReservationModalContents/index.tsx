@@ -7,6 +7,7 @@ import {
   getMyActivityReservedSchedule,
 } from "@/util/api";
 import ReservationCardList from "./ReservationCardList";
+import { ReservationsStatus } from "@/util/apiType";
 
 interface ReservationModalContents {
   reservationData: {
@@ -54,7 +55,6 @@ interface ScheduleReservationResponseType {
   totalCount: number;
   reservations: ScheduleReservationType[];
 }
-type ReservationsStatus = "declined" | "pending" | "confirmed" | "completed";
 
 const ReservationModalContents = ({
   type,
@@ -67,7 +67,7 @@ const ReservationModalContents = ({
     useState<ReservationsStatus>(type);
   const [dayScheduleArray, setDayScheduleArray] = useState<string[]>([]);
   const [firstScheduleReservationArray, setFirstScheduleReservationArray] =
-    useState<ScheduleReservationType[] | null>(null);
+    useState<ScheduleReservationType[] | null>([]);
   const [selectedReservationStatusArray, setSelectedReservationStatusArray] =
     useState<[number, number, number]>([0, 0, 0]);
   const selectedDateBuffer = useRef<string[]>([]);
@@ -96,9 +96,10 @@ const ReservationModalContents = ({
 
   const handleChangeSchedule = async (time: string) => {
     setFirstScheduleReservationArray(null);
-    const statusResponse = await getMyActivityReservedSchedule(activityId, {
-      date: reservationData.date,
-    });
+    const statusResponse: ActivitySchedule[] =
+      await getMyActivityReservedSchedule(activityId, {
+        date: reservationData.date,
+      });
     const selectedTime = statusResponse.filter(
       (item) => item.startTime === time.split(" ~ ")[0],
     )[0];
@@ -112,10 +113,10 @@ const ReservationModalContents = ({
     const response: ScheduleReservationResponseType =
       await getMyActivityReservations(activityId, {
         scheduleId: selectedTime.scheduleId,
-        status: currentModalType === "completed" ? "pending" : currentModalType,
+        status: currentModalType,
         size: 3,
       });
-    console.log(response.cursorId);
+
     selectedScheduleId.current = selectedTime.scheduleId;
     reservationCursorId.current = response.cursorId;
     setFirstScheduleReservationArray(response.reservations);
