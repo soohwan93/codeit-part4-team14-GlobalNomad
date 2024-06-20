@@ -27,7 +27,6 @@ const ActivityManagementCardWrapper = async () => {
   const query: MyActivitiesQuery = {
     size: 5,
   };
-  // const res = await getMyActivities(query);
 
   const { activities } = await getMyActivities(query);
   // const cookieStore = cookies();
