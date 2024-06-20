@@ -16,7 +16,7 @@ const LoginTest = (props: Props) => {
   };
   const testReservation = async () => {
     const resResDashboard = await getMyActivityReservationDashBoard(953, {
-      month: 12,
+      month: "12",
       year: 2024,
     });
     console.log(resResDashboard);

@@ -18,7 +18,7 @@ interface ReservationModalContents {
       pending: number;
     };
   };
-  type: string;
+  type: ReservationsStatus;
   activityId: number;
   refreshSwitch: boolean;
   setRefreshSwitch: () => void;
