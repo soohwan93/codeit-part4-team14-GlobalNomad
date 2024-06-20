@@ -3,6 +3,7 @@ import React, { SetStateAction, useEffect, useRef, useState } from "react";
 import ReservationCard from "./ReservationCard";
 import { ReservationsStatus } from "@/util/apiType";
 import { getMyActivityReservations } from "@/util/api";
+import Image from "next/image";
 
 interface ScheduleReservationResponseType {
   cursorId: number;
@@ -47,8 +48,6 @@ const ReservationCardList = ({
   const reservationList = useRef<ScheduleReservationType[] | null>(null);
 
   const handleInfiniteScroll = async () => {
-    console.log(reservationList.current);
-    console.log(cursorId.current);
     if (cursorId.current === null || reservationList.current === null) return;
     const response: ScheduleReservationResponseType =
       await getMyActivityReservations(activityId!, {
@@ -65,7 +64,7 @@ const ReservationCardList = ({
     cursorId.current = response.cursorId;
     reservationList.current = rawReservationList;
 
-    setRenderingReservationList(rawReservationList);
+    setRenderingReservationList((prev) => [...prev!, ...response.reservations]);
   };
 
   useEffect(() => {
@@ -84,6 +83,7 @@ const ReservationCardList = ({
   useEffect(() => {
     setRenderingReservationList(firstReservationList);
     reservationList.current = firstReservationList;
+    console.log(firstReservationList);
     scheduleId.current = currentScheduleId;
     cursorId.current = firstCursorId;
   }, [firstReservationList]);
@@ -101,7 +101,18 @@ const ReservationCardList = ({
         </>
       ) : (
         <div className="flex h-[12rem] w-full items-center justify-center text-center">
-          예약 일정을 선택하지 않았거나, 선택한 유형의 예약이 없습니다.
+          {renderingReservationList === null && (
+            <Image
+              src="/icons/loading.png"
+              alt="로딩 중입니다..."
+              width={20}
+              height={20}
+              className="mr-2 animate-spin"
+            />
+          )}
+          {renderingReservationList !== null
+            ? "예약 일정을 선택하지 않았거나, 선택한 유형의 예약이 없습니다."
+            : "불러오는 중입니다..."}
         </div>
       )}
       <div ref={needScrollObserver} />

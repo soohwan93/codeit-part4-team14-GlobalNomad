@@ -95,6 +95,7 @@ const ReservationModalContents = ({
   };
 
   const handleChangeSchedule = async (time: string) => {
+    setFirstScheduleReservationArray(null);
     const statusResponse = await getMyActivityReservedSchedule(activityId, {
       date: reservationData.date,
     });
