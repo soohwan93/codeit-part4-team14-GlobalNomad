@@ -4,7 +4,7 @@ import { useInView } from 'react-intersection-observer';
 import { deleteMyNotification, getMyNotifications } from '@/util/api';
 import dateFormat from '@/util/dateForm';
 
-interface Notification {
+export interface Notification {
   id: number;
   teamId: number;
   userId: number;

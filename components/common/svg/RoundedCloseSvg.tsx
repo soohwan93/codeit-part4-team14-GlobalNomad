@@ -17,7 +17,7 @@ const RoundedCloseSvg: React.FC<Props> = ({ size = "small" }) => {
 
   return (
     <svg
-      className="flex items-center"
+      className="absolute -right-3 -top-3 z-[1] flex items-center"
       xmlns="http://www.w3.org/2000/svg"
       width={demention}
       height={demention}

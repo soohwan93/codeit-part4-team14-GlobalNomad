@@ -1,4 +1,4 @@
-import { ReactNode, useEffect, useRef } from "react";
+import { ReactNode, useEffect, useRef, useCallback } from "react";
 
 interface PopupWrapperProps {
   isOpen: boolean;
@@ -8,6 +8,19 @@ interface PopupWrapperProps {
 
 const PopupWrapper = ({ isOpen, onClose, children }: PopupWrapperProps) => {
   const wrapperRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  const handleClickOutside = useCallback(
+    (e: MouseEvent) => {
+      if (
+        containerRef.current &&
+        !containerRef.current.contains(e.target as Node)
+      ) {
+        onClose();
+      }
+    },
+    [onClose],
+  );
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -18,17 +31,17 @@ const PopupWrapper = ({ isOpen, onClose, children }: PopupWrapperProps) => {
 
     if (isOpen) {
       window.addEventListener("keydown", handleKeyDown);
+      document.addEventListener("mousedown", handleClickOutside);
       if (wrapperRef.current) {
         wrapperRef.current.focus();
       }
-    } else {
-      window.removeEventListener("keydown", handleKeyDown);
     }
 
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [isOpen, onClose]);
+  }, [isOpen, onClose, handleClickOutside]);
 
   if (!isOpen) return null;
 
@@ -36,9 +49,9 @@ const PopupWrapper = ({ isOpen, onClose, children }: PopupWrapperProps) => {
     <div
       tabIndex={-1}
       ref={wrapperRef}
-      className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50"
+      className="fixed inset-0 z-10 flex items-center justify-center bg-black bg-opacity-50"
     >
-      {children}
+      <div ref={containerRef}>{children}</div>
     </div>
   );
 };

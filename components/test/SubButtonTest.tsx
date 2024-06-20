@@ -54,7 +54,7 @@ const SubButtonTest = (props: Props) => {
         <PlusLargeSvg />
         <PlusSmallSvg />
         -----
-        <InteractivePlusSvg onClick={() => alert("PlusSvg 클릭")} />
+        {/* <InteractivePlusSvg onClick={() => alert("PlusSvg 클릭")} /> */}
       </div>
       <div className="flex flex-col gap-3">
         <MinusLargeSvg />
@@ -63,7 +63,7 @@ const SubButtonTest = (props: Props) => {
         <InteractiveMinusSvg onClick={() => alert("MinusSvg 클릭")} />
       </div>
       <div className="flex flex-col gap-3">
-        <AddImage />
+        <AddImage onClick={() => alert("MinusSvg 클릭")} />
       </div>
     </div>
   );
