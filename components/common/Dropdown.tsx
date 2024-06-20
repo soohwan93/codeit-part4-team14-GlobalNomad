@@ -12,6 +12,7 @@ interface DropdownProps {
   setDropdownOpen: (isOpen: boolean) => void;
   defaultLabel?: ReactNode;
   originPositionRight?: boolean;
+  customClassName?: string;
 }
 
 const Dropdown = ({
@@ -20,6 +21,7 @@ const Dropdown = ({
   dropdownOpen,
   setDropdownOpen,
   originPositionRight = false,
+  customClassName = "",
 }: DropdownProps) => {
   return (
     <>
@@ -27,8 +29,8 @@ const Dropdown = ({
         {defaultLabel && <div className="cursor-pointer">{defaultLabel}</div>}
         {dropdownOpen && (
           <div
-            className={`absolute top-full mt-2 rounded border bg-white shadow-lg
-                        ${originPositionRight ? "right-0" : "left-0"}`}
+            className={`absolute top-full mt-2 rounded border bg-white shadow-lg 
+                        ${customClassName ? customClassName : originPositionRight ? "right-0" : "left-0"}`}
           >
             {Options.map((option) => (
               <button
@@ -50,5 +52,4 @@ const Dropdown = ({
     </>
   );
 };
-
 export default Dropdown;
