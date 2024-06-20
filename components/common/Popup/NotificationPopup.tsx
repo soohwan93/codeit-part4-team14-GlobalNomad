@@ -2,7 +2,7 @@ import Button from "../Button";
 import PopupWrapper from "./PopupWrapper";
 
 interface NotificationPopupProps {
-  callback: (() => void) | null;
+  callback?: (() => void) | null;
   message: string;
   isOpen: boolean;
   onClose: () => void;
@@ -15,7 +15,11 @@ const NotificationPopup = ({
   onClose,
 }: NotificationPopupProps) => {
   return (
-    <PopupWrapper callback={callback} isOpen={isOpen} onClose={onClose}>
+    <PopupWrapper
+      callback={callback ? callback : null}
+      isOpen={isOpen}
+      onClose={onClose}
+    >
       <div className="m-3 flex h-[220px] w-[327px] max-w-full flex-col items-center justify-between rounded-xl bg-white p-6 md:h-[250px] md:w-[540px]">
         <div className="flex flex-grow items-center justify-center">
           <p className="text-center">{message}</p>
