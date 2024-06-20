@@ -3,23 +3,20 @@ import DivineLineSvg from "../../svg/DivineLineSvg";
 import AuthMenu from "../auth/AuthMenu";
 import AlertMenu from "../auth/AlertMenu";
 import UserMenu from "../auth/UserMenu";
+import { MyNotificationsQuery } from "@/util/apiType";
+import { getMyNotifications } from "@/util/api";
 
-export interface UserData {
-  createdAt: string;
-  email: string;
-  id: number;
-  nickname: string;
-  profileImageUrl: null | string;
-  updatedAt: string;
-}
-
-const AuthNav = () => {
+const AuthNav = async () => {
+  const query: MyNotificationsQuery = {
+    size: 10,
+  };
+  const notifications = await getMyNotifications(query);
   return (
     <>
       <div className="flex gap-3">
         <AuthMenu />
         <DivineLineSvg />
-        <AlertMenu />
+        <AlertMenu notificationsFromApi={notifications} />
         <DivineLineSvg />
         <UserMenu />
       </div>
