@@ -4,11 +4,11 @@ import useDropdownInput from "@/components/common/useDropdownInput";
 import React, { useEffect, useState } from "react";
 import ActivityCreateOrUpdateHeader from "./ActivityCreateOrUpdateHeader";
 import ActivityCreateOrUpdateForm from "./ActivityCreateOrUpdateForm";
-import { PostActivityBody } from "@/util/apiType";
-import { postActivity } from "@/util/api";
+import { MyActivityBody, PostActivityBody, Schedule } from "@/util/apiType";
+import { patchMyActivity, postActivity } from "@/util/api";
 import { useNotification } from "@/contexts/NotificationContext";
-import { useRouter } from "next/navigation";
-import { validateActivityCreate } from "@/util/validation";
+import { useParams, useRouter } from "next/navigation";
+import { validateActivity } from "@/util/validation";
 import { ERROR_MESSAGE, NO_IMAGE_URL } from "@/util/constraints";
 import { ActivityResponseById } from "@/app/(app)/activity-management/[activityId]/page";
 
@@ -17,14 +17,31 @@ interface CreateMainProps {
 }
 
 const CreateOrUpdateMain = ({ responseApiData }: CreateMainProps) => {
-  console.log(responseApiData);
-  const router = useRouter();
-  const { isOpen, showNotification } = useNotification();
+  const { activityId } = useParams();
 
-  //imageState
-  const [bannerImageUrl, setBannerImageUrl] = useState<string>("");
+  const router = useRouter();
+
+  const { showNotification } = useNotification();
+  //formState
+  const [title, setTitle] = useState<string>(responseApiData?.title || "");
+  const [description, setDescription] = useState(
+    responseApiData?.description || "",
+  );
+  const [address, setAddress] = useState(responseApiData?.address || "");
+  const [price, setPrice] = useState<string>(
+    String(responseApiData?.price || ""),
+  );
+  const [bannerImageUrl, setBannerImageUrl] = useState<string>(
+    responseApiData?.bannerImageUrl || "",
+  );
   const [subImageUrls, setSubImageUrls] = useState<string[]>([]);
   const [formattedSchedules, setFormattedSchedules] = useState<string>("");
+  //imageUpdateState
+  const [subImageIdsToRemove, setSubImageIdsToRemove] = useState<number[]>([]);
+  const [subImageUrlsToAdd, setSubImageUrlsToAdd] = useState<string[]>([]);
+  //scheduleState
+  const [scheduleIdsToRemove, setScheduleIdsToRemove] = useState<number[]>([]);
+  const [schedulesToAdd, setSchedulesToAdd] = useState<Schedule[]>([]);
   //errorState
   const [titleError, setTitleError] = useState(false);
   const [descriptionError, setDescriptionError] = useState(false);
@@ -32,29 +49,66 @@ const CreateOrUpdateMain = ({ responseApiData }: CreateMainProps) => {
   const [priceError, setPriceError] = useState(false);
   const [categoryError, setCategoryError] = useState(false);
   //submitButtonState
-  const [isDisabled, setIsDisabled] = useState(true);
+  const [isDisabled, setIsDisabled] = useState(activityId ? false : true);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const body = getCreateBody(e.target as HTMLFormElement);
-    const isValid = validateActivityCreate(body, showNotification);
 
-    console.log(body);
+    let body: PostActivityBody | MyActivityBody = getCreateBody(
+      e.target as HTMLFormElement,
+    );
+    const isValid = validateActivity(body, showNotification);
+
+    if (activityId) {
+      body = getUpdateBody(e.target as HTMLFormElement);
+    }
+
     if (isValid) {
+      let res = null;
       try {
-        const res = await postActivity(body);
-        console.log(res);
+        if (activityId) {
+          res = await patchMyActivity(+activityId, body as MyActivityBody);
+        } else {
+          res = await postActivity(body as PostActivityBody);
+        }
         if (res) {
-          showNotification("등록이 완료되었습니다!");
-          if (!isOpen) {
-            router.refresh();
-            router.push("/activity-management");
-          }
+          showNotification(
+            `${activityId ? `수정` : `등록`}이 완료되었습니다!`,
+            callback,
+          );
         }
       } catch (error: any) {
         showNotification(error.message);
       }
     }
+  };
+
+  const callback = () => {
+    router.refresh();
+    router.push("/activity-management");
+  };
+
+  const getUpdateBody = (value: HTMLFormElement) => {
+    const formData = new FormData(value);
+    // FormData 객체에서 데이터를 가져옴
+    const title = formData.get("title") as string;
+    const description = formData.get("description") as string;
+    const address = formData.get("address") as string;
+    const price = formData.get("price") as string;
+
+    const body: MyActivityBody = {
+      title: title,
+      category: selected || "",
+      description: description,
+      price: price ? +price : 0,
+      address: address,
+      bannerImageUrl: bannerImageUrl || NO_IMAGE_URL,
+      subImageIdsToRemove: subImageIdsToRemove,
+      subImageUrlsToAdd: subImageUrlsToAdd,
+      scheduleIdsToRemove: scheduleIdsToRemove,
+      schedulesToAdd: schedulesToAdd,
+    };
+    return body;
   };
 
   const getCreateBody = (value: HTMLFormElement) => {
@@ -69,9 +123,9 @@ const CreateOrUpdateMain = ({ responseApiData }: CreateMainProps) => {
       title: title,
       category: selected || "",
       description: description,
+      address: address,
       price: price ? +price : 0,
       schedules: JSON.parse(formattedSchedules),
-      address: address,
       bannerImageUrl: bannerImageUrl || NO_IMAGE_URL,
       subImageUrls: subImageUrls.length !== 0 ? subImageUrls : [NO_IMAGE_URL],
     };
@@ -81,7 +135,7 @@ const CreateOrUpdateMain = ({ responseApiData }: CreateMainProps) => {
   const { selected, renderDropdown } = useDropdownInput(
     ["문화 · 예술", "식음료", "스포츠", "투어", "관광", "웰빙"],
     "카테고리",
-    null,
+    responseApiData?.category || null,
     categoryError,
     setCategoryError,
     ERROR_MESSAGE.CATEGORY,
@@ -90,26 +144,37 @@ const CreateOrUpdateMain = ({ responseApiData }: CreateMainProps) => {
   useEffect(() => {
     // 모든 필수 입력값 에러를 확인
     const isFormValid =
-      !titleError &&
-      !descriptionError &&
-      !priceError &&
-      !categoryError &&
+      title &&
+      description &&
+      price &&
+      selected &&
       (formattedSchedules ? JSON.parse(formattedSchedules).length > 0 : false);
 
     setIsDisabled(!isFormValid);
-  }, [
-    titleError,
-    descriptionError,
-    addressError,
-    priceError,
-    categoryError,
-    formattedSchedules,
-  ]);
+  }, [title, description, price, selected, formattedSchedules]);
 
   return (
     <form onSubmit={handleSubmit}>
-      <ActivityCreateOrUpdateHeader isDisabled={isDisabled} />
+      <ActivityCreateOrUpdateHeader
+        responseApiData={responseApiData}
+        isDisabled={isDisabled}
+      />
       <ActivityCreateOrUpdateForm
+        title={title}
+        setTitle={setTitle}
+        description={description}
+        setDescription={setDescription}
+        address={address}
+        setAddress={setAddress}
+        price={price}
+        setPrice={setPrice}
+        setSubImageIdsToRemove={setSubImageIdsToRemove}
+        setSubImageUrlsToAdd={setSubImageUrlsToAdd}
+        setScheduleIdsToRemove={setScheduleIdsToRemove}
+        setSchedulesToAdd={setSchedulesToAdd}
+        scheduleIdsToRemove={scheduleIdsToRemove}
+        schedulesToAdd={schedulesToAdd}
+        responseApiData={responseApiData}
         titleError={titleError}
         descriptionError={descriptionError}
         addressError={addressError}
