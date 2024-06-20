@@ -63,8 +63,8 @@ export interface ReservedScheduleQuery {
 // 내 체험 예약 시간대별 예약 내역 조회 쿼리 타입
 export interface ReservationsQuery {
   [key: string]: string | undefined | number | ReservationsStatus;
-  cursorId?: string;
-  size?: string;
+  cursorId?: number;
+  size?: number;
   scheduleId: number;
   status: ReservationsStatus;
 }

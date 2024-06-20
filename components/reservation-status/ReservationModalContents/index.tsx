@@ -40,7 +40,7 @@ interface ScheduleReservationType {
   userId: number;
   teamId: string;
   activityId: number;
-  status: string;
+  status: ReservationsStatus;
   reviewSubmitted: boolean;
   totalPrice: number;
   headCount: number;
@@ -73,6 +73,7 @@ const ReservationModalContents = ({
   const selectedDateBuffer = useRef<string[]>([]);
 
   const reservationCursorId = useRef<number>(0);
+  const selectedScheduleId = useRef<number | null>(null);
   const { selected, renderDropdown } = useDropdownInput(
     dayScheduleArray,
     "예약 일정을 선택해 주세요.",
@@ -111,9 +112,10 @@ const ReservationModalContents = ({
       await getMyActivityReservations(activityId, {
         scheduleId: selectedTime.scheduleId,
         status: currentModalType === "completed" ? "pending" : currentModalType,
-        size: "3",
+        size: 3,
       });
     console.log(response.cursorId);
+    selectedScheduleId.current = selectedTime.scheduleId;
     reservationCursorId.current = response.cursorId;
     setFirstScheduleReservationArray(response.reservations);
   };
@@ -153,6 +155,8 @@ const ReservationModalContents = ({
       <ReservationCardList
         firstReservationList={firstScheduleReservationArray}
         firstCursorId={reservationCursorId.current}
+        currentScheduleId={selectedScheduleId.current!}
+        activityId={activityId}
         setRefresh={setRefreshSwitch}
       />
     </div>
