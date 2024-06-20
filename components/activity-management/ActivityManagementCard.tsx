@@ -4,6 +4,7 @@ import {
   ActivityManagementCardProps,
 } from "./ActivityManagementCardWrapper";
 import Image from "next/image";
+import ActivityManagementKebab from "./ActivityManagementKebab";
 
 const ActivityManagementCard = ({ prop }: { prop: ActivityApiProps }) => {
   const {
@@ -39,10 +40,7 @@ const ActivityManagementCard = ({ prop }: { prop: ActivityApiProps }) => {
           <span className=" text-base font-medium text-gray-80 md:text-2xl ">
             ₩{price} /인
           </span>
-          <button
-            className="h-10 w-10 shrink-0 bg-[url('/icons/kebab.svg')] "
-            type="button"
-          ></button>
+          <ActivityManagementKebab></ActivityManagementKebab>
         </div>
       </section>
     </div>
