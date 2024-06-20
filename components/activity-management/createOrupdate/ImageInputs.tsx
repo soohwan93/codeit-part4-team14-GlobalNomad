@@ -1,26 +1,52 @@
 "use client";
 import Label from "@/components/common/Label";
 import { postActivityImages } from "@/util/api";
-import React, { ChangeEvent, useEffect, useRef, useState } from "react";
+import React, { ChangeEvent, useRef, useState } from "react";
 import AddImage from "../AddImage";
 import Image from "next/image";
 import InteractiveRoundedCloseSvg from "@/components/common/svg/InteractiveRoundedCloseSvg";
 import { useNotification } from "@/contexts/NotificationContext";
+import { ActivityResponseById } from "@/app/(app)/activity-management/[activityId]/page";
+
+interface SubPreviewUrlsType {
+  id: number;
+  imageUrl: string;
+}
 
 interface Props {
+  setSubImageIdsToRemove: React.Dispatch<React.SetStateAction<number[]>>;
+  setSubImageUrlsToAdd: React.Dispatch<React.SetStateAction<string[]>>;
+  responseApiData?: ActivityResponseById | null;
   setBannerImageUrl: React.Dispatch<React.SetStateAction<string>>;
   setSubImageUrls: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
 const ImageInputs = (props: Props) => {
-  const { setBannerImageUrl, setSubImageUrls } = props;
+  const {
+    responseApiData,
+    setSubImageIdsToRemove,
+    setSubImageUrlsToAdd,
+    setBannerImageUrl,
+    setSubImageUrls,
+  } = props;
   const { showNotification } = useNotification();
 
   const bannerImageRef = useRef<HTMLInputElement>(null);
   const subImageRef = useRef<HTMLInputElement>(null);
 
-  const [bannerPreviewUrl, setBannerPreviewUrl] = useState<string>("");
-  const [subPreviewUrls, setSubPreviewUrls] = useState<string[]>([]);
+  const subPreviewUrlsFromApiData = responseApiData?.subImages || [];
+
+  const [bannerPreviewUrl, setBannerPreviewUrl] = useState<string>(
+    responseApiData?.bannerImageUrl || "",
+  );
+  const [subPreviewUrls, setSubPreviewUrls] = useState<SubPreviewUrlsType[]>(
+    subPreviewUrlsFromApiData,
+  );
+
+  const [bannerLoading, setBannerLoading] = useState<boolean>(false);
+  const [subLoading, setSubLoading] = useState<boolean[]>(
+    new Array(subPreviewUrlsFromApiData.length).fill(false),
+  );
 
   const isValidImageFile = (file: File) => {
     return file.type.startsWith("image/");
@@ -33,13 +59,16 @@ const ImageInputs = (props: Props) => {
         showNotification("잘못된 이미지 형식입니다.");
         return;
       }
+      setBannerLoading(true);
 
       const imageUrl = await uploadImage(file);
+
+      setBannerLoading(false);
+
       if (imageUrl) {
         setBannerPreviewUrl(URL.createObjectURL(file));
         setBannerImageUrl(imageUrl);
       }
-      console.log(imageUrl);
     }
     if (bannerImageRef.current) {
       bannerImageRef.current.value = "";
@@ -51,27 +80,44 @@ const ImageInputs = (props: Props) => {
   ) => {
     const files = e.target.files;
     if (files && files.length > 0) {
-      const newPreviewUrls: string[] = [];
+      const currentImageCount = subPreviewUrls.length;
+      const remainingSlots = 4 - currentImageCount;
+      const filesToAdd = Array.from(files).slice(0, remainingSlots);
+
+      const newPreviewUrls: SubPreviewUrlsType[] = [];
       const newImageUrls: string[] = [];
-      for (const file of files) {
+
+      for (const file of filesToAdd) {
         if (!isValidImageFile(file)) {
           showNotification("잘못된 이미지 형식입니다.");
           return;
         }
 
+        setSubLoading((prevLoading) => [...prevLoading, true]);
+
         const imageUrl = await uploadImage(file);
+
+        setSubLoading((prevLoading) => {
+          const updatedLoading = [...prevLoading];
+          updatedLoading[updatedLoading.length - 1] = false;
+          return updatedLoading;
+        });
+
         if (imageUrl) {
-          newPreviewUrls.push(URL.createObjectURL(file));
+          newPreviewUrls.push({ id: -1, imageUrl: URL.createObjectURL(file) });
           newImageUrls.push(imageUrl);
         } else {
           return;
         }
-        console.log(imageUrl);
       }
+
       setSubPreviewUrls((prevUrls) =>
         [...prevUrls, ...newPreviewUrls].slice(0, 4),
       );
       setSubImageUrls((prevUrls) => [...prevUrls, ...newImageUrls].slice(0, 4));
+      setSubImageUrlsToAdd((prevUrls) =>
+        [...prevUrls, ...newImageUrls].slice(0, 4),
+      );
     }
     if (subImageRef.current) {
       subImageRef.current.value = "";
@@ -83,7 +129,6 @@ const ImageInputs = (props: Props) => {
     formData.append("image", file);
     try {
       const response = await postActivityImages(formData);
-      console.log(response);
       if (response) {
         return response.activityImageUrl;
       }
@@ -106,10 +151,23 @@ const ImageInputs = (props: Props) => {
   };
 
   const handleRemoveIntroduceImage = (index: number) => {
+    const removedUrl = subPreviewUrls[index];
+    if (!removedUrl) return; // Check if removedUrl is valid
+
     setSubPreviewUrls((prevUrls) => prevUrls.filter((_, i) => i !== index));
     setSubImageUrls((prevUrls) => prevUrls.filter((_, i) => i !== index));
+    setSubImageUrlsToAdd((prevUrls) => prevUrls.filter((_, i) => i !== index));
     if (subImageRef.current) {
       subImageRef.current.value = "";
+    }
+
+    const removedIndex = subPreviewUrlsFromApiData.findIndex(
+      (item) => item.imageUrl === removedUrl.imageUrl,
+    );
+
+    if (removedIndex !== -1) {
+      const removedId = subPreviewUrlsFromApiData[removedIndex].id;
+      setSubImageIdsToRemove((prevIds) => [...prevIds, removedId]);
     }
   };
 
@@ -129,13 +187,17 @@ const ImageInputs = (props: Props) => {
           <AddImage onClick={() => handleClick(bannerImageRef)} />
           {bannerPreviewUrl && (
             <div className="relative h-32 w-32 rounded-2xl border md:h-40 md:w-40">
-              <Image
-                className="rounded-2xl"
-                src={bannerPreviewUrl}
-                alt={`Preview `}
-                layout="fill"
-                objectFit="cover"
-              />
+              {bannerLoading ? (
+                <div className="h-full w-full animate-pulse rounded-2xl bg-gray-200"></div>
+              ) : (
+                <Image
+                  className="rounded-2xl"
+                  src={bannerPreviewUrl}
+                  alt={`Preview`}
+                  layout="fill"
+                  objectFit="cover"
+                />
+              )}
               <InteractiveRoundedCloseSvg onClick={handleRemoveBannerImage} />
             </div>
           )}
@@ -154,18 +216,22 @@ const ImageInputs = (props: Props) => {
         />
         <div className="flex flex-wrap gap-5 md:gap-8">
           <AddImage onClick={() => handleClick(subImageRef)} />
-          {subPreviewUrls.map((url, index) => (
+          {subPreviewUrls.map((item, index) => (
             <div
-              key={index}
+              key={item.id !== -1 ? item.id : index}
               className="relative h-32 w-32 rounded-2xl border md:h-40 md:w-40"
             >
-              <Image
-                className="rounded-2xl"
-                src={url}
-                alt={`Preview ${index + 1}`}
-                layout="fill"
-                objectFit="cover"
-              />
+              {subLoading[index] ? (
+                <div className="h-full w-full animate-pulse rounded-2xl bg-gray-200"></div>
+              ) : (
+                <Image
+                  className="rounded-2xl"
+                  src={item.imageUrl}
+                  alt={`Preview ${index + 1}`}
+                  layout="fill"
+                  objectFit="cover"
+                />
+              )}
               <InteractiveRoundedCloseSvg
                 onClick={() => handleRemoveIntroduceImage(index)}
               />
