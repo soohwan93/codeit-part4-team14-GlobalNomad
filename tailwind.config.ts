@@ -36,6 +36,9 @@ const config: Config = {
         "blue-20": "#2EB4FF",
         "blue-10": "#E5F3FF",
       },
+      height: {
+        '75vh': '75vh',
+      },
     },
   },
   plugins: [
