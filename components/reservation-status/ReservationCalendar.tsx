@@ -122,13 +122,13 @@ const ReservationCalendar = ({
             dayItem !== 0 ? (
               <div
                 key={currentMonth.current + String(dayItem).padStart(2, "0")}
-                className="flex min-h-40 cursor-default flex-col justify-between bg-white p-0.5 font-mono text-xl font-medium leading-normal text-gray-50"
+                className="flex min-h-32 cursor-default flex-col justify-between bg-white p-0.5 font-mono font-medium leading-normal text-gray-50 xl:min-h-40 xl:text-xl"
               >
-                <div className="ml-3 mt-4 flex">
+                <div className="ml-1 mt-2 flex xl:ml-3 xl:mt-4">
                   {dayItem}
                   {reservationStatusOfMonth[dayItem] && (
                     <div
-                      className={`ml-1 mt-1 h-2 w-2 rounded-full ${new Date().getDate() > dayItem ? "bg-gray-80" : "bg-blue-30"}`}
+                      className={`ml-1 mt-1 h-1.5 w-1.5 rounded-full xl:h-2 xl:w-2 ${new Date().getDate() > dayItem ? "bg-gray-80" : "bg-blue-30"}`}
                     />
                   )}
                 </div>

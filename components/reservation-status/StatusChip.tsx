@@ -15,7 +15,7 @@ const StatusChip = ({
 }: StatusChipProps) => {
   return (
     <button
-      className={`inline-block w-full rounded p-1 pl-2 text-left text-sm font-medium leading-normal
+      className={`inline-block w-full truncate rounded p-0.5 text-left text-[0.625rem] font-medium leading-normal md:pl-1 md:text-xs xl:p-1 xl:pl-2 xl:text-sm
                   ${type === "pending" ? " bg-blue-30 text-white" : type === "confirmed" ? " bg-orange-20 text-orange-10" : " cursor-not-allowed bg-gray-30 text-gray-80"}`}
       onClick={() => {
         if (type !== "completed") {
@@ -24,7 +24,7 @@ const StatusChip = ({
       }}
     >
       {children}
-      <span className="ml-0.5 inline-block">{info}</span>
+      <span className="inline-block md:ml-0.5">{info}</span>
     </button>
   );
 };

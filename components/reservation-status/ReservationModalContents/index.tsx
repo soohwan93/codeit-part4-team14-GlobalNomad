@@ -114,7 +114,7 @@ const ReservationModalContents = ({
       await getMyActivityReservations(activityId, {
         scheduleId: selectedTime.scheduleId,
         status: currentModalType,
-        size: 3,
+        size: 10,
       });
 
     selectedScheduleId.current = selectedTime.scheduleId;
@@ -135,7 +135,7 @@ const ReservationModalContents = ({
   }, [selected, currentModalType, refreshSwitch]);
 
   return (
-    <div className="h-[33rem] max-h-[33rem] overflow-hidden">
+    <div className="h-full overflow-hidden md:h-[33rem] md:max-h-[33rem]">
       <ReservationTypeSelector
         type={currentModalType}
         setType={setCurrentModalType}

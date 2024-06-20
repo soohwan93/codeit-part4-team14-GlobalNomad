@@ -12,7 +12,7 @@ interface StatusChipProps {
 
 const StatusChipList = ({ reservationInfo, onChipClick }: StatusChipProps) => {
   return (
-    <div>
+    <div className="flex flex-col gap-0.5 xl:gap-1">
       {reservationInfo.pending !== 0 && (
         <StatusChip
           type="pending"

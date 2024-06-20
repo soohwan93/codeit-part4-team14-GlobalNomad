@@ -59,7 +59,7 @@ const ReservationCardList = ({
         scheduleId: scheduleId.current,
         status: reservationList.current[0].status,
         cursorId: cursorId.current,
-        size: 3,
+        size: 10,
       });
 
     const rawReservationList = [
@@ -94,7 +94,7 @@ const ReservationCardList = ({
   }, [firstReservationList]);
 
   return (
-    <div className="flex max-h-[15rem] flex-col gap-2 overflow-scroll">
+    <div className="flex h-[20rem] flex-col gap-2 overflow-scroll border-[1px] border-gray-20 p-2 md:max-h-[15rem]">
       {renderingReservationList !== null &&
       renderingReservationList.length !== 0 ? (
         <>
