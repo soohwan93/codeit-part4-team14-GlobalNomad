@@ -141,7 +141,6 @@ export interface MyActivityBody {
   description: string; // required
   address: string; // required
   price: number; // required
-  schedules: Schedule[];
   bannerImageUrl?: string;
   subImageIdsToRemove: number[];
   subImageUrlsToAdd: string[];
