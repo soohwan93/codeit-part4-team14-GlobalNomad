@@ -66,8 +66,7 @@ export const addScheduleValidation = (
 
   //현재 시간
   const nowDate = now(getLocalTimeZone());
-  console.log(nowDate);
-  console.log(date);
+
   //시간 차
   const timediff =
     endTime.hour * 60 -
@@ -95,7 +94,6 @@ export const addScheduleValidation = (
     return message;
   }
 
-  console.log(timediff);
   // 최소 체험 시간 설정
   if (timediff < 15) {
     message = "체험은 최소 15분 이상이어야 합니다.";
@@ -134,14 +132,13 @@ export const addScheduleValidation = (
   return message;
 };
 
-export const validateActivityCreate = (
+export const validateActivity = (
   body: PostActivityBody,
   showNotification: (message: string, callback?: () => void) => void,
 ) => {
   const { title, category, description, address, price, schedules } = body;
   const nowDate = new Date();
-  console.log(nowDate);
-  console.log(schedules);
+
   if (title === "") {
     showNotification(ERROR_MESSAGE.TITLE);
     return false;
@@ -158,19 +155,16 @@ export const validateActivityCreate = (
     showNotification(ERROR_MESSAGE.ADDRESS);
     return false;
   }
-  console.log(price);
   if (price === 0) {
     showNotification(ERROR_MESSAGE.PRICE);
     return false;
   }
-  console.log(schedules);
   if (schedules.length === 0) {
     showNotification(ERROR_MESSAGE.SCHEDULES.EMPTY);
     return false;
   }
   for (const schedule of schedules) {
     const { date, startTime } = schedule;
-
     const [year, month, day] = date.split("-").map(Number);
     const [startHour, startMinute] = startTime.split(":").map(Number);
 
