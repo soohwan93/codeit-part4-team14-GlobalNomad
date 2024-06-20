@@ -60,7 +60,7 @@ const ReviewModal = ({ reservation, setState }: ReviewModalProps) => {
         <div className="flex flex-col md:flex-row w-full gap-2 justify-center md:justify-start md:gap-6 items-center px-4 md:px-0">
           <div className="relative rounded-[12px] overflow-hidden w-[256px] h-[256px] md:w-[126px] md:h-[126px]">
             <Image
-              src={reservation.activity.bannerImageUrl || "/images/VR 게임 마스터 하는 법.png"}
+              src={reservation.activity.bannerImageUrl}
               alt={reservation.activity.title}
               layout="fill"
               objectFit="cover"
