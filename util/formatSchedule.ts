@@ -1,4 +1,4 @@
-import { ScheduleType } from "@/components/activity-management/createOrupdate/ReservationTimeInputs";
+import { ScheduleType } from "@/components/activity-management/createOrUpdate/ReservationTimeInputs";
 import { CalendarDate, ZonedDateTime } from "@internationalized/date";
 
 export const formatSchedule = (schedule: ScheduleType) => {

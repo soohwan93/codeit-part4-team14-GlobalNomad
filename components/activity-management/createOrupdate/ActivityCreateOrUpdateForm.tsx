@@ -3,13 +3,15 @@
 import Input from "@/components/common/Input";
 import Label from "@/components/common/Label";
 import React, { ChangeEvent, MouseEvent, useState } from "react";
-import ReservationTimeInputs from "./ReservationTimeInputs";
+
 import DaumPostcode from "react-daum-postcode";
 import ReservationPopup from "@/components/common/ModalPortal";
-import ImageInputs from "./ImageInputs";
+
 import { ERROR_MESSAGE } from "@/util/constraints";
 import { ActivityResponseById } from "@/app/(app)/activity-management/[activityId]/page";
 import { Schedule } from "@/util/apiType";
+import ReservationTimeInputs from "./ReservationTimeInputs";
+import ImageInputs from "./ImageInputs";
 
 interface Props {
   title: string;

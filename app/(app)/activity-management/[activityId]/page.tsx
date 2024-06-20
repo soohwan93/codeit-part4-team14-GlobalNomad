@@ -1,5 +1,5 @@
-import CreateOrUpdateMain from "@/components/activity-management/createOrupdate/CreateOrUpdateMain";
-import CreateOrUpdateWrapper from "@/components/activity-management/createOrupdate/CreateOrUpdateWrapper";
+import CreateOrUpdateMain from "@/components/activity-management/createOrUpdate/CreateOrUpdateMain";
+import CreateOrUpdateWrapper from "@/components/activity-management/createOrUpdate/CreateOrUpdateWrapper";
 import { getActivityById } from "@/util/api";
 import Link from "next/link";
 import React from "react";
