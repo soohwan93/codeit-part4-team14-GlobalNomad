@@ -1,7 +1,7 @@
 import Link from "next/link";
 import React from "react";
 
-const GuestNavButtons = () => {
+const GuestNav = () => {
   return (
     <>
       <Link className="font-medium" href="/signin">
@@ -14,4 +14,4 @@ const GuestNavButtons = () => {
   );
 };
 
-export default GuestNavButtons;
+export default GuestNav;
