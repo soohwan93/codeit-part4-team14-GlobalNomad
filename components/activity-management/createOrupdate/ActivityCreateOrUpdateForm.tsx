@@ -8,12 +8,29 @@ import DaumPostcode from "react-daum-postcode";
 import ReservationPopup from "@/components/common/ModalPortal";
 import ImageInputs from "./ImageInputs";
 import { ERROR_MESSAGE } from "@/util/constraints";
+import { ActivityResponseById } from "@/app/(app)/activity-management/[activityId]/page";
+import { Schedule } from "@/util/apiType";
 
 interface Props {
+  title: string;
+  setTitle: React.Dispatch<React.SetStateAction<string>>;
+  description: string;
+  setDescription: React.Dispatch<React.SetStateAction<string>>;
+  address: string;
+  setAddress: React.Dispatch<React.SetStateAction<string>>;
+  price: string;
+  setPrice: React.Dispatch<React.SetStateAction<string>>;
+  scheduleIdsToRemove: number[];
+  schedulesToAdd: Schedule[];
+  responseApiData?: ActivityResponseById | null;
   titleError: boolean;
   descriptionError: boolean;
   addressError: boolean;
   priceError: boolean;
+  setSubImageIdsToRemove: React.Dispatch<React.SetStateAction<number[]>>;
+  setSubImageUrlsToAdd: React.Dispatch<React.SetStateAction<string[]>>;
+  setScheduleIdsToRemove: React.Dispatch<React.SetStateAction<number[]>>;
+  setSchedulesToAdd: React.Dispatch<React.SetStateAction<Schedule[]>>;
   setTitleError: React.Dispatch<React.SetStateAction<boolean>>;
   setDescriptionError: React.Dispatch<React.SetStateAction<boolean>>;
   setAddressError: React.Dispatch<React.SetStateAction<boolean>>;
@@ -26,10 +43,25 @@ interface Props {
 
 const ActivityCreateOrUpdateForm = (props: Props) => {
   const {
+    title,
+    address,
+    description,
+    price,
+    setAddress,
+    setDescription,
+    setPrice,
+    setTitle,
+    scheduleIdsToRemove,
+    schedulesToAdd,
+    responseApiData,
     titleError,
     descriptionError,
     addressError,
     priceError,
+    setSubImageIdsToRemove,
+    setSubImageUrlsToAdd,
+    setScheduleIdsToRemove,
+    setSchedulesToAdd,
     setTitleError,
     setDescriptionError,
     setAddressError,
@@ -41,25 +73,27 @@ const ActivityCreateOrUpdateForm = (props: Props) => {
   } = props;
 
   const [isAddressOpen, setIsAddressOpen] = useState(false);
-  const [text, setText] = useState("");
-  const [address, setAddress] = useState("");
-  const [price, setPrice] = useState<string>("");
 
   const handleTextAreaChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     if (e.target.value.length > 1000) {
       return;
     }
-    setText(e.target.value);
+    setDescription(e.target.value);
   };
+
+  const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setTitle(e.target.value);
+  };
+
   const handleAddress = ({ address }: { address: string }) => {
     setAddress(address);
     setAddressError(false);
   };
+
   const handleAddressClick = (e: MouseEvent<HTMLElement>) => {
     if (e.target instanceof HTMLInputElement) {
       setIsAddressOpen(true);
     }
-
     setAddressError(!!!address);
   };
 
@@ -95,6 +129,8 @@ const ActivityCreateOrUpdateForm = (props: Props) => {
         <Label required labelText="제목" htmlFor="title">
           <Input
             placeholder="제목"
+            value={title}
+            onChange={handleTitleChange}
             error={titleError}
             errorMessage={ERROR_MESSAGE.TITLE}
             id="title"
@@ -116,7 +152,7 @@ const ActivityCreateOrUpdateForm = (props: Props) => {
                 id="description"
                 name="description"
                 onChange={handleTextAreaChange}
-                value={text}
+                value={description}
                 maxLength={1000}
                 rows={10}
                 className={`w-full resize-none rounded-[5px] ${descriptionError ? "border-red-20" : "border-gray-70"}`}
@@ -128,7 +164,7 @@ const ActivityCreateOrUpdateForm = (props: Props) => {
               <div className="absolute left-2 text-xs text-red-20">
                 <span>{`${descriptionError ? `${ERROR_MESSAGE.DESCRIPTION}` : ``}`}</span>
               </div>
-              <div className="absolute right-3 text-gray-400">{`${text.length}/1000`}</div>
+              <div className="absolute right-3 text-gray-400">{`${description.length}/1000`}</div>
             </div>
           </Label>
         </div>
@@ -171,8 +207,18 @@ const ActivityCreateOrUpdateForm = (props: Props) => {
             onBlur={(e) => setPriceError(!e.target.value)}
           />
         </Label>
-        <ReservationTimeInputs setFormattedSchedules={setFormattedSchedules} />
+        <ReservationTimeInputs
+          scheduleIdsToRemove={scheduleIdsToRemove}
+          schedulesToAdd={schedulesToAdd}
+          setScheduleIdsToRemove={setScheduleIdsToRemove}
+          setSchedulesToAdd={setSchedulesToAdd}
+          responseApiData={responseApiData}
+          setFormattedSchedules={setFormattedSchedules}
+        />
         <ImageInputs
+          setSubImageIdsToRemove={setSubImageIdsToRemove}
+          setSubImageUrlsToAdd={setSubImageUrlsToAdd}
+          responseApiData={responseApiData}
           setBannerImageUrl={setBannerImageUrl}
           setSubImageUrls={setSubImageUrls}
         />
