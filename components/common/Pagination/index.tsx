@@ -83,7 +83,7 @@ const Pagination = ({
   }, [pageRefreshSwitch]);
 
   return (
-    <div className="flex h-10 w-full items-center justify-center gap-2 bg-white p-3 md:h-14 ">
+    <div className="flex h-10 w-full items-center justify-center gap-2 bg-transparent p-3 md:h-14 ">
       <button
         type="button"
         className={`h-5 w-5 rounded-full 
