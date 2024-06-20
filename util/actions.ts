@@ -36,7 +36,6 @@ export async function fetcher(
   endpoint: string,
   method: FetchMethod,
   body?: Object,
-  token?: string,
 ) {
   // 서버 측에서 next-auth에서 설정한 session값 확인
   const session = await auth();
@@ -55,7 +54,7 @@ export async function fetcher(
     body: body ? JSON.stringify(body) : null,
   };
 
-  if (body) {
+  if (body && method !== "DELETE") {
     if (body instanceof FormData) {
       options.body = body;
     } else {
@@ -67,13 +66,24 @@ export async function fetcher(
   // 원격 서버로 요청을 전송
   const response = await fetch(`${BASE_URL}${endpoint}`, options);
 
-  if (!response.ok) {
-    const errorResponse = await response.json();
-    console.error(errorResponse.message);
-    throw new Error(errorResponse.message);
+  // 응답이 JSON 형식인지 확인
+  const contentType = response.headers.get("content-type");
+  let jsonResponse;
+  if (contentType && contentType.includes("application/json")) {
+    jsonResponse = await response.json();
+  } else {
+    jsonResponse = null;
   }
 
-  return response.json();
+  if (!response.ok) {
+    const errorResponse = jsonResponse || {
+      message: "알 수 없는 에러가 발생했습니다.",
+    };
+    console.error(errorResponse.message);
+    return errorResponse.message;
+  }
+
+  return jsonResponse;
 }
 
 // 로그아웃 함수
