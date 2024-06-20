@@ -19,12 +19,17 @@ const useDropdownInput = (
   errorMessage?: string,
 ) => {
   const inputDropdownRef = useRef<HTMLDivElement>(null);
+  const listRef = useRef<HTMLUListElement>(null);
   const [selected, setSelected] = useState(defaultValue);
   const [isOpen, setIsOpen] = useState(false);
+  const [focusedIndex, setFocusedIndex] = useState(
+    defaultValue ? dataArray.indexOf(defaultValue) : -1,
+  );
 
   const handleSelectChild = (select: string) => {
     setSelected(select);
     setIsOpen(false);
+    setFocusedIndex(dataArray.indexOf(select));
     setCategoryError?.(false);
   };
 
@@ -55,14 +60,63 @@ const useDropdownInput = (
     };
   }, [isOpen, handleClickOutside]);
 
+  useEffect(() => {
+    if (listRef.current && focusedIndex >= 0) {
+      const focusedItem = listRef.current.children[focusedIndex] as HTMLElement;
+      if (focusedItem) {
+        focusedItem.scrollIntoView({
+          block: "nearest",
+        });
+      }
+    }
+  }, [focusedIndex]);
+
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
+    switch (event.key) {
+      case "Enter":
+        if (isOpen && focusedIndex >= 0) {
+          handleSelectChild(dataArray[focusedIndex]);
+        } else {
+          setIsOpen(!isOpen);
+        }
+        break;
+      case "ArrowDown":
+        event.preventDefault(); // 기본 페이지 스크롤 방지
+        if (!isOpen) {
+          setIsOpen(true);
+        } else {
+          setFocusedIndex((prevIndex) =>
+            prevIndex < dataArray.length - 1 ? prevIndex + 1 : prevIndex,
+          );
+        }
+        break;
+      case "ArrowUp":
+        event.preventDefault(); // 기본 페이지 스크롤 방지
+        if (isOpen) {
+          setFocusedIndex((prevIndex) =>
+            prevIndex > 0 ? prevIndex - 1 : prevIndex,
+          );
+        }
+        break;
+      case "Escape":
+        setIsOpen(false);
+        setFocusedIndex(-1);
+        break;
+      default:
+        break;
+    }
+  };
+
   const renderDropdown = () => {
     return (
       <>
         <div className="relative z-[1]" ref={inputDropdownRef}>
           <div
+            tabIndex={0}
             className={`flex h-[62px] w-full cursor-pointer items-center justify-between overflow-hidden rounded border-[1px] ${error ? "border-red-20" : "border-gray-70"} pl-2 pr-1.5 text-sm leading-[162.5%] md:h-14 md:pl-4 md:text-base 
             ${selected === null ? "text-gray-60" : "text-black"}`}
             onClick={() => setIsOpen(!isOpen)}
+            onKeyDown={handleKeyDown}
           >
             {selected === null ? type : selected}
 
@@ -71,13 +125,16 @@ const useDropdownInput = (
             />
           </div>
           <ul
-            className={`absolute flex w-full translate-y-2 flex-col gap-[1px] overflow-hidden rounded bg-white shadow-lg duration-200 ${isOpen ? "h-max max-h-56 p-2" : "h-0"}`}
+            ref={listRef}
+            className={`absolute flex w-full translate-y-2 flex-col gap-[1px] overflow-scroll rounded bg-white shadow-lg duration-200 ${isOpen ? "h-max max-h-56 p-2" : "h-0"}`}
           >
-            {dataArray.map((item) => (
+            {dataArray.map((item, index) => (
               <li
                 key={item}
-                className={`flex cursor-pointer items-center rounded p-2 text-sm md:text-base ${selected === item ? "bg-nomad-black text-white hover:bg-nomad-black" : "text-black hover:bg-gray-30"}`}
+                className={`flex cursor-pointer items-center rounded p-2 text-sm md:text-base ${selected === item ? "bg-nomad-black text-white hover:bg-nomad-black" : "text-black hover:bg-gray-30"} ${focusedIndex === index ? "bg-gray-200" : ""}`}
                 onClick={() => handleSelectChild(item)}
+                onMouseEnter={() => setFocusedIndex(index)} // 마우스 오버시 포커스 설정
+                onMouseLeave={() => setFocusedIndex(-1)} // 마우스 떠날 때 포커스 해제
               >
                 <div
                   className={`${selected === item ? "bg-[url('/icons/checkmark.svg')]" : ""} mr-2 inline-block h-3 w-3 bg-center`}
@@ -99,6 +156,7 @@ const useDropdownInput = (
       </>
     );
   };
+
   return { selected, renderDropdown };
 };
 
