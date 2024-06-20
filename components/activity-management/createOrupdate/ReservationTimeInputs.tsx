@@ -67,6 +67,7 @@ const ReservationTimeInputs = (props: Props) => {
     useState<ScheduleType[]>(schedulesFromAPIData);
 
   const { showNotification } = useNotification();
+
   const handleDateChange = (selectedDate: CalendarDate) => {
     const nowDate = today(getLocalTimeZone());
     setDate(selectedDate);
