@@ -79,8 +79,8 @@ export interface PostActivityBody {
   address: string; // required
   price: number; // required
   schedules: Schedule[];
-  bannerImageUrl?: string;
-  subImageUrls?: string[];
+  bannerImageUrl: string;
+  subImageUrls: string[];
 }
 
 // 회원가입 body 타입
@@ -141,7 +141,6 @@ export interface MyActivityBody {
   description: string; // required
   address: string; // required
   price: number; // required
-  schedules: Schedule[];
   bannerImageUrl?: string;
   subImageIdsToRemove: number[];
   subImageUrlsToAdd: string[];
