@@ -48,7 +48,7 @@ const ReservationCard = ({
       <div className="flex flex-col">
         <span className="text-base font-semibold leading-normal text-gray-70">
           닉네임:&nbsp;
-          <span className="text-base font-medium leading-normal text-black">
+          <span className="truncate text-base font-medium leading-normal text-black">
             {reservation.nickname}
           </span>
         </span>
