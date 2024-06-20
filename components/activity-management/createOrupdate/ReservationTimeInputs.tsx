@@ -12,24 +12,48 @@ import { TimeInput } from "@nextui-org/date-input";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import InteractivePlusSvg from "@/components/common/svg/InteractivePlusSvg";
 import InteractiveMinusSvg from "@/components/common/svg/InteractiveMinusSvg";
-import { formatSchedule } from "@/util/formatSchedule";
+import { formatSchedule, mapApiDataToSchedules } from "@/util/formatSchedule";
 import { useNotification } from "@/contexts/NotificationContext";
 import { addScheduleValidation } from "@/util/validation";
 import Label from "@/components/common/Label";
+import { ActivityResponseById } from "@/app/(app)/activity-management/[activityId]/page";
+import { Schedule } from "@/util/apiType";
 
 interface Props {
+  scheduleIdsToRemove: number[];
+  schedulesToAdd: Schedule[];
+  setScheduleIdsToRemove: React.Dispatch<React.SetStateAction<number[]>>;
+  setSchedulesToAdd: React.Dispatch<React.SetStateAction<Schedule[]>>;
+  responseApiData?: ActivityResponseById | null;
   setFormattedSchedules: React.Dispatch<React.SetStateAction<string>>;
+}
+
+export interface ScheduleFromApi {
+  id: number;
+  date: string;
+  startTime: string;
+  endTime: string;
 }
 
 export interface ScheduleType {
   key: string;
+  id: number;
   date: CalendarDate;
   startTime: ZonedDateTime;
   endTime: ZonedDateTime;
 }
 
 const ReservationTimeInputs = (props: Props) => {
-  const { setFormattedSchedules } = props;
+  const {
+    schedulesToAdd,
+    setSchedulesToAdd,
+    setScheduleIdsToRemove,
+    responseApiData,
+    setFormattedSchedules,
+  } = props;
+  const schedulesFromAPIData = responseApiData
+    ? mapApiDataToSchedules(responseApiData.schedules)
+    : [];
 
   const datePickerRef = useRef<HTMLDivElement>(null);
 
@@ -39,7 +63,8 @@ const ReservationTimeInputs = (props: Props) => {
 
   const [isDateInvalid, setIsDateInvalid] = useState(false);
   const [dateErrorMessage, setDateErrorMessage] = useState("");
-  const [schedules, setSchedules] = useState<ScheduleType[]>([]);
+  const [schedules, setSchedules] =
+    useState<ScheduleType[]>(schedulesFromAPIData);
 
   const { showNotification } = useNotification();
   const handleDateChange = (selectedDate: CalendarDate) => {
@@ -65,21 +90,53 @@ const ReservationTimeInputs = (props: Props) => {
 
     const newSchedule = {
       key: `schedules_${schedules.length}`,
+      id: -schedules.length,
       date: date,
       startTime: startTime,
       endTime: endTime,
     };
 
-    console.log(schedules);
-    if (schedules) {
-      setSchedules([...schedules, newSchedule]);
-    } else {
-      setSchedules([newSchedule]);
-    }
+    setSchedules([...schedules, newSchedule]);
+
+    const formattedSchedule = formatSchedule(newSchedule);
+    setSchedulesToAdd([...schedulesToAdd, formattedSchedule]);
   };
 
   const handleDeleteSchedule = (key: string) => {
-    setSchedules(schedules.filter((item) => item.key !== key));
+    const scheduleToDelete = schedules.find((item) => item.key === key);
+
+    if (scheduleToDelete) {
+      const { date, startTime, endTime } = scheduleToDelete;
+
+      const existingSchedule = responseApiData?.schedules.find(
+        (item) =>
+          +item.date.split("-")[0] === date.year &&
+          +item.date.split("-")[1] === date.month &&
+          +item.date.split("-")[2] === date.day &&
+          +item.startTime.split(":")[0] === startTime.hour &&
+          +item.startTime.split(":")[1] === startTime.minute &&
+          +item.endTime.split(":")[0] === endTime.hour &&
+          +item.endTime.split(":")[1] === endTime.minute,
+      );
+
+      if (existingSchedule) {
+        setScheduleIdsToRemove((prev) => [...prev, existingSchedule.id]);
+      } else {
+        setSchedulesToAdd((prev) =>
+          prev.filter(
+            (item) =>
+              !(
+                item.date.toString() === scheduleToDelete.date.toString() &&
+                item.startTime.toString() ===
+                  scheduleToDelete.startTime.toString() &&
+                item.endTime.toString() === scheduleToDelete.endTime.toString()
+              ),
+          ),
+        );
+      }
+
+      setSchedules((prev) => prev.filter((item) => item.key !== key));
+    }
   };
 
   const formatSchedules = useCallback((schedules: ScheduleType[]) => {
