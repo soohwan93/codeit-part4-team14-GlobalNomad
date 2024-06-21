@@ -1,11 +1,7 @@
 "use client";
 
 import { FormEvent, useState } from "react";
-import {
-  validateEmail,
-  validateNickname,
-  validatePassword,
-} from "@/util/validation";
+import { validateNickname, validatePassword } from "@/util/validation";
 import Button from "../common/Button";
 import Input from "../common/Input";
 import { useFormValidation } from "@/hooks/useFormValidation";
@@ -13,6 +9,8 @@ import { patchUser } from "@/util/api";
 import useToggle from "@/hooks/useToggle";
 import NotificationPopup from "../common/Popup/NotificationPopup";
 import ProfileImageUploader from "./ProfileImageUploader";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 interface Props {
   email: string;
@@ -23,6 +21,8 @@ interface Props {
 }
 
 const MyInfo = ({ data }: { data: Props }) => {
+  const { update } = useSession();
+  const router = useRouter();
   const initialState = {
     email: data.email,
     nickName: data.nickname,
@@ -72,6 +72,13 @@ const MyInfo = ({ data }: { data: Props }) => {
 
     try {
       await patchUser(body);
+      await update({
+        user: {
+          nickname: state.nickName,
+          profileImageUrl: selectedImage || null,
+        },
+      });
+      router.refresh();
       setPopupMessage("정보가 성공적으로 업데이트되었습니다.");
       setState({ ...state, password: "", confirmPassword: "" });
     } catch (error: any) {
