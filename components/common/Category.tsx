@@ -30,8 +30,15 @@ export const CategoryItem = ({
   );
 };
 
-export const Category = () => {
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+interface CategoryProps {
+  selectedCategory: string | null;
+  setSelectedCategory: (category: string | null) => void;
+}
+
+export const Category = ({
+  selectedCategory,
+  setSelectedCategory,
+}: CategoryProps) => {
   const [isEndPointScroll, setIsEndPointScroll] = useState<boolean>(false);
   const scrollRef = useRef<HTMLDivElement>(null);
 
