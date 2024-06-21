@@ -1,14 +1,13 @@
 import { NextResponse } from "next/server";
 import { deleteMyActivity } from "@/util/api";
 import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
 
 export async function DELETE(
   request: Request,
   { params }: { params: { activityId: number } },
 ) {
   const activityId = params.activityId;
-  // 활동 삭제 요청 처리
+  // 체험 삭제 요청 처리
   const res = await deleteMyActivity(activityId);
 
   revalidatePath("/activity-management");
