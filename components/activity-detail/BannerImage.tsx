@@ -44,7 +44,7 @@ const BannerImage = ({ banner, subImages }: BannerImageProps) => {
           subImages.map((item, i) => (
             <div
               key={`subImage-${item.id}`}
-              className="relative min-w-[10.9375rem] overflow-hidden rounded-xl bg-gray-20 md:w-full "
+              className="relative min-w-[11.65rem] overflow-hidden rounded-xl bg-gray-20 md:w-full md:min-w-[10.9375rem] "
               onMouseOver={() => {
                 setCurrentBanner(item.id);
               }}
