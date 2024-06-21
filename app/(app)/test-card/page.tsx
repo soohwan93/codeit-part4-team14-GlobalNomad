@@ -17,7 +17,7 @@ const page = (props: Props) => {
       <div className="mt-10">
         {ACTIVITY_LIST.map((item: ActivityApiProps) => (
           <Fragment key={item.id}>
-            <ActivityManagementCard prop={item} />
+            {/* <ActivityManagementCard prop={item} /> */}
           </Fragment>
         ))}
       </div>

@@ -47,6 +47,7 @@ export const useFormValidation = (
 
   return {
     state,
+    setState,
     errors,
     handleChange,
     handleBlur,

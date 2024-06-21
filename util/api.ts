@@ -82,8 +82,8 @@ export function postActivityReservation(
 }
 
 // 체험 이미지 url 생성
-export function postActivityImages(body: ActivityImagesBody) {
-  return fetcher(`/activities/image`, "POST", body);
+export function postActivityImages(formData: FormData) {
+  return fetcher(`/activities/image`, "POST", formData);
 }
 
 /** Auth
@@ -232,6 +232,6 @@ export function patchUser(body: PatchUserBody) {
 }
 
 // 프로필 이미지 url 작성
-export function postUserImageUrl(body: UserImageUrlBody) {
-  return fetcher(`/users/me/image`, "POST", body);
+export function postUserImageUrl(formData: FormData) {
+  return fetcher(`/users/me/image`, "POST", formData);
 }

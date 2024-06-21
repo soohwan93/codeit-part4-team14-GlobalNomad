@@ -3,6 +3,7 @@ import Button from "../Button";
 import PopupCheckSvg from "../svg/PopupCheckSvg";
 
 interface DeletePopupProps {
+  callback?: (() => void) | null;
   message: string;
   isOpen: boolean;
   onClose: () => void;
@@ -10,13 +11,18 @@ interface DeletePopupProps {
 }
 
 const DeletePopup = ({
+  callback,
   message,
   isOpen,
   onClose,
   onDelete,
 }: DeletePopupProps) => {
   return (
-    <PopupWrapper isOpen={isOpen} onClose={onClose}>
+    <PopupWrapper
+      callback={callback ? callback : null}
+      isOpen={isOpen}
+      onClose={onClose}
+    >
       <div className="flex w-72 flex-col items-center justify-center rounded-xl bg-white p-6">
         <PopupCheckSvg />
         <p className="mt-4">{message}</p>

@@ -2,16 +2,24 @@ import React from "react";
 import PlusLargeSvg from "./PlusLargeSvg";
 import PlusSmallSvg from "./PlusSmallSvg";
 
-type Props = { onClick?: () => void };
+type Props = { isDateInvalid: boolean; onClick?: () => void };
 
-const InteractivePlusSvg = ({ onClick }: Props) => {
+const InteractivePlusSvg = ({ isDateInvalid, onClick }: Props) => {
   return (
     <>
-      <div className="block md:hidden" onClick={onClick}>
-        <PlusSmallSvg />
-      </div>
-      <div className="hidden md:block" onClick={onClick}>
-        <PlusLargeSvg />
+      <div className={`${isDateInvalid && `cursor-not-allowed`}`}>
+        <div
+          className={`${isDateInvalid ? `pointer-events-none` : `cursor-pointer`}  block md:hidden`}
+          onClick={onClick}
+        >
+          <PlusSmallSvg />
+        </div>
+        <div
+          className={`${isDateInvalid ? `pointer-events-none` : `cursor-pointer`}  hidden md:block`}
+          onClick={onClick}
+        >
+          <PlusLargeSvg />
+        </div>
       </div>
     </>
   );

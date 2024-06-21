@@ -5,6 +5,8 @@ import GNB from "@/components/common/GNB";
 import Footer from "@/components/common/Footer";
 import { SessionProviderWrapper } from "@/contexts/SessionProviderWrapper";
 import { SessionProvider } from "next-auth/react";
+import { NextUIProvider } from "@nextui-org/react";
+import { NotificationProvider } from "@/contexts/NotificationContext";
 
 const pretendard = localFont({
   src: "../../public/fonts/PretendardVariable.woff2",
@@ -26,14 +28,18 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body className={pretendard.className}>
-        <SessionProvider>
-          <SessionProviderWrapper>
-            <GNB />
-            {children}
-            <Footer />
-            <div id="portal"></div>
-          </SessionProviderWrapper>
-        </SessionProvider>
+        <NextUIProvider>
+          <SessionProvider>
+            <SessionProviderWrapper>
+              <NotificationProvider>
+                <GNB />
+                {children}
+                <Footer />
+              </NotificationProvider>
+              <div id="portal"></div>
+            </SessionProviderWrapper>
+          </SessionProvider>
+        </NextUIProvider>
       </body>
     </html>
   );

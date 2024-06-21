@@ -1,9 +1,10 @@
 "use server";
-import { auth, signIn } from "@/auth";
+import { auth, signIn, signOut } from "@/auth";
 import { AuthError } from "next-auth";
 import { FetchMethod, LoginBody } from "./apiType";
 import { BASE_URL } from "./api";
 
+// 로그인 함수
 export async function authenticate(
   prevState: string | undefined,
   formData: LoginBody,
@@ -35,7 +36,6 @@ export async function fetcher(
   endpoint: string,
   method: FetchMethod,
   body?: Object,
-  token?: string,
 ) {
   // 서버 측에서 next-auth에서 설정한 session값 확인
   const session = await auth();
@@ -48,24 +48,45 @@ export async function fetcher(
     headers.append("Authorization", `Bearer ${accessToken}`);
   }
 
-  if (body) {
-    headers.append("Content-Type", "application/json");
-  }
-
   const options: RequestInit = {
     method,
     headers,
     body: body ? JSON.stringify(body) : null,
   };
 
+  if (body && method !== "DELETE") {
+    if (body instanceof FormData) {
+      options.body = body;
+    } else {
+      headers.append("Content-Type", "application/json");
+      options.body = JSON.stringify(body);
+    }
+  }
+
   // 원격 서버로 요청을 전송
   const response = await fetch(`${BASE_URL}${endpoint}`, options);
 
-  if (!response.ok) {
-    const errorResponse = await response.json();
-    console.error(errorResponse.message);
-    throw new Error(errorResponse.message);
+  // 응답이 JSON 형식인지 확인
+  const contentType = response.headers.get("content-type");
+  let jsonResponse;
+  if (contentType && contentType.includes("application/json")) {
+    jsonResponse = await response.json();
+  } else {
+    jsonResponse = null;
   }
 
-  return response.json();
+  if (!response.ok) {
+    const errorResponse = jsonResponse || {
+      message: "알 수 없는 에러가 발생했습니다.",
+    };
+    console.error(errorResponse.message);
+    return errorResponse.message;
+  }
+
+  return jsonResponse;
+}
+
+// 로그아웃 함수
+export async function logout() {
+  await signOut();
 }

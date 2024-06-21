@@ -1,9 +1,14 @@
+"use client";
 import { getMyActivities } from "@/util/api";
-import React, { Fragment } from "react";
-import ActivityManagementCard from "./ActivityManagementCard";
 import { MyActivitiesQuery } from "@/util/apiType";
+import React, { Fragment, useEffect, useState, useCallback } from "react";
+
+import { useInView } from "react-intersection-observer";
+import ActivityManagementCard from "./ActivityManagementCard";
+import Image from "next/image";
 
 export interface ActivityManagementCardProps {
+  id: number;
   title: string;
   price: number;
   bannerImageUrl: string;
@@ -23,72 +28,84 @@ export interface ActivityApiProps {
   reviewCount: number;
 }
 
-const ActivityManagementCardWrapper = async () => {
-  const query: MyActivitiesQuery = {
-    size: 5,
-  };
-  // const res = await getMyActivities(query);
+interface Props {
+  initialActivities: ActivityApiProps[];
+}
 
-  const { activities } = await getMyActivities(query);
-  // const cookieStore = cookies();
-  // const token = cookieStore.get("accessToken")?.value;
-  // console.log(token);
+const ActivityManagementCardWrapper = ({ initialActivities }: Props) => {
+  const [activities, setActivities] =
+    useState<ActivityApiProps[]>(initialActivities);
+  const [lastCursorId, setLastCursorId] = useState<number | null>(
+    initialActivities.length > 0
+      ? initialActivities[initialActivities.length - 1].id
+      : null,
+  );
+  const [ref, inView] = useInView({ threshold: 1 });
+  const [loading, setLoading] = useState(false);
+  const [lastDataLength, setLastDataLength] = useState<number>(5);
+  const callMyActivities = useCallback(async () => {
+    if (loading) return;
+    setLoading(true);
 
-  // const [activities, setActivities] = useState<ActivityApiProps[]>([]);
-  // const [lastCursorId, setLastCursorId] = useState<number | null>(null);
+    const query: MyActivitiesQuery = {
+      size: 5,
+      cursorId: lastCursorId,
+    };
 
-  // const callMyActivities = async () => {
-  // const query: MyActivitiesQuery = {
-  //   size: 5,
-  // };
-  //   const { activities } = await getMyActivities(query);
-  //   setActivities(activities);
-  //   console.log(activities);
-  // };
+    const { activities: newActivities } = await getMyActivities(query);
 
-  // const handleIntersection = async (inView: boolean) => {
-  //   if (inView && lastCursorId !== null) {
-  //     console.log("In view:", inView);
-  //     const query: MyActivitiesQuery = {
-  //       size: 3,
-  //       cursorId: lastCursorId,
-  //     };
-  //     const { activities: newActivities } = await getMyActivities(query);
-  //     setActivities((prevActivities) => [...prevActivities, ...newActivities]);
-  //     if (newActivities.length > 0) {
-  //       setLastCursorId(newActivities[newActivities.length - 1].id);
-  //       console.log(lastCursorId);
-  //     }
-  //   }
-  // };
+    setLoading(false);
+    if (newActivities.length === 0) {
+      return;
+    }
+    setLastDataLength(newActivities.length);
+    setActivities((prevActivities) => [...prevActivities, ...newActivities]);
+    if (newActivities.length > 0) {
+      setLastCursorId(newActivities[newActivities.length - 1].id);
+    }
+  }, [lastCursorId, loading]);
 
-  // useEffect(() => {
-  //   callMyActivities();
-  // }, []);
+  useEffect(() => {
+    if (
+      inView &&
+      !loading &&
+      lastDataLength === 5 &&
+      initialActivities.length >= 5
+    ) {
+      callMyActivities();
+    }
+  }, [inView, callMyActivities, loading, lastDataLength, initialActivities]);
 
   return (
     <>
       {activities?.map((item: ActivityApiProps) => (
         <Fragment key={item.id}>
-          <ActivityManagementCard prop={item} />
+          <ActivityManagementCard setActivities={setActivities} prop={item} />
         </Fragment>
       ))}
-      {/* <InView as="div" onChange={handleIntersection} threshold={1}>
-        {({ ref }) => <div ref={ref} style={{ height: "1px" }}></div>}
-      </InView> */}
-      {/* <InView
-        as="div"
-        onChange={handleIntersection}
-        rootMargin="100px"
-        threshold={0.1}
-      >
-        {({ ref }) => (
-          <div ref={ref} style={{ height: "50px", background: "lightgray" }}>
-            이 부분이 스크롤이 해당 영역에 도달했을 때 호출되는 지점입니다.
-          </div>
-        )}
-      </InView> */}
+      {loading && (
+        <div className="flex h-32 w-full items-center justify-center space-x-2 bg-gray-10 dark:invert md:h-52">
+          <div className="h-3 w-3 animate-bounce rounded-full bg-nomad-black [animation-delay:-0.3s]"></div>
+          <div className="h-3 w-3 animate-bounce rounded-full bg-nomad-black [animation-delay:-0.15s]"></div>
+          <div className="h-3 w-3 animate-bounce rounded-full bg-nomad-black"></div>
+        </div>
+      )}
+      {!loading && activities.length === 0 && (
+        <div className="mx-auto mt-20 flex w-fit flex-col items-center">
+          <Image
+            src="/icons/no-result.svg"
+            width={130}
+            height={177}
+            alt="아직 등록한 체험이 없습니다."
+          />
+          <span className="mt-10 inline-block text-xl font-medium text-gray-70 md:text-2xl">
+            아직 등록한 체험이 없어요.
+          </span>
+        </div>
+      )}
+      <div ref={ref} className="h-1" />
     </>
   );
 };
+
 export default ActivityManagementCardWrapper;

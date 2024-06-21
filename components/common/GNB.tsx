@@ -1,5 +1,5 @@
 import HeaderLogoSvg from "./svg/HeaderLogoSvg";
-import NavButtons from "./GNB/NavButtons";
+import OptionalNav from "./GNB/OptionalNav";
 
 import Link from "next/link";
 
@@ -11,7 +11,7 @@ const GNB = () => {
           <Link href="/">
             <HeaderLogoSvg />
           </Link>
-          <NavButtons />
+          <OptionalNav />
         </div>
       </header>
       <div className="border-b-2 border-gray-200" />

@@ -1,4 +1,6 @@
 "use client";
+import CounterAdd from "@/components/common/svg/CounterAddSvg";
+import CounterSubtract from "@/components/common/svg/CounterSubtractSvg";
 import Image from "next/image";
 import React, { Dispatch, SetStateAction, useRef } from "react";
 
@@ -48,16 +50,10 @@ function ReservationCounter({ count, setCount }: ReservationCounterProp) {
     <div className="flex h-10 w-min min-w-[7.5rem] items-center justify-center rounded-xl outline outline-[#cdd0dc]">
       <button
         type="button"
-        className="h-10 w-10"
+        className="flex h-10 w-10 items-center justify-center"
         onClick={() => handleClickButton(false)}
       >
-        <Image
-          src="/icons/counter/Subtract.svg"
-          width={20}
-          height={20}
-          alt="reservation-decrease"
-          className="inline-block text-center"
-        />
+        <CounterSubtract />
       </button>
       <input
         ref={counterRef}
@@ -69,20 +65,14 @@ function ReservationCounter({ count, setCount }: ReservationCounterProp) {
         onBlur={() => handleBlur()}
         min={1}
         max={50}
-        className="input-number-none-arrow h-10 w-10 p-2 text-center"
+        className="input-number-none-arrow h-10 w-10 border-none p-2 text-center"
       />
       <button
         type="button"
-        className="h-10 w-10"
+        className="flex h-10 w-10 items-center justify-center"
         onClick={() => handleClickButton(true)}
       >
-        <Image
-          src="/icons/counter/Add.svg"
-          width={20}
-          height={20}
-          alt="reservation-increase"
-          className="inline-block text-center"
-        />
+        <CounterAdd />
       </button>
     </div>
   );
