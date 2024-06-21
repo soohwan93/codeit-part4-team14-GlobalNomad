@@ -42,8 +42,8 @@ export interface AvailableScheduleQuery {
 
 // 내 체험 리스트 조회 쿼리 타입
 export interface MyActivitiesQuery {
-  [key: string]: number | undefined;
-  cursorId?: number;
+  [key: string]: number | undefined | null;
+  cursorId?: number | null;
   size?: number;
 }
 

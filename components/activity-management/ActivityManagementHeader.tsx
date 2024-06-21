@@ -1,20 +1,20 @@
-import { Button } from "flowbite-react";
 import Link from "next/link";
 import React from "react";
+import Button from "../common/Button";
 
 const ActivityManagementHeader = () => {
   return (
-    <div className="flex items-center justify-between">
-      <div className="text-[32px] font-bold">내 체험 관리</div>
-      <Button
-        className="focus:ring-0"
-        color="dark"
-        as={Link}
-        href="/activity-management/create"
-      >
-        체험 등록하기
-      </Button>
-    </div>
+    <>
+      <div className="mt-1 flex items-center justify-between pb-6">
+        <div className="text-[32px] font-bold">내 체험 관리</div>
+        <Link
+          href={"/activity-management/create"}
+          className="h-12 w-[120px] rounded-[4px] font-medium text-white"
+        >
+          <Button>체험 등록하기</Button>
+        </Link>
+      </div>
+    </>
   );
 };
 
