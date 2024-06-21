@@ -1,10 +1,9 @@
-"use client";
-
 import React, { useState, useRef, ChangeEvent, KeyboardEvent, useCallback } from "react";
 import Image from "next/image";
 import StarRating from "./StarRating";
 import { Reservation } from "./ReviewType";
 import ReservationPopup from "../ModalPortal";
+import { postMyReservationReview } from "@/util/api";
 
 type ReviewModalProps = {
   reservation: Reservation;
@@ -16,10 +15,21 @@ const ReviewModal = ({ reservation, setState }: ReviewModalProps) => {
   const [reviewText, setReviewText] = useState("");
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
-  const handleSubmit = useCallback(() => {
-    console.log("Review submitted:", { rating, reviewText });
-    setState(false);
-  }, [rating, reviewText, setState]);
+  const handleSubmit = useCallback(async () => {
+    try {
+      const reviewData = {
+        rating,
+        content: reviewText,
+      };
+
+      await postMyReservationReview(reservation.id, reviewData);
+      console.log("Review submitted:", { rating, reviewText });
+
+      setState(false);
+    } catch (error) {
+      console.error("Error submitting review:", error);
+    }
+  }, [rating, reviewText, reservation.id, setState]);
 
   const handleReviewChange = useCallback((event: ChangeEvent<HTMLTextAreaElement>) => {
     setReviewText(event.target.value);
@@ -47,16 +57,17 @@ const ReviewModal = ({ reservation, setState }: ReviewModalProps) => {
       usePortal={true}
     >
       <div className="flex flex-col items-center justify-center gap-6 h-75vh md:h-full">
-        <div className="flex w-full gap-2 justify-center md:justify-start md:gap-6 items-center">
-          <div className="relative rounded-[12px] overflow-hidden w-[100px] h-[100px] md:w-[126px] md:h-[126px]">
+        <div className="flex flex-col md:flex-row w-full gap-2 justify-center md:justify-start md:gap-6 items-center px-4 md:px-0">
+          <div className="relative rounded-[12px] overflow-hidden w-[256px] h-[256px] md:w-[126px] md:h-[126px]">
             <Image
               src={reservation.activity.bannerImageUrl}
               alt={reservation.activity.title}
               layout="fill"
-              objectFit="contain"
+              objectFit="cover"
+              className="w-full h-full object-cover"
             />
           </div>
-          <div className="flex flex-col text-black gap-2">
+          <div className="flex flex-col text-black gap-2 text-center md:text-left w-full md:w-auto">
             <h2 className="text-[16px] font-bold md:text-[20px]">
               {reservation.activity.title}
             </h2>
