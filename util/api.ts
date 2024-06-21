@@ -82,8 +82,8 @@ export function postActivityReservation(
 }
 
 // 체험 이미지 url 생성
-export function postActivityImages(body: ActivityImagesBody) {
-  return fetcher(`/activities/image`, "POST", body);
+export function postActivityImages(formData: FormData) {
+  return fetcher(`/activities/image`, "POST", formData);
 }
 
 /** Auth
