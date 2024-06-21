@@ -16,7 +16,7 @@ const BannerImage = ({ banner, subImages }: BannerImageProps) => {
   const [currentBanner, setCurrentBanner] = useState<number | null>(null);
 
   return (
-    <section className="max-h-[50rem] w-full">
+    <section className="max-h-[50rem] w-full px-2 md:px-0">
       <div className="relative mb-2 h-[25rem] w-full overflow-hidden rounded-xl bg-gray-40 xl:h-[31.25rem]">
         <Image
           src={banner}

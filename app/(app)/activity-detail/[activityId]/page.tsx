@@ -38,7 +38,7 @@ const page = async ({ params }: { params: { activityId: string } }) => {
   const isUserOwner = String(data.userId) === userData?.user.id;
 
   return (
-    <div className="bg-gray-10 px-0 py-4 md:px-6 md:py-6 xl:py-20">
+    <div className="bg-gray-10 px-0 py-4 md:px-6 md:py-6 xl:py-0">
       <div className="mx-auto max-w-[1200px]">
         <header className="flex items-center justify-between px-4 py-4 xl:pt-20">
           <div>
