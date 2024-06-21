@@ -232,6 +232,6 @@ export function patchUser(body: PatchUserBody) {
 }
 
 // 프로필 이미지 url 작성
-export function postUserImageUrl(body: UserImageUrlBody) {
-  return fetcher(`/users/me/image`, "POST", body);
+export function postUserImageUrl(formData: FormData) {
+  return fetcher(`/users/me/image`, "POST", formData);
 }

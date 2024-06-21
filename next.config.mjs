@@ -18,6 +18,7 @@ const nextConfig = {
         hostname: "via.placeholder.com",
       },
     ],
+    domains: ["img.freepik.com"],
   },
 };
 

@@ -75,7 +75,7 @@ const Pagination = ({
     setCurrentPageList(firstPageList);
     handlePageNumberChange(1);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [count]);
+  }, [count, pageItemLimit]);
 
   useEffect(() => {
     handlePageNumberChange(1);

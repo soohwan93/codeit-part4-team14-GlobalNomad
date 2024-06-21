@@ -1,12 +1,18 @@
 import { ReactNode, useEffect, useRef, useCallback } from "react";
 
 interface PopupWrapperProps {
+  callback: (() => void) | null;
   isOpen: boolean;
   onClose: () => void;
   children: ReactNode;
 }
 
-const PopupWrapper = ({ isOpen, onClose, children }: PopupWrapperProps) => {
+const PopupWrapper = ({
+  callback,
+  isOpen,
+  onClose,
+  children,
+}: PopupWrapperProps) => {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -16,10 +22,13 @@ const PopupWrapper = ({ isOpen, onClose, children }: PopupWrapperProps) => {
         containerRef.current &&
         !containerRef.current.contains(e.target as Node)
       ) {
+        if (callback) {
+          callback();
+        }
         onClose();
       }
     },
-    [onClose],
+    [onClose, callback],
   );
 
   useEffect(() => {
