@@ -5,6 +5,7 @@ import React, { Fragment, useEffect, useState, useCallback } from "react";
 
 import { useInView } from "react-intersection-observer";
 import ActivityManagementCard from "./ActivityManagementCard";
+import Image from "next/image";
 
 export interface ActivityManagementCardProps {
   id: number;
@@ -54,7 +55,9 @@ const ActivityManagementCardWrapper = ({ initialActivities }: Props) => {
     const { activities: newActivities } = await getMyActivities(query);
 
     setLoading(false);
-
+    if (newActivities.length === 0) {
+      return;
+    }
     setLastDataLength(newActivities.length);
     setActivities((prevActivities) => [...prevActivities, ...newActivities]);
     if (newActivities.length > 0) {
@@ -63,10 +66,15 @@ const ActivityManagementCardWrapper = ({ initialActivities }: Props) => {
   }, [lastCursorId, loading]);
 
   useEffect(() => {
-    if (inView && !loading && lastDataLength === 5) {
+    if (
+      inView &&
+      !loading &&
+      lastDataLength === 5 &&
+      initialActivities.length >= 5
+    ) {
       callMyActivities();
     }
-  }, [inView, callMyActivities, loading, lastDataLength]);
+  }, [inView, callMyActivities, loading, lastDataLength, initialActivities]);
 
   return (
     <>
@@ -80,6 +88,19 @@ const ActivityManagementCardWrapper = ({ initialActivities }: Props) => {
           <div className="h-3 w-3 animate-bounce rounded-full bg-nomad-black [animation-delay:-0.3s]"></div>
           <div className="h-3 w-3 animate-bounce rounded-full bg-nomad-black [animation-delay:-0.15s]"></div>
           <div className="h-3 w-3 animate-bounce rounded-full bg-nomad-black"></div>
+        </div>
+      )}
+      {!loading && activities.length === 0 && (
+        <div className="mx-auto mt-20 flex w-fit flex-col items-center">
+          <Image
+            src="/icons/no-result.svg"
+            width={130}
+            height={177}
+            alt="아직 등록한 체험이 없습니다."
+          />
+          <span className="mt-10 inline-block text-xl font-medium text-gray-70 md:text-2xl">
+            아직 등록한 체험이 없어요.
+          </span>
         </div>
       )}
       <div ref={ref} className="h-1" />
