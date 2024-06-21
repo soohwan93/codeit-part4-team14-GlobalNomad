@@ -44,6 +44,7 @@ export const NotificationProvider = ({ children }: { children: ReactNode }) => {
         message={message}
         isOpen={isOpen}
         onClose={closeNotification}
+        callback={callback}
       />
     </NotificationContext.Provider>
   );

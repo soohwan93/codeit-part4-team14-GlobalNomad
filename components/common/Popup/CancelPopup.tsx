@@ -3,6 +3,7 @@ import Button from "../Button";
 import CloseSvg from "../svg/PopupCheckSvg";
 
 interface CancelPopupProps {
+  callback?: (() => void) | null;
   message: string;
   isOpen: boolean;
   onClose: () => void;
@@ -10,13 +11,18 @@ interface CancelPopupProps {
 }
 
 const CancelPopup = ({
+  callback,
   message,
   isOpen,
   onClose,
   onCancel,
 }: CancelPopupProps) => {
   return (
-    <PopupWrapper isOpen={isOpen} onClose={onClose}>
+    <PopupWrapper
+      callback={callback ? callback : null}
+      isOpen={isOpen}
+      onClose={onClose}
+    >
       <div className="flex w-72 flex-col items-center justify-center rounded-xl bg-white p-6">
         <CloseSvg />
         <p className="mt-4">{message}</p>

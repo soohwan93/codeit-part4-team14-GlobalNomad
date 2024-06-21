@@ -12,7 +12,7 @@ export function convertQuery<T>(query: QueryObject<T>): string {
         value.forEach((item) => {
           queryParams.append(key, item as string);
         });
-      } else if (value !== undefined) {
+      } else if (value !== undefined || value !== null) {
         queryParams.append(key, query[key]!.toString());
       }
     }

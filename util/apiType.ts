@@ -42,13 +42,17 @@ export interface AvailableScheduleQuery {
 
 // 내 체험 리스트 조회 쿼리 타입
 export interface MyActivitiesQuery {
-  [key: string]: number | undefined;
-  cursorId?: number;
+  [key: string]: number | undefined | null;
+  cursorId?: number | null;
   size?: number;
 }
 
 // 내 체험 월별 예약 현황 조회 쿼리 타입
-export interface ReservationDashBoardQuery extends AvailableScheduleQuery {}
+export interface ReservationDashBoardQuery {
+  [key: string]: number | string;
+  year: number;
+  month: string;
+}
 
 // 내 체험 날짜별 예약 정보(신청, 승인, 거절)가 있는 스케줄 조회 쿼리 타입
 export interface ReservedScheduleQuery {
@@ -59,8 +63,8 @@ export interface ReservedScheduleQuery {
 // 내 체험 예약 시간대별 예약 내역 조회 쿼리 타입
 export interface ReservationsQuery {
   [key: string]: string | undefined | number | ReservationsStatus;
-  cursorId?: string;
-  size?: string;
+  cursorId?: number;
+  size?: number;
   scheduleId: number;
   status: ReservationsStatus;
 }
@@ -119,7 +123,7 @@ export interface PostUserBody {
 // 내 정보 수정 body 타입
 export interface PatchUserBody {
   nickname: string;
-  profileImageUrl: string;
+  profileImageUrl: string | null;
   newPassword: string;
 }
 

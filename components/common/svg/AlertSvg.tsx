@@ -1,16 +1,14 @@
 import React from "react";
 
 type Props = {
-  onClick: () => void;
   isClicked: Boolean;
 };
 
-const AlertSvg: React.FC<Props> = ({ onClick, isClicked }: Props) => {
+const AlertSvg: React.FC<Props> = ({ isClicked }: Props) => {
   return (
     <svg
       className="cursor-pointer"
       id="alertSvg"
-      onClick={onClick}
       xmlns="http://www.w3.org/2000/svg"
       width="24"
       height="24"
