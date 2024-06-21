@@ -1,4 +1,4 @@
-import { ChangeEvent, useRef } from "react";
+import { ChangeEvent, useRef, useState } from "react";
 import DefaultUserSvg from "../common/svg/DefaultUserSvg";
 import ProfileEditSvg from "../common/svg/ProfileEditSvg";
 import Image from "next/image";
@@ -17,14 +17,26 @@ const ProfileImageUploader = ({
   setPopupMessage,
   togglePopup,
 }: ProfileImageUploaderProps) => {
+  const [isValidImage, setIsValidImage] = useState(true);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleImageChange = async (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
-    if (file) {
-      const imageUrl = await uploadImage(file);
-      onImageChange(imageUrl);
+    if (!file) return;
+
+    const imageUrl = await uploadImage(file);
+    if (!imageUrl) return;
+
+    const valid = await validateImageUrl(imageUrl);
+    setIsValidImage(valid);
+
+    if (!valid) {
+      setPopupMessage("유효하지 않은 이미지 URL입니다.");
+      togglePopup();
+      return;
     }
+
+    onImageChange(imageUrl);
   };
 
   const handleEditClick = () => {
@@ -33,7 +45,7 @@ const ProfileImageUploader = ({
     }
   };
 
-  const uploadImage = async (file: File): Promise<string> => {
+  const uploadImage = async (file: File): Promise<string | null> => {
     const formData = new FormData();
     formData.append("image", file);
 
@@ -41,10 +53,20 @@ const ProfileImageUploader = ({
       const response = await postUserImageUrl(formData);
       return response.profileImageUrl;
     } catch (error: any) {
-      setPopupMessage(error.message || "이미지 업로드에 실패했습니다.");
+      const errorMessage = error.message || "이미지 업로드에 실패했습니다.";
+      setPopupMessage(errorMessage);
       togglePopup();
-      return "";
+      return null;
     }
+  };
+
+  const validateImageUrl = (url: string): Promise<boolean> => {
+    return new Promise((resolve) => {
+      const img = new window.Image();
+      img.onload = () => resolve(true);
+      img.onerror = () => resolve(false);
+      img.src = url;
+    });
   };
 
   return (
@@ -59,7 +81,7 @@ const ProfileImageUploader = ({
           onChange={handleImageChange}
         />
         <label htmlFor="profile-image-input" className="cursor-pointer">
-          {selectedImage ? (
+          {selectedImage && isValidImage ? (
             <Image
               className="h-[160px] w-[160px] max-w-[100%] rounded-[50%]"
               width={160}
