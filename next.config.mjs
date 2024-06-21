@@ -14,6 +14,7 @@ const nextConfig = {
         hostname: "avatars.githubusercontent.com",
       },
     ],
+    domains: ["img.freepik.com"],
   },
 };
 

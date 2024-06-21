@@ -1,16 +1,19 @@
 import React from "react";
 import Image from "next/image";
-import Star from "@/public/icons/Star.svg";
-import image from "@/public/images/함께 배우면 즐거운 스트릿 댄스.png";
 import StarSvg from "./svg/StarSvg";
+import { ActivityItem } from "@/app/(app)/page";
 
-export const CardResourcePopular = () => {
+interface CardProps {
+  item: ActivityItem;
+}
+
+export const CardResourcePopular = ({ item }: CardProps) => {
   return (
     <div className="relative h-[186px] w-[186px] overflow-hidden rounded-[20px] md:h-[384px] md:w-[384px]">
       <Image
         className="absolute z-0 scale-125 rounded-[20px] object-cover"
         fill
-        src={image}
+        src={item.bannerImageUrl}
         alt="image"
         sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
       />
@@ -18,13 +21,15 @@ export const CardResourcePopular = () => {
       <div className="absolute bottom-[8px] z-[1] flex w-[186px] flex-col gap-[6px] px-[20px] py-[12px] text-[#ffffff] md:bottom-0 md:w-[384px] md:gap-[20px] md:py-[30px]">
         <div className="flex gap-[5px]">
           <StarSvg />
-          <span className="text-[14px] font-[600]">4.9 (793)</span>
+          <span className="text-[14px] font-[600]">
+            {item.rating} ({item.reviewCount})
+          </span>
         </div>
-        <div className="line-clamp-2 w-[146px] break-keep text-[18px] font-[700] md:w-[230px] md:text-[30px]">
-          함께 배우면 즐거운 스트릿 댄스
+        <div className="line-clamp-2 h-[55px] w-[146px] break-keep text-[18px] font-[700] md:h-[90px] md:w-[230px] md:text-[30px]">
+          {item.title}
         </div>
         <div className="flex gap-[5px] text-[16px] font-[700] md:text-[20px]">
-          <span>₩ 38,000</span>
+          <span>₩ {item.price.toLocaleString()}</span>
           <span className="self-center text-[14px] font-[400] text-[#a1a1a1]">
             / 인
           </span>
@@ -34,30 +39,31 @@ export const CardResourcePopular = () => {
   );
 };
 
-export const CardResourceCategory = () => {
+export const CardResourceCategory = ({ item }: CardProps) => {
   return (
-    <div className="flex w-min flex-col gap-[16px]">
-      <div className="relative h-[168px] w-[168px] overflow-hidden rounded-[20px] md:h-[221px] md:w-[221px] xl:h-[283px] xl:w-[283px]">
+    <div className="flex flex-col gap-[16px]">
+      <div className="relative w-full overflow-hidden rounded-[20px] pt-[100%]">
         <Image
           className="scale-125 rounded-[20px] object-cover"
           fill
-          src={image}
+          src={item.bannerImageUrl}
           alt="image"
           sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
         />
       </div>
-      <div className="flex w-[168px] flex-col gap-[10px] text-[#1b1b1b] md:w-[282px]">
+      <div className="flex w-full flex-col gap-[10px] text-[#1b1b1b]">
         <div className="flex gap-[5px]">
           <StarSvg />
           <span className="text-[16px] font-[500]">
-            4.9 <span className="text-[#a1a1a1]">(793)</span>
+            {item.rating}{" "}
+            <span className="text-[#a1a1a1]">({item.reviewCount})</span>
           </span>
         </div>
         <div className="... truncate break-keep pb-[5px] text-[18px] font-[600] md:text-[24px]">
-          함께 배우면 즐거운 스트릿 댄스!!!
+          {item.title}
         </div>
         <div className="flex gap-[5px] text-[20px] font-[700] md:text-[28px]">
-          <span>₩ 38,000</span>
+          <span>₩ {item.price.toLocaleString()}</span>
           <span className="self-center text-[16px] font-[400] text-[#4b4b4b] md:text-[20px]">
             / 인
           </span>

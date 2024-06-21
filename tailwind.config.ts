@@ -42,6 +42,7 @@ const config: Config = {
     },
   },
   plugins: [
+    require("@tailwindcss/line-clamp"),
     flowbite.plugin(),
     nextui({
       layout: {
