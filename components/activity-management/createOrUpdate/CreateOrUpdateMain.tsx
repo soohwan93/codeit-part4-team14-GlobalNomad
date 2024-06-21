@@ -65,27 +65,36 @@ const CreateOrUpdateMain = ({ responseApiData }: CreateMainProps) => {
 
     if (isValid) {
       let res = null;
-      try {
-        if (activityId) {
-          res = await patchMyActivity(+activityId, body as MyActivityBody);
-        } else {
-          res = await postActivity(body as PostActivityBody);
-        }
-        if (res) {
-          showNotification(
-            `${activityId ? `수정` : `등록`}이 완료되었습니다!`,
-            callback,
-          );
-        }
-      } catch (error: any) {
-        showNotification(error.message);
+
+      if (activityId) {
+        res = await fetch(`/api/updateMyActivity/${activityId}`, {
+          method: "PATCH",
+          body: JSON.stringify(body),
+        });
+      } else {
+        res = await fetch("/api/createMyActivity", {
+          method: "POST",
+          body: JSON.stringify(body),
+        });
+      }
+      const rs = await res.json();
+      if (rs.success === "ok") {
+        showNotification(
+          `${activityId ? `수정` : `등록`}이 완료되었습니다!`,
+          callback,
+        );
+      } else {
+        showNotification(rs.message);
       }
     }
   };
 
   const callback = () => {
     router.refresh();
-    router.push("/activity-management");
+
+    setTimeout(() => {
+      router.push("/activity-management");
+    }, 200);
   };
 
   const getUpdateBody = (value: HTMLFormElement) => {
