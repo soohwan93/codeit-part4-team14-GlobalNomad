@@ -7,6 +7,7 @@ import Image from "next/image";
 import InteractiveRoundedCloseSvg from "@/components/common/svg/InteractiveRoundedCloseSvg";
 import { useNotification } from "@/contexts/NotificationContext";
 import { ActivityResponseById } from "@/app/(app)/activity-management/[activityId]/page";
+import { ERROR_MESSAGE } from "@/util/constraints";
 
 interface SubPreviewUrlsType {
   id: number;
@@ -54,7 +55,10 @@ const ImageInputs = (props: Props) => {
 
   const handleBannerImageChange = async (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
+    console.log("진입");
+    console.log(file);
     if (file) {
+      console.log(!isValidImageFile(file));
       if (!isValidImageFile(file)) {
         showNotification("잘못된 이미지 형식입니다.");
         return;
@@ -62,7 +66,7 @@ const ImageInputs = (props: Props) => {
       setBannerLoading(true);
 
       const imageUrl = await uploadImage(file);
-
+      console.log(imageUrl);
       setBannerLoading(false);
 
       if (imageUrl) {
@@ -127,14 +131,12 @@ const ImageInputs = (props: Props) => {
   const uploadImage = async (file: File) => {
     const formData = new FormData();
     formData.append("image", file);
-    try {
-      const response = await postActivityImages(formData);
-      if (response) {
-        return response.activityImageUrl;
-      }
-    } catch (error: any) {
-      showNotification("잘못된 이미지 형식입니다.");
-      return false;
+
+    const response = await postActivityImages(formData);
+    if (response !== ERROR_MESSAGE.UNKNOWN) {
+      return response.activityImageUrl;
+    } else {
+      showNotification(ERROR_MESSAGE.IMAGE);
     }
   };
 
