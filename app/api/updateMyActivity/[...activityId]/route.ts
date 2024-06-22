@@ -1,6 +1,6 @@
-import { patchMyActivity, postActivity } from "@/util/api";
+import { patchMyActivity } from "@/util/api";
 import { revalidatePath } from "next/cache";
-import { MyActivityBody, PostActivityBody } from "@/util/apiType";
+import { MyActivityBody } from "@/util/apiType";
 import { NextResponse } from "next/server";
 
 export async function PATCH(

@@ -7,6 +7,7 @@ import Image from "next/image";
 import InteractiveRoundedCloseSvg from "@/components/common/svg/InteractiveRoundedCloseSvg";
 import { useNotification } from "@/contexts/NotificationContext";
 import { ActivityResponseById } from "@/app/(app)/activity-management/[activityId]/page";
+import { ERROR_MESSAGE } from "@/util/constraints";
 
 interface SubPreviewUrlsType {
   id: number;
@@ -127,14 +128,12 @@ const ImageInputs = (props: Props) => {
   const uploadImage = async (file: File) => {
     const formData = new FormData();
     formData.append("image", file);
-    try {
-      const response = await postActivityImages(formData);
-      if (response) {
-        return response.activityImageUrl;
-      }
-    } catch (error: any) {
-      showNotification("잘못된 이미지 형식입니다.");
-      return false;
+
+    const response = await postActivityImages(formData);
+    if (response !== ERROR_MESSAGE.UNKNOWN) {
+      return response.activityImageUrl;
+    } else {
+      showNotification(ERROR_MESSAGE.IMAGE);
     }
   };
 
@@ -191,11 +190,10 @@ const ImageInputs = (props: Props) => {
                 <div className="h-full w-full animate-pulse rounded-2xl bg-gray-200"></div>
               ) : (
                 <Image
-                  className="rounded-2xl"
+                  className="rounded-2xl object-cover"
                   src={bannerPreviewUrl}
                   alt={`Preview`}
-                  layout="fill"
-                  objectFit="cover"
+                  fill
                 />
               )}
               <InteractiveRoundedCloseSvg onClick={handleRemoveBannerImage} />
@@ -225,11 +223,10 @@ const ImageInputs = (props: Props) => {
                 <div className="h-full w-full animate-pulse rounded-2xl bg-gray-200"></div>
               ) : (
                 <Image
-                  className="rounded-2xl"
+                  className="rounded-2xl object-cover"
                   src={item.imageUrl}
                   alt={`Preview ${index + 1}`}
-                  layout="fill"
-                  objectFit="cover"
+                  fill
                 />
               )}
               <InteractiveRoundedCloseSvg
