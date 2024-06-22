@@ -40,15 +40,15 @@ const FilterDropdown = ({
       Options={optionsWithOnClick}
       defaultLabel={
         <button
-          className="bg-white w-[40px] h-[40px] md:w-[160px] md:h-[53px] p-2 rounded-lg border border-emerald-800"
+          className="bg-white w-[100px] h-[40px] md:w-[120px] md:h-[45px] p-2 rounded-lg border border-nomad-black"
           onClick={() => setDropdownOpen(!dropdownOpen)}
         >
           <div className="flex items-center justify-center md:justify-between px-2">
-            <p className="hidden text-emerald-800 font-bold md:block">
+            <p className="text-nomad-black font-bold text-sm md:text-base">
               {selectedOptionLabel}
             </p>
             <div
-              className={`flex h-6 w-6 items-center justify-center duration-100 md:h-5 md:w-5 ${dropdownOpen ? "rotate-180" : "rotate-0"}`}
+              className={`hidden md:flex h-6 w-6 items-center justify-center duration-100 md:h-5 md:w-5 ${dropdownOpen ? "rotate-180" : "rotate-0"}`}
             >
               <DropdownArrow />
             </div>
