@@ -5,8 +5,8 @@ import { subMonths } from "date-fns";
 import { getMyActivityReservationDashBoard } from "@/util/api";
 import StatusChipList from "./StatusChipList";
 import ModalPortal from "../common/ModalPortal";
-import ReservationModalContents from "./ReservationModalContents";
 import { ReservationsStatus } from "@/util/apiType";
+import ReservationModalContents from "./ReservationModalContents";
 
 interface ReservationCalendarProps {
   selectedActivityId: number;

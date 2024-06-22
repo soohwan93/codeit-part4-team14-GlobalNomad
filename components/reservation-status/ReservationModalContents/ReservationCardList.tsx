@@ -1,30 +1,12 @@
 "use client";
-import React, { SetStateAction, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import ReservationCard from "./ReservationCard";
-import { ReservationsStatus } from "@/util/apiType";
 import { getMyActivityReservations } from "@/util/api";
 import Image from "next/image";
-
-interface ScheduleReservationResponseType {
-  cursorId: number;
-  totalCount: number;
-  reservations: ScheduleReservationType[];
-}
-
-interface ScheduleReservationType {
-  id: number;
-  nickname: string;
-  userId: number;
-  teamId: string;
-  activityId: number;
-  status: ReservationsStatus;
-  reviewSubmitted: boolean;
-  totalPrice: number;
-  headCount: number;
-  date: string;
-  startTime: string;
-  endTime: string;
-}
+import {
+  ScheduleReservationResponseType,
+  ScheduleReservationType,
+} from "../reservationStatusTypes";
 
 const ReservationCardList = ({
   firstReservationList,

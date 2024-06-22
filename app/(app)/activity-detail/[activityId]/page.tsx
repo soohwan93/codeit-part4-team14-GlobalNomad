@@ -5,7 +5,6 @@ import ReviewList from "@/components/activity-detail/ReviewList";
 import ActivityDetailHeader from "@/components/activity-detail/ActivityDetailHeader";
 import ReservationModal from "@/components/activity-detail/ReservationModal";
 import { getActivityById, getActivityReviews, getUser } from "@/util/api";
-import fetchCurrentUserData from "@/components/activity-detail/fetchCurrentUserData";
 import StarSvg from "@/components/common/svg/StarSvg";
 import { auth } from "@/auth";
 
