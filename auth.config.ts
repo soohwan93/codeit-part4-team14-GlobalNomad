@@ -6,7 +6,7 @@ export const authConfig = {
     signIn: "/signin",
   },
   callbacks: {
-    async jwt({ token, user }) {
+    async jwt({ token, user, trigger, session }) {
       if (user) {
         return {
           ...user,
@@ -16,6 +16,10 @@ export const authConfig = {
           accessTokenExpires: user.accessTokenExpires,
           refreshTokenExpires: user.refreshTokenExpires,
         };
+      }
+      if (trigger === "update" && session.user.nickname) {
+        token.nickname = session.user.nickname;
+        token.profileImageUrl = session.user.profileImageUrl;
       }
       if (
         token?.refreshTokenExpires &&
