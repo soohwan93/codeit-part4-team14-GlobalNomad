@@ -4,7 +4,7 @@ import useCalendar from "./useCalendar";
 import { subMonths } from "date-fns";
 import { getMyActivityReservationDashBoard } from "@/util/api";
 import StatusChipList from "./StatusChipList";
-import ReservationPopup from "../common/ModalPortal";
+import ModalPortal from "../common/ModalPortal";
 import ReservationModalContents from "./ReservationModalContents";
 import { ReservationsStatus } from "@/util/apiType";
 
@@ -153,7 +153,7 @@ const ReservationCalendar = ({
         )}
       </div>
       {isModalOpen && (
-        <ReservationPopup title="예약 정보" usePortal setState={setIsModalOpen}>
+        <ModalPortal title="예약 정보" usePortal setState={setIsModalOpen}>
           <ReservationModalContents
             reservationData={reservationStatusOfMonth[selectedDay]}
             type={modalType}
@@ -163,7 +163,7 @@ const ReservationCalendar = ({
               setRefreshSwitch(!refreshSwitch);
             }}
           />
-        </ReservationPopup>
+        </ModalPortal>
       )}
     </section>
   );

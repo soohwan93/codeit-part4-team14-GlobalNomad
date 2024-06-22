@@ -1,6 +1,6 @@
 "use client";
 import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
-import ReservationPopup from "../../../common/ModalPortal";
+import ModalPortal from "../../../common/ModalPortal";
 import ReservationDate from "./ReservationDate";
 import "react-calendar/dist/Calendar.css";
 import { CalendarValue } from "../calendarTypes";
@@ -60,7 +60,7 @@ const ReservationDatePresenter = ({
             time[1]}
       </span>
       <div className={`${showModal ? "block" : "hidden"}`}>
-        <ReservationPopup
+        <ModalPortal
           title="날짜"
           setState={setShowModal}
           buttonName="확인"
@@ -74,7 +74,7 @@ const ReservationDatePresenter = ({
             setTime={setTime}
             schedules={schedules}
           />
-        </ReservationPopup>
+        </ModalPortal>
       </div>
     </div>
   );

@@ -1,7 +1,7 @@
 "use client";
 import React, { Dispatch, SetStateAction, useState } from "react";
 import ReservationCounter from "./ReservationCounter";
-import ReservationPopup from "../../../common/ModalPortal";
+import ModalPortal from "../../../common/ModalPortal";
 
 interface ReservationCounterPresenterProp {
   count: number;
@@ -35,7 +35,7 @@ const ReservationCounterPresenter = ({
       </span>
       <div className="md:hidden">
         {showModal && (
-          <ReservationPopup
+          <ModalPortal
             title="인원 수"
             setState={setShowModal}
             buttonName="확인"
@@ -49,7 +49,7 @@ const ReservationCounterPresenter = ({
               </span>
               <ReservationCounter count={count} setCount={setCount} />
             </div>
-          </ReservationPopup>
+          </ModalPortal>
         )}
       </div>
     </div>

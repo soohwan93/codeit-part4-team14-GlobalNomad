@@ -8,7 +8,7 @@ import React, {
   useState,
 } from "react";
 import ReactDOM from "react-dom";
-import ModalBase from "./ModalBase";
+import ModalLayOut from "./ModalLayOut";
 
 interface ReservationPopupType {
   title: string;
@@ -30,7 +30,7 @@ interface ReservationPopupType {
  * @returns
  */
 
-const ReservationPopup = ({
+const ModalPortal = ({
   title,
   setState,
   buttonName,
@@ -47,7 +47,7 @@ const ReservationPopup = ({
   if (usePortal && mounted) {
     const portalElement = document.getElementById("portal");
     return ReactDOM.createPortal(
-      <ModalBase
+      <ModalLayOut
         title={title}
         setState={setState}
         buttonName={buttonName}
@@ -55,13 +55,13 @@ const ReservationPopup = ({
         usePortal={usePortal}
       >
         {children}
-      </ModalBase>,
+      </ModalLayOut>,
       portalElement!,
     );
   }
 
   return (
-    <ModalBase
+    <ModalLayOut
       title={title}
       setState={setState}
       buttonName={buttonName}
@@ -69,8 +69,8 @@ const ReservationPopup = ({
       usePortal={usePortal}
     >
       {children}
-    </ModalBase>
+    </ModalLayOut>
   );
 };
 
-export default ReservationPopup;
+export default ModalPortal;
