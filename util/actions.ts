@@ -3,6 +3,7 @@ import { auth, signIn, signOut } from "@/auth";
 import { AuthError } from "next-auth";
 import { FetchMethod, LoginBody } from "./apiType";
 import { BASE_URL } from "./api";
+import { ERROR_MESSAGE } from "./constraints";
 
 // 로그인 함수
 export async function authenticate(
@@ -77,7 +78,7 @@ export async function fetcher(
 
   if (!response.ok) {
     const errorResponse = jsonResponse || {
-      message: "알 수 없는 에러가 발생했습니다.",
+      message: ERROR_MESSAGE.UNKNOWN,
     };
     console.error(errorResponse.message);
     return errorResponse.message;

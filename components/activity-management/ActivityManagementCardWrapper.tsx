@@ -30,9 +30,15 @@ export interface ActivityApiProps {
 
 interface Props {
   initialActivities: ActivityApiProps[];
+  hasNext: number | null;
+  totalCount: number;
 }
 
-const ActivityManagementCardWrapper = ({ initialActivities }: Props) => {
+const ActivityManagementCardWrapper = ({
+  totalCount,
+  hasNext,
+  initialActivities,
+}: Props) => {
   const [activities, setActivities] =
     useState<ActivityApiProps[]>(initialActivities);
   const [lastCursorId, setLastCursorId] = useState<number | null>(
@@ -55,10 +61,12 @@ const ActivityManagementCardWrapper = ({ initialActivities }: Props) => {
     const { activities: newActivities } = await getMyActivities(query);
 
     setLoading(false);
+    setLastDataLength(newActivities.length);
+
     if (newActivities.length === 0) {
       return;
     }
-    setLastDataLength(newActivities.length);
+
     setActivities((prevActivities) => [...prevActivities, ...newActivities]);
     if (newActivities.length > 0) {
       setLastCursorId(newActivities[newActivities.length - 1].id);
@@ -70,11 +78,12 @@ const ActivityManagementCardWrapper = ({ initialActivities }: Props) => {
       inView &&
       !loading &&
       lastDataLength === 5 &&
-      initialActivities.length >= 5
+      totalCount > 5 &&
+      hasNext
     ) {
       callMyActivities();
     }
-  }, [inView, callMyActivities, loading, lastDataLength, initialActivities]);
+  }, [inView, callMyActivities, loading, lastDataLength, totalCount, hasNext]);
 
   return (
     <>

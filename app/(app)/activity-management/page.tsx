@@ -11,11 +11,20 @@ const page = async () => {
   const query: MyActivitiesQuery = {
     size: 5,
   };
-  const { activities } = await getMyActivities(query);
+  const {
+    cursorId: hasNext,
+    totalCount,
+    activities,
+  } = await getMyActivities(query);
+
   return (
     <ActivityManagementWrapper>
       <ActivityManagementHeader />
-      <ActivityManagementCardWrapper initialActivities={activities} />
+      <ActivityManagementCardWrapper
+        hasNext={hasNext}
+        totalCount={totalCount}
+        initialActivities={activities}
+      />
     </ActivityManagementWrapper>
   );
 };

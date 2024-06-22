@@ -6,8 +6,8 @@ import Link from "next/link";
 const GNB = () => {
   return (
     <>
-      <header className="mx-auto flex h-[70px] w-full max-w-[1200px] flex-col items-center justify-center ">
-        <div className="flex w-full justify-between px-6">
+      <header className="mx-auto flex h-[70px] w-full flex-col items-center justify-center px-6">
+        <div className="flex w-full max-w-[1200px] justify-between ">
           <Link href="/">
             <HeaderLogoSvg />
           </Link>

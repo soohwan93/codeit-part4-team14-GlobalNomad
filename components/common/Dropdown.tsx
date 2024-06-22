@@ -29,7 +29,7 @@ const Dropdown = ({
         {defaultLabel && <div className="cursor-pointer">{defaultLabel}</div>}
         {dropdownOpen && (
           <div
-            className={`absolute z-10 top-full mt-2 rounded border bg-white shadow-lg 
+            className={`absolute top-full z-[10] mt-2 rounded border bg-white shadow-lg 
                         ${customClassName ? customClassName : originPositionRight ? "right-0" : "left-0"}`}
           >
             {Options.map((option) => (
