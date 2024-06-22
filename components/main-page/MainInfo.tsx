@@ -39,11 +39,6 @@ export const MainInfo = ({ activities, totalCount }: MainInfoProps) => {
   const leftArrowRef = useRef<HTMLDivElement>(null);
   const rightArrowRef = useRef<HTMLDivElement>(null);
 
-  // useEffect(() => {
-  //   // 초기 activityList 설정
-  //   setActivityList(activities.slice(0, itemsPerPage));
-  // }, [activities, itemsPerPage]);
-
   const options = [
     {
       label: "가격이 낮은 순",
@@ -182,6 +177,8 @@ export const MainInfo = ({ activities, totalCount }: MainInfoProps) => {
     handlePageClick(1);
   }, [itemsPerPage]);
 
+  const customClassName = "right-[-28px] top-[44px] z-[2]";
+
   return (
     <div className="relative w-full min-w-[375px] md:min-w-[743px]">
       <Banner />
@@ -238,6 +235,7 @@ export const MainInfo = ({ activities, totalCount }: MainInfoProps) => {
                   dropdownOpen={dropdownOpen}
                   setDropdownOpen={setDropdownOpen}
                   originPositionRight={false}
+                  customClassName={customClassName}
                 />
               </div>
             </div>
