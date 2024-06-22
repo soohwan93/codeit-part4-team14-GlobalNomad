@@ -13,8 +13,6 @@ import { Banner } from "@/components/common/Banner";
 import Dropdown from "@/components/common/Dropdown";
 import { useEffect, useRef, useState } from "react";
 import DropdownArrowSvg from "@/components/common/svg/DropdownArrowSvg";
-import { getActivities } from "@/util/api";
-import { ActivityQuerys } from "@/util/apiType";
 import Link from "next/link";
 import { ActivityItem } from "@/app/(app)/page";
 
@@ -29,7 +27,9 @@ export const MainInfo = ({ activities, totalCount }: MainInfoProps) => {
   const [filteredActivityList, setFilteredActivityList] =
     useState<ActivityItem[]>(activities);
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const [currentList, setCurrentList] = useState<ActivityItem[]>(activities);
+  const [currentList, setCurrentList] = useState<ActivityItem[]>(
+    activities.slice(0, 8),
+  );
   const [itemsPerPage, setItemsPerPage] = useState<number>(8);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [searchWord, setSearchWord] = useState<string>("");
@@ -38,6 +38,11 @@ export const MainInfo = ({ activities, totalCount }: MainInfoProps) => {
   const sliderContainerRef = useRef<HTMLDivElement>(null);
   const leftArrowRef = useRef<HTMLDivElement>(null);
   const rightArrowRef = useRef<HTMLDivElement>(null);
+
+  // useEffect(() => {
+  //   // 초기 activityList 설정
+  //   setActivityList(activities.slice(0, itemsPerPage));
+  // }, [activities, itemsPerPage]);
 
   const options = [
     {
@@ -245,7 +250,7 @@ export const MainInfo = ({ activities, totalCount }: MainInfoProps) => {
               ) : (
                 <span className="text-[36px] font-[700]">모든 체험</span>
               )}
-              {currentList.length > 0 ? (
+              {(totalCount || currentList.length) > 0 ? (
                 <div className="grid w-full grid-cols-2 grid-rows-2 gap-x-[8px] gap-y-[24px] md:grid-cols-3 md:grid-rows-3 md:gap-x-[16px] md:gap-y-[32px] xl:grid-cols-4 xl:grid-rows-2 xl:gap-x-[24px] xl:gap-y-[48px]">
                   {currentList.map((item: ActivityItem) => (
                     <Link key={item.id} href={`/activity-detail/${item.id}`}>
@@ -265,11 +270,13 @@ export const MainInfo = ({ activities, totalCount }: MainInfoProps) => {
             <div className="pb-[203px] pt-[83px]">
               <Pagination
                 count={
-                  selectedCategory
-                    ? activityList.filter(
-                        (item) => item.category === selectedCategory,
-                      ).length
-                    : activityList.length
+                  totalCount === 0
+                    ? activities.length
+                    : selectedCategory
+                      ? activityList.filter(
+                          (item) => item.category === selectedCategory,
+                        ).length
+                      : activityList.length
                 }
                 pageItemLimit={itemsPerPage}
                 onPageClick={handlePageClick}
