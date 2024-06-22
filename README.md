@@ -12,12 +12,15 @@
 ![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)
 ![KakaoTalk](https://img.shields.io/badge/kakaotalk-ffcd00.svg?style=for-the-badge&logo=kakaotalk&logoColor=000000)
 
-## 소개
+## How to GlobalNoad
 
 - GlobalNomad는 개인, 단체에게 다양한 활동이나 체험을 제공하거나, 이를 경험하고 싶은 사람을 위한 서비스입니다.
--
+- 현재 원하는 체험의 카테고리 분류에 따라 나눠 볼 수 있으며, 특정 체험을 찾아보고자 할 경우 검색 또한 가능합니다.
+- 간단하게 체험 일자 및 예약 일정을 설정하고, 해당 예약에 대한 신청자에 대한 처리를 간단하게 가능하게 해줍니다.
+- 활동 설립자가 지정한 일자와 예약 시간을 확인하고, 그 일정에 참여하고자 하는 인원을 제출하여 간단하게 예약이 가능합니다.
+- 체험이 끝난 이후, 해당 체험 내용에 대해 후기를 남기는 것이 가능합니다.
 
-##
+## became the GlobalNomad
 
 ## Developer
 
