@@ -3,6 +3,7 @@ import React, { useEffect, useCallback, useRef, useState } from "react";
 import { useInView } from "react-intersection-observer";
 import { deleteMyNotification, getMyNotifications } from "@/util/api";
 import dateFormat from "@/util/dateForm";
+import AlertSvg from '@/components/common/svg/AlertSvg';
 
 export interface Notification {
   id: number;
@@ -14,24 +15,34 @@ export interface Notification {
   deletedAt?: string;
 }
 
-interface NotificationPopupProps {
+interface NotificationModalProps {
   setState: React.Dispatch<React.SetStateAction<boolean>>;
   notifications: Notification[];
   setNotifications: React.Dispatch<React.SetStateAction<Notification[]>>;
   buttonPosition: { top: number; left: number };
 }
 
-const NotificationPopup = ({
+const NotificationModal = ({
   setState,
   notifications,
   setNotifications,
   buttonPosition,
-}: NotificationPopupProps) => {
+}: NotificationModalProps) => {
   const { ref, inView } = useInView();
   const [loading, setLoading] = useState(false);
-  const [adjustedPosition, setAdjustedPosition] = useState({ top: 0, left: 0 });
-
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const notificationsRef = useRef<HTMLDivElement | null>(null);
+
+  const handleResize = () => {
+    setWindowWidth(window.innerWidth);
+  };
+
+  useEffect(() => {
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   const fetchNotifications = useCallback(async () => {
     setLoading(true);
@@ -54,28 +65,6 @@ const NotificationPopup = ({
       fetchNotifications();
     }
   }, [inView, loading, fetchNotifications]);
-
-  useEffect(() => {
-    const adjustPosition = () => {
-      const { innerWidth, innerHeight } = window;
-      const popupWidth = 368;
-      const popupHeight = notificationsRef.current
-        ? notificationsRef.current.offsetHeight
-        : 0;
-
-      let { top, left } = buttonPosition;
-      if (left + popupWidth > innerWidth) {
-        left = innerWidth - popupWidth - 10;
-      }
-      if (top + popupHeight > innerHeight) {
-        top = innerHeight - popupHeight - 10;
-      }
-
-      setAdjustedPosition({ top, left });
-    };
-
-    adjustPosition();
-  }, [buttonPosition]);
 
   const handleDelete = async (id: number) => {
     try {
@@ -132,63 +121,67 @@ const NotificationPopup = ({
   };
 
   return (
-    <div
-      ref={notificationsRef}
-      className="absolute z-[50] w-full rounded-[10px] border border-[#CBC9CF] bg-[#CED8D5] px-5 py-6 text-[#1b1b1b] md:w-[368px]"
-      style={{
-        boxShadow: "0px 2px 8px 0px rgba(120, 116, 134, 0.25)",
-        top: adjustedPosition.top + 10,
-        left: adjustedPosition.left,
-      }}
-    >
-      <div id="notificationModal" className="flex items-center justify-between">
-        <p className="text-[20px] font-bold leading-normal">
-          {notifications.length === 0
-            ? "알림이 없습니다."
-            : `알림 ${notifications.length}개`}
-        </p>
-        <button
-          type="button"
-          onClick={() => setState(false)}
-          className="h-10 w-10 bg-[url('/icons/btn_X.svg')] bg-cover"
-        ></button>
-      </div>
-      {notifications.length > 0 && (
-        <div className="mt-4 flex h-full flex-col gap-2 overflow-hidden md:h-[632px]">
-          {notifications.map((notification) => (
-            <div
-              key={notification.id}
-              className="min-h-[120px] bg-white px-3 py-4"
-            >
-              <div className="flex items-start justify-between">
-                <div
-                  className={`mt-1 h-[5px] w-[5px] rounded-full ${notification.content.includes("승인") ? "bg-[#0085ff]" : "bg-[#ff472e]"}`}
-                ></div>
-                <button
-                  type="button"
-                  onClick={() => handleDelete(notification.id)}
-                  className="h-6 w-6 bg-[url('/icons/btn_X.svg')] bg-cover"
-                ></button>
-              </div>
-              <div className="flex flex-col justify-between">
-                <p
-                  className="mb-1 text-[14px] font-normal leading-[22px]"
-                  style={{ wordBreak: "keep-all", wordWrap: "break-word" }}
-                >
-                  {renderContent(notification.content)}
-                </p>
-                <p className="text-[12px] font-normal leading-[16px] text-[#a4a1aa]">
-                  {dateFormat(notification.updatedAt)}
-                </p>
-              </div>
-            </div>
-          ))}
-          <div ref={ref} className="h-[1px]"></div>
-          {loading && <div className="p-4 text-center">로딩 중...</div>}
+    <>
+      <div
+        ref={notificationsRef}
+        className="fixed z-[50] w-full h-screen bg-[#CED8D5] border border-[#CBC9CF] rounded-[10px] shadow-[0px_2px_8px_0px_rgba(120,116,134,0.25)] md:absolute md:w-[368px] md:max-h-[calc(4*152px+64px)]"
+        style={{
+          top: windowWidth >= 768 ? buttonPosition.top + 10 : 0,
+          left: windowWidth >= 768 ? buttonPosition.left - 170 : buttonPosition.left,
+        }}
+      >
+        <div id="notificationModal" className="flex items-center justify-between p-6">
+          <p className="text-[20px] font-bold leading-normal">
+            {`알림 ${notifications.length}개`}
+          </p>
+          <button
+            type="button"
+            onClick={() => setState(prev => !prev)}
+            className="h-10 w-10 bg-[url('/icons/btn_X.svg')] bg-cover"
+          ></button>
         </div>
-      )}
-    </div>
+        {notifications.length === 0 ? (
+          <div className="flex flex-col items-center justify-center h-full text-center pb-32">
+            <AlertSvg isClicked={false}/>
+            <p className="text-[20px] font-bold mt-4">새로운 알림이 없습니다.</p>
+            <p className="text-[14px] text-[#a4a1aa]">서비스와 다양한 알림을 이곳에서 모아볼 수 있어요.</p>
+          </div>
+        ) : (
+          <div className="mt-4 flex h-full flex-col gap-2 overflow-hidden md:h-[calc(2*120px+64px)]">
+            {notifications.map((notification) => (
+              <div
+                key={notification.id}
+                className="min-h-[120px] bg-white px-3 py-4"
+              >
+                <div className="flex items-start justify-between">
+                  <div
+                    className={`mt-1 h-[5px] w-[5px] rounded-full ${notification.content.includes("승인") ? "bg-[#0085ff]" : "bg-[#ff472e]"}`}
+                  ></div>
+                  <button
+                    type="button"
+                    onClick={() => handleDelete(notification.id)}
+                    className="h-6 w-6 bg-[url('/icons/btn_X.svg')] bg-cover"
+                  ></button>
+                </div>
+                <div className="flex flex-col justify-between">
+                  <p
+                    className="mb-1 text-[14px] font-normal leading-[22px] break-words"
+                  >
+                    {renderContent(notification.content)}
+                  </p>
+                  <p className="text-[12px] font-normal leading-[16px] text-[#a4a1aa]">
+                    {dateFormat(notification.updatedAt)}
+                  </p>
+                </div>
+              </div>
+            ))}
+            <div ref={ref} className="h-[1px]"></div>
+            {loading && <div className="p-4 text-center">로딩 중...</div>}
+          </div>
+        )}
+      </div>
+    </>
   );
 };
-
-export default NotificationPopup;
+// resolve problem
+export default NotificationModal;
