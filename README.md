@@ -26,9 +26,8 @@
 ## became the GlobalNomad!
 
 ### GlobalNomad를 통해 다양한 체험에 빠져보세요!
+<img width="1279" alt="globalNomadImage" src="https://github.com/soohwan93/codeit-part4-team14-GlobalNomad/assets/155033024/1bc90cd2-e705-4f78-85ba-7affc4a4a66a">
 
-<img width="1279" alt="스크린샷 2024-06-22 오후 5 36 16" src="https://github.com/soohwan93/codeit-part4-team14-GlobalNomad/assets/155033024/b40f6019-6b66-4da7-b551-ee76f327b148">
-이미지수정해야됨이미지수정해야됨이미지수정해야됨이미지수정해야됨이미지수정해야됨이미지수정해야됨이미지수정해야됨이미지수정해야됨이미지수정해야됨이미지수정해야됨이미지수정해야됨이미지수정해야됨이미지수정해야됨
 
 ### 새로운 체험을 쉽게 등록하고, 간편하게 관리하세요!
 <img width="792" alt="스크린샷 2024-06-22 오후 7 02 18" src="https://github.com/soohwan93/codeit-part4-team14-GlobalNomad/assets/155033024/b5bdd6f0-8a4e-4a22-b9ec-1b51cb95cbc9">
