@@ -1,4 +1,5 @@
 # 🌏 GlobalNomad 🌏
+
 <img width="1339" alt="스크린샷 2024-06-22 오후 5 11 08" src="https://github.com/soohwan93/codeit-part4-team14-GlobalNomad/assets/155033024/263e3bdb-6406-4dca-b2d1-cd16b87bc77d">
 
 ![header](https://capsule-render.vercel.app/api?type=waving&&height=160&color=121&text=모두가%20하나되어%20체험하기&fontSize=45&&&fontColor=ffe&fontAlignY=30&rotate=-1&desc=주객일체%20체험참여%20및%20생성서비스%20GlobalNomad&descAlign=75&descAlignY=55)
@@ -23,18 +24,21 @@
 
 ## became the GlobalNomad!
 
-
 ### GlobalNomad를 통해 다양한 체험에 빠져보세요!
-<img width="1279" alt="스크린샷 2024-06-22 오후 5 36 16" src="https://github.com/soohwan93/codeit-part4-team14-GlobalNomad/assets/155033024/b40f6019-6b66-4da7-b551-ee76f327b148">
 
+<img width="1279" alt="스크린샷 2024-06-22 오후 5 36 16" src="https://github.com/soohwan93/codeit-part4-team14-GlobalNomad/assets/155033024/b40f6019-6b66-4da7-b551-ee76f327b148">
+이미지수정해야됨이미지수정해야됨이미지수정해야됨이미지수정해야됨이미지수정해야됨이미지수정해야됨이미지수정해야됨이미지수정해야됨이미지수정해야됨이미지수정해야됨이미지수정해야됨이미지수정해야됨이미지수정해야됨
 
 ### 요즘 핫한 체험들! 간편하게 찾아보세요!
+
 <img width="1339" alt="스크린샷 2024-06-22 오후 5 26 37" src="https://github.com/soohwan93/codeit-part4-team14-GlobalNomad/assets/155033024/eb132e87-676c-4954-b34b-67c40ab30fbf">
 
 ### 예약 상품과 위치을 간단하게 확인하고 빠르게 예약하세요!
+
 <img width="1228" alt="스크린샷 2024-06-22 오후 5 25 40" src="https://github.com/soohwan93/codeit-part4-team14-GlobalNomad/assets/155033024/7c0e0254-a75d-4190-9672-78e27a49ccda">
 
 ### 예약 상황을 빠르게 확인하고 간편하게 처리하세요!
+
 <img width="1276" alt="스크린샷 2024-06-22 오후 5 27 56" src="https://github.com/soohwan93/codeit-part4-team14-GlobalNomad/assets/155033024/366f93bf-364a-4a93-ac40-068076fa32ee">
 
 ## Developer
