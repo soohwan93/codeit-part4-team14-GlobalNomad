@@ -5,7 +5,7 @@ import Label from "@/components/common/Label";
 import React, { ChangeEvent, MouseEvent, useState } from "react";
 
 import DaumPostcode from "react-daum-postcode";
-import ReservationPopup from "@/components/common/ModalPortal";
+import ModalPortal from "@/components/common/ModalPortal";
 
 import { ERROR_MESSAGE } from "@/util/constraints";
 import { ActivityResponseById } from "@/app/(app)/activity-management/[activityId]/page";
@@ -182,11 +182,7 @@ const ActivityCreateOrUpdateForm = (props: Props) => {
             errorMessage={ERROR_MESSAGE.ADDRESS}
           />
           {isAddressOpen && (
-            <ReservationPopup
-              usePortal
-              title="주소"
-              setState={setIsAddressOpen}
-            >
+            <ModalPortal usePortal title="주소" setState={setIsAddressOpen}>
               <DaumPostcode
                 style={{
                   height: "500px",
@@ -194,7 +190,7 @@ const ActivityCreateOrUpdateForm = (props: Props) => {
                 onComplete={handleAddress}
                 onClose={handleCloseAddress}
               />
-            </ReservationPopup>
+            </ModalPortal>
           )}
         </Label>
         <Label required labelText="가격" htmlFor="price">

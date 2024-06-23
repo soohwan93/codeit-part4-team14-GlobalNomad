@@ -5,8 +5,8 @@ import ReviewList from "@/components/activity-detail/ReviewList";
 import ActivityDetailHeader from "@/components/activity-detail/ActivityDetailHeader";
 import ReservationModal from "@/components/activity-detail/ReservationModal";
 import { getActivityById, getActivityReviews, getUser } from "@/util/api";
-import fetchCurrentUserData from "@/components/activity-detail/fetchCurrentUserData";
 import StarSvg from "@/components/common/svg/StarSvg";
+import { auth } from "@/auth";
 
 interface ActivityDetailType {
   id: number;
@@ -26,7 +26,7 @@ interface ActivityDetailType {
 }
 
 const page = async ({ params }: { params: { activityId: string } }) => {
-  const userData = await fetchCurrentUserData();
+  const userData = await auth();
   const data: ActivityDetailType = await getActivityById(
     Number(params.activityId),
   );
@@ -34,10 +34,10 @@ const page = async ({ params }: { params: { activityId: string } }) => {
     page: 1,
     size: 3,
   });
-  const isUserOwner = data.userId === userData.id;
+  const isUserOwner = String(data.userId) === userData?.user.id;
 
   return (
-    <div className="bg-gray-10 px-0 py-4 md:px-6 md:py-6 xl:py-20">
+    <div className="bg-gray-10 px-0 py-4 md:px-6 md:py-6 xl:py-0">
       <div className="mx-auto max-w-[1200px]">
         <header className="flex items-center justify-between px-4 py-4 xl:pt-20">
           <div>

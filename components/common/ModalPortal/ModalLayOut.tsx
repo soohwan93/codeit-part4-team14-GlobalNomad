@@ -6,7 +6,7 @@ import React, {
   useEffect,
   useRef,
 } from "react";
-import Button from "./Button";
+import Button from "../Button";
 
 interface ReservationPopupType {
   title: string;
@@ -17,7 +17,7 @@ interface ReservationPopupType {
   children: React.ReactNode;
 }
 
-const ModalBase = ({
+const ModalLayOut = ({
   title,
   setState,
   buttonName,
@@ -86,4 +86,4 @@ const ModalBase = ({
   );
 };
 
-export default ModalBase;
+export default ModalLayOut;

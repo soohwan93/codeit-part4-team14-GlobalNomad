@@ -28,11 +28,13 @@ const page = async () => {
   const myActivityList: myActivityListTypes = await getMyActivities();
 
   return (
-    <div className="min-w-screen min-h-screen bg-gray-10 px-8 pb-20 pt-16">
+    <div className="min-w-screen mt-1 min-h-screen bg-gray-10 px-4 pb-20 pt-14 md:mt-0 md:px-8 md:pt-16">
       <main className="mx-auto w-full max-w-[75rem]">
-        <h2 className="mb-8 text-[2rem] font-bold leading-normal text-black">
-          예약 현황
-        </h2>
+        <header className="max-w-[768px]md:px-4 mx-auto">
+          <h2 className="mx-auto mb-8 text-[2rem] font-bold leading-normal text-black md:mt-5">
+            예약 현황
+          </h2>
+        </header>
         {myActivityList.activities.length !== 0 ? (
           <ReservationStatus myActivityList={myActivityList.activities} />
         ) : (

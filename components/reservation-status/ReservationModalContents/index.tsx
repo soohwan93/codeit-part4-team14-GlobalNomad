@@ -1,5 +1,5 @@
 "use client";
-import React, { SetStateAction, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import ReservationTypeSelector from "./ReservationTypeSelector";
 import useDropdownInput from "@/components/common/useDropdownInput";
 import {
@@ -8,8 +8,13 @@ import {
 } from "@/util/api";
 import ReservationCardList from "./ReservationCardList";
 import { ReservationsStatus } from "@/util/apiType";
+import {
+  ActivitySchedule,
+  ScheduleReservationResponseType,
+  ScheduleReservationType,
+} from "../reservationStatusTypes";
 
-interface ReservationModalContents {
+interface ReservationModalContentsType {
   reservationData: {
     date: string;
     reservations: {
@@ -24,45 +29,13 @@ interface ReservationModalContents {
   setRefreshSwitch: () => void;
 }
 
-interface ActivitySchedule {
-  scheduleId: number;
-  startTime: string;
-  endTime: string;
-  count: {
-    declined: number;
-    confirmed: number;
-    pending: number;
-  };
-}
-
-interface ScheduleReservationType {
-  id: number;
-  nickname: string;
-  userId: number;
-  teamId: string;
-  activityId: number;
-  status: ReservationsStatus;
-  reviewSubmitted: boolean;
-  totalPrice: number;
-  headCount: number;
-  date: string;
-  startTime: string;
-  endTime: string;
-}
-
-interface ScheduleReservationResponseType {
-  cursorId: number;
-  totalCount: number;
-  reservations: ScheduleReservationType[];
-}
-
 const ReservationModalContents = ({
   type,
   reservationData,
   activityId,
   refreshSwitch,
   setRefreshSwitch,
-}: ReservationModalContents) => {
+}: ReservationModalContentsType) => {
   const [currentModalType, setCurrentModalType] =
     useState<ReservationsStatus>(type);
   const [dayScheduleArray, setDayScheduleArray] = useState<string[]>([]);

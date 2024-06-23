@@ -7,24 +7,33 @@ interface StatusChipProps {
     confirmed: number;
     pending: number;
   };
+  date: number;
   onChipClick: (chipType: "pending" | "confirmed") => void;
 }
 
-const StatusChipList = ({ reservationInfo, onChipClick }: StatusChipProps) => {
+const StatusChipList = ({
+  reservationInfo,
+  date,
+  onChipClick,
+}: StatusChipProps) => {
+  const isPassedDate = date < new Date().getDate();
+
   return (
     <div className="flex flex-col gap-0.5 xl:gap-1">
       {reservationInfo.pending !== 0 && (
         <StatusChip
           type="pending"
+          passed={isPassedDate}
           info={reservationInfo.pending}
           onChipClick={onChipClick}
         >
-          예약
+          {isPassedDate ? "만료" : "예약"}
         </StatusChip>
       )}
       {reservationInfo.confirmed !== 0 && (
         <StatusChip
           type="confirmed"
+          passed={isPassedDate}
           info={reservationInfo.confirmed}
           onChipClick={onChipClick}
         >
@@ -34,6 +43,7 @@ const StatusChipList = ({ reservationInfo, onChipClick }: StatusChipProps) => {
       {reservationInfo.completed !== 0 && (
         <StatusChip
           type="completed"
+          passed={isPassedDate}
           info={reservationInfo.completed}
           onChipClick={onChipClick}
         >

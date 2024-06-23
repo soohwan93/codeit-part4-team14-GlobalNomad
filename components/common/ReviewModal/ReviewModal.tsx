@@ -1,8 +1,14 @@
-import React, { useState, useRef, ChangeEvent, KeyboardEvent, useCallback } from "react";
+import React, {
+  useState,
+  useRef,
+  ChangeEvent,
+  KeyboardEvent,
+  useCallback,
+} from "react";
 import Image from "next/image";
 import StarRating from "./StarRating";
 import { Reservation } from "./ReviewType";
-import ReservationPopup from "../ModalPortal";
+import ModalPortal from "../ModalPortal";
 import { postMyReservationReview } from "@/util/api";
 
 type ReviewModalProps = {
@@ -31,16 +37,22 @@ const ReviewModal = ({ reservation, setState }: ReviewModalProps) => {
     }
   }, [rating, reviewText, reservation.id, setState]);
 
-  const handleReviewChange = useCallback((event: ChangeEvent<HTMLTextAreaElement>) => {
-    setReviewText(event.target.value);
-  }, []);
+  const handleReviewChange = useCallback(
+    (event: ChangeEvent<HTMLTextAreaElement>) => {
+      setReviewText(event.target.value);
+    },
+    [],
+  );
 
-  const handleKeyDown = useCallback((e: KeyboardEvent<HTMLTextAreaElement>) => {
-    if (e.key === "Enter" && !e.shiftKey) {
-      e.preventDefault();
-      handleSubmit();
-    }
-  }, [handleSubmit]);
+  const handleKeyDown = useCallback(
+    (e: KeyboardEvent<HTMLTextAreaElement>) => {
+      if (e.key === "Enter" && !e.shiftKey) {
+        e.preventDefault();
+        handleSubmit();
+      }
+    },
+    [handleSubmit],
+  );
 
   const handleFocus = useCallback(() => {
     if (textareaRef.current) {
@@ -49,29 +61,29 @@ const ReviewModal = ({ reservation, setState }: ReviewModalProps) => {
   }, []);
 
   return (
-    <ReservationPopup
+    <ModalPortal
       title="후기 작성"
       setState={setState}
       buttonName="작성하기"
       onButtonClick={handleSubmit}
       usePortal={true}
     >
-      <div className="flex flex-col items-center justify-center gap-6 h-75vh md:h-full">
-        <div className="flex flex-col md:flex-row w-full gap-2 justify-center md:justify-start md:gap-6 items-center px-4 md:px-0">
-          <div className="relative rounded-[12px] overflow-hidden w-[256px] h-[256px] md:w-[126px] md:h-[126px]">
+      <div className="flex h-75vh flex-col items-center justify-center gap-6 md:h-full">
+        <div className="flex w-full flex-col items-center justify-center gap-2 px-4 md:flex-row md:justify-start md:gap-6 md:px-0">
+          <div className="relative h-[256px] w-[256px] overflow-hidden rounded-[12px] md:h-[126px] md:w-[126px]">
             <Image
               src={reservation.activity.bannerImageUrl}
               alt={reservation.activity.title}
               layout="fill"
               objectFit="cover"
-              className="w-full h-full object-cover"
+              className="h-full w-full object-cover"
             />
           </div>
-          <div className="flex flex-col text-black gap-2 text-center md:text-left w-full md:w-auto">
+          <div className="flex w-full flex-col gap-2 text-center text-black md:w-auto md:text-left">
             <h2 className="text-[16px] font-bold md:text-[20px]">
               {reservation.activity.title}
             </h2>
-            <div className="text-sm md:text-base text-gray-600">
+            <div className="text-sm text-gray-600 md:text-base">
               <span>{reservation.date}</span>
               <span className="mx-1 md:mx-2">·</span>
               <span>
@@ -88,10 +100,10 @@ const ReviewModal = ({ reservation, setState }: ReviewModalProps) => {
         </div>
 
         <StarRating rating={rating} setRating={setRating} />
-        <div className="flex-grow w-full flex">
+        <div className="flex w-full flex-grow">
           <textarea
             ref={textareaRef}
-            className="flex-grow text-black200 px-[16px] py-[8px] border-2 border-gray-400 rounded-[4px] text-body1-regular md:h-[240px]"
+            className="text-black200 text-body1-regular flex-grow rounded-[4px] border-2 border-gray-400 px-[16px] py-[8px] md:h-[240px]"
             placeholder="후기를 작성해주세요"
             value={reviewText}
             onChange={handleReviewChange}
@@ -101,7 +113,7 @@ const ReviewModal = ({ reservation, setState }: ReviewModalProps) => {
           />
         </div>
       </div>
-    </ReservationPopup>
+    </ModalPortal>
   );
 };
 

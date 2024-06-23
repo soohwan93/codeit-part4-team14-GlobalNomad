@@ -17,3 +17,12 @@
 .input-number-none-arrow {
   -moz-appearance: textfield;
 }
+
+.scrollbar-hide::-webkit-scrollbar {
+  displa: none;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

@@ -1,22 +1,7 @@
 import Button from "@/components/common/Button";
 import { patchMyActivityReservation } from "@/util/api";
-import { ReservationsStatus } from "@/util/apiType";
 import React from "react";
-
-interface ScheduleReservationType {
-  id: number;
-  nickname: string;
-  userId: number;
-  teamId: string;
-  activityId: number;
-  status: ReservationsStatus;
-  reviewSubmitted: boolean;
-  totalPrice: number;
-  headCount: number;
-  date: string;
-  startTime: string;
-  endTime: string;
-}
+import { ScheduleReservationType } from "../reservationStatusTypes";
 
 const ReservationCard = ({
   reservation,

@@ -4,6 +4,7 @@ import Review from "./Review";
 import Pagination from "@/components/common/Pagination";
 import ratingString from "@/util/ratingString";
 import { getActivityReviews } from "@/util/api";
+import StarSvg from "@/components/common/svg/StarSvg";
 
 interface ReviewsType {
   id: number;
@@ -62,8 +63,8 @@ const ReviewList = ({
                     {ratingString(averageRating)}
                   </span>
                   <div className="text-sm text-nomad-black">
-                    <span className="mr-3 inline-block">
-                      <div className="mr-1.5 inline-block h-4 w-4 bg-[url('/icons/Star.svg')]" />
+                    <span className="mr-3 flex gap-1.5">
+                      <StarSvg />
                       {totalCount.toLocaleString()}개 후기
                     </span>
                   </div>
