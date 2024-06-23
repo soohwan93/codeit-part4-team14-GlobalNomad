@@ -45,6 +45,39 @@
 
 <img width="1276" alt="스크린샷 2024-06-22 오후 5 27 56" src="https://github.com/soohwan93/codeit-part4-team14-GlobalNomad/assets/155033024/366f93bf-364a-4a93-ac40-068076fa32ee">
 
+## Reference Libraries
+
+- next-auth
+
+  > asdfasdf
+
+- next-ui
+
+  > asdfasdf
+
+- react-intersection-observer
+
+  > asdfasdf
+
+- flowbite
+
+  > asdfasdf
+
+- next-auth
+
+  > asdfasdf
+
+- next-auth
+
+  > asdfasdf
+
+- next-auth
+
+  > asdfasdf
+
+- next-auth
+  > asdfasdf
+
 ## Developer
 
 | <img src="https://avatars.githubusercontent.com/u/155133655?s=64&v=4" width="32px" style="border-radius: 50%;" height="32px" title="김수환"> | <img src="https://avatars.githubusercontent.com/u/100824183?s=64&v=4" title="구승모" width="32px" style="border-radius: 50%;" height="32px"> | <img src="https://avatars.githubusercontent.com/u/155033024?s=64&v=4" title="김세동" width="32px" style="border-radius: 50%;" height="32px"> | <img src="https://avatars.githubusercontent.com/u/97032929?s=64&v=4" title="신민철" width="32px" style="border-radius: 50%;" height="32px"> | <img src="https://avatars.githubusercontent.com/u/90249043?s=64&v=4" title="한태욱" width="32px" style="border-radius: 50%;" height="32px"> |
