@@ -83,7 +83,7 @@ const ActivityManagementKebab = ({ setActivities, activityId }: Props) => {
     <div className="relative" ref={kebabRef} onClick={handleClick}>
       <button
         id={`kebabBtn_${activityId}`}
-        className="h-10 w-10 shrink-0 bg-[url('/icons/kebab.svg')] "
+        className="h-5 w-5 shrink-0 bg-[url('/icons/kebabSmall.svg')] md:h-10 md:w-10 md:bg-[url('/icons/kebab.svg')]"
         type="button"
       />
       <Dropdown
