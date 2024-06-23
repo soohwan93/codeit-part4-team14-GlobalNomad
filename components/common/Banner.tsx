@@ -1,27 +1,35 @@
+"use client";
+
 import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Arrow from "./svg/Arrow";
 
 const bannerImageList = [
   {
-    title: "함께 배우면 즐거운 스트릿댄스 1",
-    description: "함께 배우면 즐거운 스트릿댄스 함께 배우면 즐거운 스트릿댄스",
-    bannerImageUrl: "/images/부모님과 함께 갈대숲 체험.png",
+    title: "모두와 함께 활동을 해봐요!",
+    description: "1명부터 50명까지, 모두와 함께할 수 있는 체험들을 찾아보세요!",
+    bannerImageUrl: "/images/배너4.png",
   },
   {
-    title: "함께 배우면 즐거운 스트릿댄스 1",
-    description: "함께 배우면 즐거운 스트릿댄스 함께 배우면 즐거운 스트릿댄스",
-    bannerImageUrl: "/images/베트남 자전거 여행.png",
+    title: "원하는 대로 활동을 만들어 봐요!",
+    description: "모두의 기억에 남을, 색다른 체험을 생성하고, 시작하세요!",
+    bannerImageUrl: "/images/배너7.png",
   },
   {
-    title: "함께 배우면 즐거운 스트릿댄스 1",
-    description: "함께 배우면 즐거운 스트릿댄스 함께 배우면 즐거운 스트릿댄스",
-    bannerImageUrl: "/images/열기구 페스티벌.png",
+    title: (
+      <>
+        무한한 체험,
+        <br />
+        색다른 활동
+      </>
+    ),
+    description: "전국의 체험 / 활동을 분류별로 찾아보세요!",
+    bannerImageUrl: "/images/배너6.png",
   },
   {
-    title: "함께 배우면 즐거운 스트릿댄스 1",
-    description: "함께 배우면 즐거운 스트릿댄스 함께 배우면 즐거운 스트릿댄스",
-    bannerImageUrl: "/images/다양한 열대어 구경하기.png",
+    title: "손쉽게 예약하고, 참여하세요!",
+    description: "클릭 한번으로 손쉽게 예약하고, 참여하세요!",
+    bannerImageUrl: "/images/배너5.png",
   },
 ];
 
@@ -129,7 +137,7 @@ export const Banner = () => {
                 <div className="line-clamp-2 h-[72px] w-[200px] break-keep text-[24px] font-[700] md:h-[162px] md:w-[440px] md:text-[54px] xl:h-[200px] xl:w-[550px] xl:text-[68px]">
                   {image.title}
                 </div>
-                <div className="w-[200px] overflow-hidden text-ellipsis whitespace-nowrap text-[14px] font-[700] leading-[26px] md:w-[400px] md:text-[20px] xl:w-[500px] xl:text-[24px]">
+                <div className="w-[400px] overflow-hidden text-ellipsis text-[14px] font-[700] leading-[26px] md:w-[600px] md:text-[20px] xl:w-[800px] xl:text-[24px]">
                   {image.description}
                 </div>
               </div>

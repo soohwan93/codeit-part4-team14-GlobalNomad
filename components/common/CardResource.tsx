@@ -2,6 +2,7 @@ import React from "react";
 import Image from "next/image";
 import StarSvg from "./svg/StarSvg";
 import { ActivityItem } from "@/app/(app)/page";
+import { Tooltip } from "@nextui-org/react";
 
 interface CardProps {
   item: ActivityItem;
@@ -59,7 +60,7 @@ export const CardResourceCategory = ({ item }: CardProps) => {
             <span className="text-[#a1a1a1]">({item.reviewCount})</span>
           </span>
         </div>
-        <div className="... truncate break-keep pb-[5px] text-[18px] font-[600] md:text-[24px]">
+        <div className="truncate break-keep pb-[5px] text-[18px] font-[600] md:text-[24px]">
           {item.title}
         </div>
         <div className="flex gap-[5px] text-[20px] font-[700] md:text-[28px]">
