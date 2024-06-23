@@ -52,7 +52,7 @@ const ActivityManagementCard = ({ setActivities, prop }: Props) => {
         </div>
         <div className="flex items-center justify-between ">
           <span className=" text-sm font-medium text-gray-80 md:text-2xl ">
-            ₩{price} <span className="text-gray-50">/인</span>
+            ₩{price.toLocaleString()} <span className="text-gray-50">/인</span>
           </span>
           <ActivityManagementKebab
             setActivities={setActivities}
