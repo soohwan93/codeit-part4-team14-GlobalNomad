@@ -94,7 +94,7 @@ const CreateOrUpdateMain = ({ responseApiData }: CreateMainProps) => {
 
     setTimeout(() => {
       router.push("/activity-management");
-    }, 200);
+    }, 500);
   };
 
   const getUpdateBody = (value: HTMLFormElement) => {
