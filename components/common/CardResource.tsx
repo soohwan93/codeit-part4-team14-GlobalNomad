@@ -61,7 +61,9 @@ export const CardResourceCategory = ({ item }: CardProps) => {
           </span>
         </div>
         <div className="truncate break-keep pb-[5px] text-[18px] font-[600] md:text-[24px]">
-          {item.title}
+          <Tooltip content={item.title} color="foreground">
+            {item.title}
+          </Tooltip>
         </div>
         <div className="flex gap-[5px] text-[20px] font-[700] md:text-[28px]">
           <span>₩ {item.price.toLocaleString()}</span>
