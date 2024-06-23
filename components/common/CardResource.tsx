@@ -26,7 +26,7 @@ export const CardResourcePopular = ({ item }: CardProps) => {
             {item.rating} ({item.reviewCount})
           </span>
         </div>
-        <div className="line-clamp-2 h-[55px] w-[146px] break-keep text-[18px] font-[700] md:h-[90px] md:w-[230px] md:text-[30px]">
+        <div className="break-word line-clamp-2 h-[55px] w-[146px] break-all text-[18px] font-[700] md:h-[90px] md:w-[230px] md:text-[30px]">
           {item.title}
         </div>
         <div className="flex gap-[5px] text-[16px] font-[700] md:text-[20px]">
@@ -61,7 +61,13 @@ export const CardResourceCategory = ({ item }: CardProps) => {
           </span>
         </div>
         <div className="truncate break-keep pb-[5px] text-[18px] font-[600] md:text-[24px]">
-          {item.title}
+          <Tooltip
+            content={item.title}
+            color="foreground"
+            placement="top-start"
+          >
+            <span>{item.title}</span>
+          </Tooltip>
         </div>
         <div className="flex gap-[5px] text-[20px] font-[700] md:text-[28px]">
           <span>₩ {item.price.toLocaleString()}</span>
