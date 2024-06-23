@@ -84,26 +84,23 @@ const ReservationModal = ({
       return;
     }
 
-    try {
-      const response = await postActivityReservation(Number(activityId), {
-        scheduleId: selectedSchedule.current.id,
-        headCount: currentReservationCount,
-      });
-      if (typeof response === "string") {
-        throw new Error(response);
-      }
-      setNotificationMessage("예약 신청이 성공했어요!");
-      setIsNotificationOpen(true);
-    } catch (err: any) {
-      if (err === "Unauthorized") {
+    const response = await postActivityReservation(Number(activityId), {
+      scheduleId: selectedSchedule.current.id,
+      headCount: currentReservationCount,
+    });
+    if (typeof response === "string") {
+      if (response === "Unauthorized") {
         setNotificationMessage("로그인을 먼저 해주세요!");
         setIsNotificationOpen(true);
         return;
       }
 
-      setNotificationMessage(err);
+      setNotificationMessage(response);
       setIsNotificationOpen(true);
+      return;
     }
+    setNotificationMessage("예약 신청이 성공했어요!");
+    setIsNotificationOpen(true);
   };
 
   const handlePopupClose = () => {
