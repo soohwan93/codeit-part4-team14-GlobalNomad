@@ -36,9 +36,8 @@ const ReservationMain = ({
   reservations: initialReservations,
   totalCount,
 }: ApiResponse) => {
-  const [reservations, setReservations] = useState<Reservation[]>(
-    initialReservations || [],
-  );
+  const [reservations, setReservations] =
+    useState<Reservation[]>(initialReservations);
   const [filter, setFilter] = useState<string>("all");
   const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
@@ -46,13 +45,11 @@ const ReservationMain = ({
   const { ref, inView } = useInView();
 
   const getReservations = useCallback(async () => {
-    console.log("진입");
     if (loading) return;
     setLoading(true);
     try {
-      const query = { cursorId, size: 10 }; // 필요한 쿼리 파라미터 설정
+      const query = { cursorId: cursorId, size: 5 }; // 필요한 쿼리 파라미터 설정
       const data: ApiResponse = await getMyReservations(query);
-      console.log(data);
       setReservations((prev) => [...prev, ...data.reservations]);
       setCursorId(data.cursorId);
     } catch (error) {
@@ -63,16 +60,10 @@ const ReservationMain = ({
   }, [loading, cursorId]);
 
   useEffect(() => {
-    getReservations();
-  }, [getReservations]);
-
-  useEffect(() => {
-    if (inView) {
-      if (totalCount > 5) {
-        getReservations();
-      }
+    if (inView && !loading && totalCount > 5 && cursorId) {
+      getReservations();
     }
-  }, [inView, getReservations, totalCount]);
+  }, [inView, getReservations, totalCount, cursorId, loading]);
 
   const getStatusText = (status: string, endTime: string) => {
     const now = new Date();
@@ -149,6 +140,13 @@ const ReservationMain = ({
           <span className="mt-10 inline-block text-xl font-medium text-gray-70 md:text-2xl">
             아직 등록된 예약이 없어요.
           </span>
+        </div>
+      )}
+      {loading && (
+        <div className="flex h-32 w-full items-center justify-center space-x-2 bg-gray-10 dark:invert md:h-52">
+          <div className="h-3 w-3 animate-bounce rounded-full bg-nomad-black [animation-delay:-0.3s]"></div>
+          <div className="h-3 w-3 animate-bounce rounded-full bg-nomad-black [animation-delay:-0.15s]"></div>
+          <div className="h-3 w-3 animate-bounce rounded-full bg-nomad-black"></div>
         </div>
       )}
       <div ref={ref} className="h-1"></div>

@@ -36,11 +36,12 @@ export async function authenticate(
 export async function fetcher(
   endpoint: string,
   method: FetchMethod,
-  body?: Object,
+  body?: Object | null,
+  token?: string,
 ) {
   // 서버 측에서 next-auth에서 설정한 session값 확인
   const session = await auth();
-  const accessToken = session?.accessToken;
+  const accessToken = token ? token : session?.accessToken;
 
   // 요청에 필요한 헤더 설정
   const headers = new Headers();
