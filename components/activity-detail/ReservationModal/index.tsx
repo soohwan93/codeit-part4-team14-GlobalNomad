@@ -42,23 +42,6 @@ const ReservationModal = ({
 
   const router = useRouter();
 
-  // calendar에서 날짜가 선택되었을 때 실행하는 함수
-  const handleSelectDay = (item: CalendarValue) => {
-    if (item !== null) {
-      const selectedDate = item.toLocaleString().split(". ");
-      const month =
-        selectedDate[1].length === 2 ? selectedDate[1] : "0" + selectedDate[1];
-      const day =
-        selectedDate[2].length === 2 ? selectedDate[2] : "0" + selectedDate[2];
-      const date = selectedDate[0] + "-" + month + "-" + day;
-
-      setReservationDate(date);
-      setFilteredSchedule(schedules.filter((item) => item.date === date));
-      setReservationTime(null);
-      selectedSchedule.current = null;
-    }
-  };
-
   // 예약할 일정을 선택했을 경우 실행할 함수
   const handleDropdownSelect = (selectedTime: string) => {
     if (selectedTime !== null) {
@@ -71,6 +54,35 @@ const ReservationModal = ({
         selectedSchedule.current.startTime,
         selectedSchedule.current.endTime,
       ]);
+    }
+  };
+
+  // calendar에서 날짜가 선택되었을 때 실행하는 함수
+  const handleSelectDay = (item: CalendarValue) => {
+    if (item !== null) {
+      const selectedDate = item.toLocaleString().split(". ");
+      const month =
+        selectedDate[1].length === 2 ? selectedDate[1] : "0" + selectedDate[1];
+      const day =
+        selectedDate[2].length === 2 ? selectedDate[2] : "0" + selectedDate[2];
+      const date = selectedDate[0] + "-" + month + "-" + day;
+      const filteredSchedules = schedules.filter((item) => item.date === date);
+
+      setReservationDate(date);
+      setFilteredSchedule(filteredSchedules);
+      if (filteredSchedules.length !== 0) {
+        selectedSchedule.current = filteredSchedules[0];
+        console.log(filteredSchedules[0]);
+        setReservationTime([
+          filteredSchedules[0].startTime,
+          filteredSchedules[0].endTime,
+        ]);
+
+        return;
+      }
+
+      setReservationTime(null);
+      selectedSchedule.current = null;
     }
   };
 

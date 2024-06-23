@@ -6,6 +6,7 @@ import DropdownInput from "@/components/common/DropdownInput";
 
 interface ReservationDateType {
   setDate: (date: CalendarValue) => void;
+  time: [string, string] | null;
   setTime: (time: string) => void;
   schedules: {
     id: number;
@@ -17,6 +18,7 @@ interface ReservationDateType {
 
 const ReservationDate = ({
   setDate,
+  time,
   setTime,
   schedules,
 }: ReservationDateType) => {
@@ -46,6 +48,7 @@ const ReservationDate = ({
           예약 가능한 시간
         </span>
         <DropdownInput
+          defaultValue={time !== null ? time[0] + " ~ " + time[1] : null}
           dataArray={schedules.map(
             (item) => item.startTime + " ~ " + item.endTime,
           )}
