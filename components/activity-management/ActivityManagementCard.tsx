@@ -7,6 +7,7 @@ import Image from "next/image";
 import ActivityManagementKebab from "./ActivityManagementKebab";
 import { Tooltip } from "flowbite-react";
 import Link from "next/link";
+import StarSvg from "../common/svg/StarSvg";
 interface Props {
   setActivities: React.Dispatch<React.SetStateAction<ActivityApiProps[]>>;
   prop: ActivityApiProps;
@@ -38,7 +39,9 @@ const ActivityManagementCard = ({ setActivities, prop }: Props) => {
       <section className="my-auto inline-block w-full">
         <div className="mb-7 md:mb-16">
           <span className="flex items-center text-sm text-black md:mb-1.5 md:text-base">
-            <div className="my-auto mr-1.5 inline-block h-4 w-4 bg-[url('/icons/star.svg')] md:h-5 md:w-5" />
+            <div className="my-auto mr-1.5 flex h-4 w-4  items-center justify-center md:h-5 md:w-5">
+              <StarSvg />
+            </div>
             {rating} ({reviewCount})
           </span>
           <Tooltip content={title} placement="bottom">
