@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
+import React, { SetStateAction, useEffect, useRef, useState } from "react";
 import useCalendar from "./useCalendar";
 import { subMonths } from "date-fns";
 import { getActivityById, getMyActivityReservationDashBoard } from "@/util/api";
@@ -10,6 +10,8 @@ import ReservationModalContents from "./ReservationModalContents";
 
 interface ReservationCalendarProps {
   selectedActivityId: number;
+  refreshSwitch: boolean;
+  setRefreshSwitch: React.Dispatch<SetStateAction<boolean>>;
 }
 
 interface ReservationStatusOfMonth {
@@ -25,6 +27,8 @@ const DAY_LIST = ["SUN", "MON", "TUE", "WED", "THUR", "FRI", "SAT"];
 
 const ReservationCalendar = ({
   selectedActivityId,
+  refreshSwitch,
+  setRefreshSwitch,
 }: ReservationCalendarProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalType, setModalType] = useState<ReservationsStatus>("pending");
@@ -32,7 +36,6 @@ const ReservationCalendar = ({
     ReservationStatusOfMonth[]
   >([]);
   const [selectedDay, setSelectedDay] = useState(1);
-  const [refreshSwitch, setRefreshSwitch] = useState(false);
 
   const calendar = useCalendar();
   const initialized = useRef(false);
@@ -81,17 +84,21 @@ const ReservationCalendar = ({
 
   const handleInitializeAtFirstReservation = async () => {
     const response = await getActivityById(selectedActivityId);
+    const today = new Date();
     const reservations = response.schedules.filter(
-      (item: any) => new Date(item.date) > calendar.currentDate,
+      (item: any) => new Date(item.date) > today,
     );
     if (reservations.length !== 0) {
       const moveToYear =
-        new Date(reservations[0].date).getFullYear() -
-        calendar.currentDate.getFullYear();
+        new Date(reservations[0].date).getFullYear() - today.getFullYear();
       const moveToMonth =
-        new Date(reservations[0].date).getMonth() -
-        calendar.currentDate.getMonth();
-      const moveStep = moveToYear * 12 + moveToMonth;
+        new Date(reservations[0].date).getMonth() - today.getMonth();
+      const moveToTodayYear =
+        today.getFullYear() - calendar.currentDate.getFullYear();
+      const moveToTodayMonth =
+        today.getMonth() - calendar.currentDate.getMonth();
+      const moveStep =
+        (moveToYear + moveToTodayYear) * 12 + moveToMonth + moveToTodayMonth;
       handleClickMonthChangeButton(moveStep);
       return;
     }
@@ -99,8 +106,9 @@ const ReservationCalendar = ({
   };
 
   useEffect(() => {
+    handleInitializeAtFirstReservation();
+
     if (initialized.current === false) {
-      handleInitializeAtFirstReservation();
       initialized.current = true;
     } else {
       handleCalendarRefresh(0);

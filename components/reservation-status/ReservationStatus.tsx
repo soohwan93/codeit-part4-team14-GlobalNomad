@@ -24,6 +24,7 @@ const ReservationStatus = ({
 }: {
   myActivityList: ActivityData[];
 }) => {
+  const [refreshSwitch, setRefreshSwitch] = useState(false);
   const [selectedActivity, setSelectedActivity] = useState<number | null>(null);
   const activitiesList = myActivityList.map((item) => item.title);
   const { selected, renderDropdown } = useDropdownInput(
@@ -37,6 +38,7 @@ const ReservationStatus = ({
         (item) => item.title === selected,
       )[0];
       setSelectedActivity(selectedActivity.id);
+      setRefreshSwitch(!refreshSwitch);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selected]);
@@ -45,7 +47,11 @@ const ReservationStatus = ({
     <div className="w-full">
       <div className="mx-auto max-w-[768px]">{renderDropdown()}</div>
       {selectedActivity !== null ? (
-        <ReservationCalendar selectedActivityId={selectedActivity} />
+        <ReservationCalendar
+          selectedActivityId={selectedActivity}
+          refreshSwitch={refreshSwitch}
+          setRefreshSwitch={setRefreshSwitch}
+        />
       ) : (
         <div className="mx-auto mt-20 flex w-fit flex-col items-center">
           <Image
