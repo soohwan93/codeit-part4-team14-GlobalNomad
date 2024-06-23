@@ -30,7 +30,8 @@
 
 
 ### 새로운 체험을 쉽게 등록하고, 간편하게 관리하세요!
-<img width="792" alt="스크린샷 2024-06-22 오후 7 02 18" src="https://github.com/soohwan93/codeit-part4-team14-GlobalNomad/assets/155033024/b5bdd6f0-8a4e-4a22-b9ec-1b51cb95cbc9">
+<img width="805" alt="스크린샷 2024-06-22 오후 6 39 40" src="https://github.com/soohwan93/codeit-part4-team14-GlobalNomad/assets/155033024/ba962ef5-1902-4026-8c90-4f9bff5b1883">
+
 
 ### 요즘 핫한 체험들! 간편하게 찾아보세요!
 
