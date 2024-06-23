@@ -47,36 +47,21 @@
 
 ## Reference Libraries
 
-- next-auth
+- [next-auth](https://next-auth.js.org/getting-started/introduction)
 
-  > asdfasdf
+  > next.js 웹페이지의 오픈소스 인증 솔루션. 전반적인 인증 로직에 사용됨.
 
-- next-ui
+- [next-ui](https://nextui.org/docs/guide/introduction)
 
-  > asdfasdf
+  > React Aria와 tailwind CSS를 기반으로 next.js와 호환되는 리액트용 ui 라이브러리.
 
-- react-intersection-observer
+- [react-intersection-observer](https://www.npmjs.com/package/react-intersection-observer)
 
-  > asdfasdf
+  > 요소의 뷰 포트 출입 여부를 감지하여 지정된 동작을 실행. infinite-scroll에 사용됨.
 
-- flowbite
+- [flowbite](https://flowbite-react.com/docs/getting-started/introduction)
 
-  > asdfasdf
-
-- next-auth
-
-  > asdfasdf
-
-- next-auth
-
-  > asdfasdf
-
-- next-auth
-
-  > asdfasdf
-
-- next-auth
-  > asdfasdf
+  > tailwind css를 기반으로 한 유틸리티 ui구성 요소.
 
 ## Developer
 
