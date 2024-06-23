@@ -89,16 +89,19 @@ const ReservationModal = ({
         scheduleId: selectedSchedule.current.id,
         headCount: currentReservationCount,
       });
+      if (typeof response === "string") {
+        throw new Error(response);
+      }
       setNotificationMessage("예약 신청이 성공했어요!");
       setIsNotificationOpen(true);
     } catch (err: any) {
-      if (err.message === "Unauthorized") {
+      if (err === "Unauthorized") {
         setNotificationMessage("로그인을 먼저 해주세요!");
         setIsNotificationOpen(true);
         return;
       }
 
-      setNotificationMessage(err.message);
+      setNotificationMessage(err);
       setIsNotificationOpen(true);
     }
   };
