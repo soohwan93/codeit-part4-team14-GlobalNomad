@@ -108,7 +108,6 @@ export async function postLogin(body: LoginBody) {
 // 내 체험 리스트 조회
 export function getMyActivities(query?: MyActivitiesQuery) {
   const q = query ? convertQuery(query) : "";
-  console.log(q);
   return fetcher(`/my-activities${q}`, "GET");
 }
 

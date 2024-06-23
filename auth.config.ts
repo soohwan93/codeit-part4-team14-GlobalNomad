@@ -37,7 +37,6 @@ export const authConfig = {
       return { ...token, error: "RefreshTokenExpired" };
     },
     async session({ session, token }) {
-      console.log("token", token);
       if (token) {
         session.user = {
           id: token.id as string,
@@ -50,7 +49,6 @@ export const authConfig = {
         session.refreshToken = token.refreshToken;
         session.expires = token.refreshTokenExpires as any;
         session.error = token.error;
-        console.log("session:", session);
       }
 
       return session;

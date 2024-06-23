@@ -40,7 +40,6 @@ const ActivityDetailHeader = ({ activityId }: { activityId: number }) => {
       setPopupMessage("이 활동을 성공적으로 삭제했어요!");
       setIsPopupOpen(true);
     } catch (err: any) {
-      console.log(String(err.message));
       if (String(err.message) === "Unexpected end of JSON input") {
         deleteSuccess.current = true;
         setPopupMessage("이 활동을 성공적으로 삭제했어요!");
