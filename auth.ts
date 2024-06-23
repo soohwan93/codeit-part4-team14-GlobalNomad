@@ -17,8 +17,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         if (parsedCredentials.success) {
           const loginBody = parsedCredentials.data;
           const res = await postLogin(loginBody);
-
-          if (!res) return null;
+          if (typeof res === "string") return null;
 
           let accessTokenExpiry = 0;
           let refreshTokenExpiry = 0;

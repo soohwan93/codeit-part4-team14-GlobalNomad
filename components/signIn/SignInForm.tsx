@@ -39,6 +39,7 @@ const SignInForm = () => {
     }
     const body = { email: state.email, password: state.password };
     const res = await authenticate(undefined, body);
+    console.log(res);
     if (res !== "") {
       showNotification(res);
     } else {
