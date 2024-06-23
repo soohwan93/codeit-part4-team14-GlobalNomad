@@ -10,7 +10,7 @@ interface ProfileImageUploaderProps {
   setPopupMessage: (message: string) => void;
   togglePopup: () => void;
 }
-
+const MAX_FILE_SIZE = 4 * 1024 * 1024; // 4MB
 const ProfileImageUploader = ({
   selectedImage,
   onImageChange,
@@ -23,6 +23,11 @@ const ProfileImageUploader = ({
   const handleImageChange = async (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (!file) return;
+    if (file.size > MAX_FILE_SIZE) {
+      setPopupMessage("파일 크기는 4MB를 넘어갈 수 없습니다.");
+      togglePopup();
+      return;
+    }
 
     const imageUrl = await uploadImage(file);
     if (!imageUrl) return;
@@ -46,6 +51,8 @@ const ProfileImageUploader = ({
   };
 
   const uploadImage = async (file: File): Promise<string | null> => {
+    console.log(file.size);
+
     const formData = new FormData();
     formData.append("image", file);
 
