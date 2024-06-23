@@ -58,7 +58,8 @@ export const MainInfo = ({ activities, totalCount }: MainInfoProps) => {
     },
   ];
 
-  const sortActivityList = activityList?.sort((a, b) => {
+  const sortActivity = [...activityList];
+  const sortActivityList = sortActivity?.sort((a, b) => {
     if (a.rating === b.rating) {
       return b.reviewCount - a.reviewCount;
     }
@@ -248,7 +249,7 @@ export const MainInfo = ({ activities, totalCount }: MainInfoProps) => {
               ) : (
                 <span className="text-[36px] font-[700]">모든 체험</span>
               )}
-              {(totalCount || currentList.length) > 0 ? (
+              {totalCount && currentList.length > 0 ? (
                 <div className="grid w-full grid-cols-2 grid-rows-2 gap-x-[8px] gap-y-[24px] md:grid-cols-3 md:grid-rows-3 md:gap-x-[16px] md:gap-y-[32px] xl:grid-cols-4 xl:grid-rows-2 xl:gap-x-[24px] xl:gap-y-[48px]">
                   {currentList.map((item: ActivityItem) => (
                     <Link key={item.id} href={`/activity-detail/${item.id}`}>

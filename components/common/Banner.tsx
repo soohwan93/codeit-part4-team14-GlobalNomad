@@ -16,7 +16,13 @@ const bannerImageList = [
     bannerImageUrl: "/images/배너7.png",
   },
   {
-    title: "무한한 체험, 색다른 활동",
+    title: (
+      <>
+        무한한 체험,
+        <br />
+        색다른 활동
+      </>
+    ),
     description: "전국의 체험 / 활동을 분류별로 찾아보세요!",
     bannerImageUrl: "/images/배너6.png",
   },
