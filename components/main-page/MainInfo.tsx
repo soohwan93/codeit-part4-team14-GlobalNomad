@@ -178,7 +178,8 @@ export const MainInfo = ({ activities, totalCount }: MainInfoProps) => {
     handlePageClick(1);
   }, [itemsPerPage]);
 
-  const customClassName = "right-[-28px] top-[48px] z-[2]";
+  const customClassName =
+    "min-[720px]:right-[-25px] right-[-17px] mt-[20px] min-[720px]:mt-[30px] z-[2] rounded min-[830px]:w-[127px] w-[90px] min-[720px]:w-[120px]";
 
   return (
     <div className="relative w-full min-w-[375px] md:min-w-[743px]">
