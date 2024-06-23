@@ -253,7 +253,7 @@ export const MainInfo = ({ activities, totalCount }: MainInfoProps) => {
               {totalCount && currentList.length > 0 ? (
                 <div className="grid w-full grid-cols-2 grid-rows-2 gap-x-[8px] gap-y-[24px] md:grid-cols-3 md:grid-rows-3 md:gap-x-[16px] md:gap-y-[32px] xl:grid-cols-4 xl:grid-rows-2 xl:gap-x-[24px] xl:gap-y-[48px]">
                   {currentList.map((item: ActivityItem) => (
-                    <CardResourceCategory item={item} />
+                    <CardResourceCategory item={item} key={item.id} />
                   ))}
                 </div>
               ) : (
