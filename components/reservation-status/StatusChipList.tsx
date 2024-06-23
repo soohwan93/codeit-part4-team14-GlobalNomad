@@ -16,8 +16,8 @@ const StatusChipList = ({
   date,
   onChipClick,
 }: StatusChipProps) => {
-  const today = new Date();
-  const selectedDate = new Date(date);
+  const today = new Date().getDate();
+  const selectedDate = new Date(date).getDate();
 
   let isPassedDate = today > selectedDate ? true : false;
 
