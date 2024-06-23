@@ -170,9 +170,12 @@ export function patchMyActivity(activityId: number, body: MyActivityBody) {
  */
 
 // 내 알림 리스트 조회
-export function getMyNotifications(query: MyNotificationsQuery) {
+export function getMyNotifications(
+  query: MyNotificationsQuery,
+  token?: string,
+) {
   const q = convertQuery(query);
-  return fetcher(`/my-notifications${q}`, "GET");
+  return fetcher(`/my-notifications${q}`, "GET", null, token);
 }
 
 // 내 알림 삭제
