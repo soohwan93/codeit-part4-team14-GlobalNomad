@@ -105,6 +105,12 @@ const ReservationModal = ({
 
   const handlePopupClose = () => {
     setIsNotificationOpen(false);
+    if (notificationMessage === "예약 신청이 성공했어요!") {
+      router.refresh();
+      setTimeout(() => {
+        router.push("/reservations");
+      }, 500);
+    }
   };
 
   return (
