@@ -43,8 +43,8 @@ export const CardResourcePopular = ({ item }: CardProps) => {
 
 export const CardResourceCategory = ({ item }: CardProps) => {
   return (
-    <div className="flex flex-col gap-[16px]">
-      <Link key={item.id} href={`/activity-detail/${item.id}`}>
+    <div className="flex flex-col gap-[16px]" key={item.id}>
+      <Link href={`/activity-detail/${item.id}`}>
         <div className="relative w-full overflow-hidden rounded-[20px] pt-[100%]">
           <Image
             className="scale-125 rounded-[20px] object-cover"
