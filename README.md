@@ -26,12 +26,12 @@
 ## became the GlobalNomad!
 
 ### GlobalNomad를 통해 다양한 체험에 빠져보세요!
+
 <img width="1279" alt="globalNomadImage" src="https://github.com/soohwan93/codeit-part4-team14-GlobalNomad/assets/155033024/1bc90cd2-e705-4f78-85ba-7affc4a4a66a">
 
-
 ### 새로운 체험을 쉽게 등록하고, 간편하게 관리하세요!
-<img width="805" alt="스크린샷 2024-06-22 오후 6 39 40" src="https://github.com/soohwan93/codeit-part4-team14-GlobalNomad/assets/155033024/ba962ef5-1902-4026-8c90-4f9bff5b1883">
 
+<img width="805" alt="스크린샷 2024-06-22 오후 6 39 40" src="https://github.com/soohwan93/codeit-part4-team14-GlobalNomad/assets/155033024/ba962ef5-1902-4026-8c90-4f9bff5b1883">
 
 ### 요즘 핫한 체험들! 간편하게 찾아보세요!
 
@@ -47,11 +47,10 @@
 
 ## Developer
 
-- BackendAPI - CodeIt 제공(https://www.codeit.kr/)
-- 김수환 ([@soohwan93](https://github.com/soohwan93))
-- 구승모 ([@Trophy198](https://github.com/Trophy198))
-- 김세동 ([@Rhajiit](https://github.com/Rhajiit))
-- 신민철 ([@MinCheolS](https://github.com/MinCheolS))
-- 한태욱 ([@TaeUk471](https://github.com/TaeUk471))
+| <img src="https://avatars.githubusercontent.com/u/155133655?s=64&v=4" width="32px" style="border-radius: 50%;" height="32px" title="김수환"> | <img src="https://avatars.githubusercontent.com/u/100824183?s=64&v=4" title="구승모" width="32px" style="border-radius: 50%;" height="32px"> | <img src="https://avatars.githubusercontent.com/u/155033024?s=64&v=4" title="김세동" width="32px" style="border-radius: 50%;" height="32px"> | <img src="https://avatars.githubusercontent.com/u/97032929?s=64&v=4" title="신민철" width="32px" style="border-radius: 50%;" height="32px"> | <img src="https://avatars.githubusercontent.com/u/90249043?s=64&v=4" title="한태욱" width="32px" style="border-radius: 50%;" height="32px"> |
+| :------------------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------: |
+|                                                    [김수환](https://github.com/soohwan93)                                                    |                                                    [구승모](https://github.com/Trophy198)                                                    |                                                     [김세동](https://github.com/Rhajiit)                                                     |                                                   [신민철](https://github.com/MinCheolS)                                                    |                                                    [한태욱](https://github.com/TaeUk471)                                                    |
+
+- API - CodeIt 제공(https://www.codeit.kr/)
 
 ![footer](https://capsule-render.vercel.app/api?type=waving&section=footer&height=160&color=121&reversal=true&text=자,%20색다른%20체험을%20탐험하러%20가보실까요?&fontSize=45&&&fontColor=ffe&fontAlignY=75&rotate=1)
