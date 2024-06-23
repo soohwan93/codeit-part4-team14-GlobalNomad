@@ -72,7 +72,6 @@ const ReservationModal = ({
       setFilteredSchedule(filteredSchedules);
       if (filteredSchedules.length !== 0) {
         selectedSchedule.current = filteredSchedules[0];
-        console.log(filteredSchedules[0]);
         setReservationTime([
           filteredSchedules[0].startTime,
           filteredSchedules[0].endTime,
