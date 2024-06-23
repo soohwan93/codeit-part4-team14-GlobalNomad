@@ -2,7 +2,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import useCalendar from "./useCalendar";
 import { subMonths } from "date-fns";
-import { getMyActivityReservationDashBoard } from "@/util/api";
+import { getActivityById, getMyActivityReservationDashBoard } from "@/util/api";
 import StatusChipList from "./StatusChipList";
 import ModalPortal from "../common/ModalPortal";
 import { ReservationsStatus } from "@/util/apiType";
@@ -79,9 +79,28 @@ const ReservationCalendar = ({
     setIsModalOpen(true);
   };
 
+  const handleInitializeAtFirstReservation = async () => {
+    const response = await getActivityById(selectedActivityId);
+    const reservations = response.schedules.filter(
+      (item: any) => new Date(item.date) > calendar.currentDate,
+    );
+    if (reservations.length !== 0) {
+      const moveToYear =
+        new Date(reservations[0].date).getFullYear() -
+        calendar.currentDate.getFullYear();
+      const moveToMonth =
+        new Date(reservations[0].date).getMonth() -
+        calendar.currentDate.getMonth();
+      const moveStep = moveToYear * 12 + moveToMonth;
+      handleClickMonthChangeButton(moveStep);
+      return;
+    }
+    handleClickMonthChangeButton(0);
+  };
+
   useEffect(() => {
     if (initialized.current === false) {
-      handleClickMonthChangeButton(0);
+      handleInitializeAtFirstReservation();
       initialized.current = true;
     } else {
       handleCalendarRefresh(0);
@@ -137,7 +156,7 @@ const ReservationCalendar = ({
                     reservationInfo={
                       reservationStatusOfMonth[dayItem].reservations
                     }
-                    date={dayItem}
+                    date={currentMonth.current + dayItem}
                     onChipClick={(type) => {
                       handleChipSelect(type);
                       setSelectedDay(dayItem);

@@ -7,7 +7,7 @@ interface StatusChipProps {
     confirmed: number;
     pending: number;
   };
-  date: number;
+  date: string;
   onChipClick: (chipType: "pending" | "confirmed") => void;
 }
 
@@ -16,7 +16,10 @@ const StatusChipList = ({
   date,
   onChipClick,
 }: StatusChipProps) => {
-  const isPassedDate = date < new Date().getDate();
+  const today = new Date();
+  const selectedDate = new Date(date);
+
+  let isPassedDate = today > selectedDate ? true : false;
 
   return (
     <div className="flex flex-col gap-0.5 xl:gap-1">

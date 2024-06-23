@@ -40,6 +40,7 @@ const ReservationDatePresenter = ({
       </h5>
       <div className="hidden xl:block">
         <ReservationDate
+          time={time}
           setDate={setDate}
           setTime={setTime}
           schedules={schedules}
@@ -70,6 +71,7 @@ const ReservationDatePresenter = ({
           }}
         >
           <ReservationDate
+            time={time}
             setDate={setDate}
             setTime={setTime}
             schedules={schedules}
