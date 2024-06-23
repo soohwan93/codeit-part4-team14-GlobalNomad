@@ -20,11 +20,12 @@ export async function authenticate(
     return "";
   } catch (error: any) {
     if (error instanceof AuthError) {
+      console.log(error);
       switch (error.type) {
         case "CredentialsSignin":
           return "유효하지 않은 자격증명입니다.";
         default:
-          return error.cause?.err?.message || "Unknown error occurred";
+          return "존재하지 않는 유저입니다.";
       }
     }
     return "Unknown error occurred";
