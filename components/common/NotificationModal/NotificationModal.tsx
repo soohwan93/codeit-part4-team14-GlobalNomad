@@ -18,21 +18,23 @@ export interface Notification {
 interface NotificationModalProps {
   cursorId: number | null;
   totalCount: number;
+  setTotalCount: React.Dispatch<React.SetStateAction<number>>; // 추가된 부분
   setState: React.Dispatch<React.SetStateAction<boolean>>;
   notifications: Notification[];
   setNotifications: React.Dispatch<React.SetStateAction<Notification[]>>;
   buttonPosition: { top: number; left: number };
-  onClose: () => void; // 추가된 부분
+  onClose: () => void;
 }
 
 const NotificationModal = ({
   cursorId: initialCursorId,
   totalCount,
+  setTotalCount, // 추가된 부분
   setState,
   notifications,
   setNotifications,
   buttonPosition,
-  onClose, // 추가된 부분
+  onClose,
 }: NotificationModalProps) => {
   const { ref, inView } = useInView();
   const [loading, setLoading] = useState(false);
@@ -104,6 +106,7 @@ const NotificationModal = ({
       setNotifications(
         notifications.filter((notification) => notification.id !== id),
       );
+      setTotalCount((prevCount) => prevCount - 1); // 알림 카운트 업데이트
     } catch (error) {
       console.error("Failed to delete notification", error);
     }
@@ -113,9 +116,10 @@ const NotificationModal = ({
     (event: MouseEvent) => {
       if (
         notificationsRef.current &&
-        !notificationsRef.current.contains(event.target as Node)
+        !notificationsRef.current.contains(event.target as Node) &&
+        !(event.target as Element).closest("#alertSvg")
       ) {
-        onClose(); // 수정된 부분
+        onClose();
       }
     },
     [onClose],
