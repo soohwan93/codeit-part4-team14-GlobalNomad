@@ -3,6 +3,7 @@ import Image from "next/image";
 import StarSvg from "./svg/StarSvg";
 import { ActivityItem } from "@/app/(app)/page";
 import { Tooltip } from "@nextui-org/react";
+import Link from "next/link";
 
 interface CardProps {
   item: ActivityItem;
@@ -43,15 +44,17 @@ export const CardResourcePopular = ({ item }: CardProps) => {
 export const CardResourceCategory = ({ item }: CardProps) => {
   return (
     <div className="flex flex-col gap-[16px]">
-      <div className="relative w-full overflow-hidden rounded-[20px] pt-[100%]">
-        <Image
-          className="scale-125 rounded-[20px] object-cover"
-          fill
-          src={item.bannerImageUrl}
-          alt="image"
-          sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
-        />
-      </div>
+      <Link href={`/activity-detail/${item.id}`}>
+        <div className="relative w-full overflow-hidden rounded-[20px] pt-[100%]">
+          <Image
+            className="scale-125 rounded-[20px] object-cover"
+            fill
+            src={item.bannerImageUrl}
+            alt="image"
+            sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
+          />
+        </div>
+      </Link>
       <div className="flex w-full flex-col gap-[10px] text-[#1b1b1b]">
         <div className="flex gap-[5px]">
           <StarSvg />
