@@ -1,6 +1,6 @@
 import UserNoImageSvg from "@/components/common/svg/UserNoImageSvg";
 import Image from "next/image";
-import React from "react";
+import React, { useEffect, useRef } from "react";
 
 interface ReviewProps {
   activityId: number;
@@ -18,6 +18,12 @@ interface ReviewProps {
 
 const Review = ({ reviewData }: { reviewData: ReviewProps }) => {
   const { createdAt, content, user } = reviewData;
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+  useEffect(() => {
+    textareaRef.current!.style.height = `${textareaRef.current!.scrollHeight}px`;
+  }, []);
+
   return (
     <section className="my-6 flex items-start justify-start gap-4">
       {user.profileImageUrl !== null ? (
@@ -43,7 +49,13 @@ const Review = ({ reviewData }: { reviewData: ReviewProps }) => {
             {createdAt.split("T")[0]}
           </span>
         </div>
-        <p>{content}</p>
+        <textarea
+          ref={textareaRef}
+          disabled
+          className="max-h-36 min-h-20 w-full resize-none overflow-y-scroll text-wrap border-none bg-transparent p-0 md:max-h-20 md:min-h-10 md:max-w-[46.5rem]"
+          defaultValue={content}
+          cols={100}
+        />
       </div>
     </section>
   );
