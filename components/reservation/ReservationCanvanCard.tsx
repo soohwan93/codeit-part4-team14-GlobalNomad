@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import ReviewModal from "../common/ReviewModal/ReviewModal";
+import { patchMyReservation } from "@/util/api";
 
 interface Activity {
   bannerImageUrl: string;
@@ -35,6 +36,7 @@ const ReservationCanvanCard = ({
   getStatusText,
 }: ReservationCardProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isCanceled, setIsCanceled] = useState(reservation.status === "canceled");
 
   if (!reservation) {
     return null;
@@ -60,6 +62,16 @@ const ReservationCanvanCard = ({
 
   const handleReviewButtonClick = () => {
     setIsModalOpen(true);
+  };
+
+  const handleCancelButtonClick = async () => {
+    try {
+      await patchMyReservation(reservation.id, { status: "canceled" });
+      setIsCanceled(true);
+      window.location.reload(); // 페이지 새로고침
+    } catch (error) {
+      console.error("예약 취소에 실패했습니다:", error);
+    }
   };
 
   return (
@@ -96,13 +108,31 @@ const ReservationCanvanCard = ({
               <span className="text-gray-50">/인</span>
             </div>
           </div>
-          {isExperienceCompleted && (
-            <button
-              className="absolute bottom-1 right-4 rounded-lg bg-nomad-black px-2 py-1 text-xs text-white md:bottom-[-6px] md:px-4 md:py-2 md:text-medium"
-              onClick={handleReviewButtonClick}
-            >
-              후기 작성
-            </button>
+          {isExperienceCompleted ? (
+            reservation.reviewSubmitted ? (
+              <button
+                className="absolute bottom-1 right-4 rounded-lg bg-gray-300 px-2 py-1 text-xs text-white md:bottom-[-6px] md:px-4 md:py-2 md:text-medium"
+                disabled
+              >
+                후기 작성 완료
+              </button>
+            ) : (
+              <button
+                className="absolute bottom-1 right-4 rounded-lg bg-nomad-black px-2 py-1 text-xs text-white md:bottom-[-6px] md:px-4 md:py-2 md:text-medium"
+                onClick={handleReviewButtonClick}
+              >
+                후기 작성
+              </button>
+            )
+          ) : (
+            !isCanceled && reservation.status !== "canceled" && (
+              <button
+                className="absolute bottom-1 right-4 rounded-lg border border-nomad-black bg-white px-2 py-1 text-xs text-nomad-black md:bottom-[-6px] md:px-4 md:py-2 md:text-medium"
+                onClick={handleCancelButtonClick}
+              >
+                예약 취소
+              </button>
+            )
           )}
         </div>
       </section>

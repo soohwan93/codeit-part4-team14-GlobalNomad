@@ -25,6 +25,11 @@ const AlertMenu = ({
     e.stopPropagation(); // 이벤트 버블링 막기
     setIsAlertClicked((prev) => !prev);
   };
+
+  const handleCloseModal = () => {
+    setIsAlertClicked(false);
+  };
+
   return (
     <>
       <div onClick={handleAlertClick} className="relative">
@@ -37,6 +42,7 @@ const AlertMenu = ({
             notifications={notifications}
             setNotifications={setNotifications}
             buttonPosition={{ left: 0, top: 22 }}
+            onClose={handleCloseModal} // 추가된 부분
           />
         )}
         <div className="absolute">{isAlertClicked}</div>
