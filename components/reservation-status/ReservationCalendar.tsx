@@ -137,7 +137,7 @@ const ReservationCalendar = ({
                     reservationInfo={
                       reservationStatusOfMonth[dayItem].reservations
                     }
-                    date={dayItem}
+                    date={currentMonth.current + dayItem}
                     onChipClick={(type) => {
                       handleChipSelect(type);
                       setSelectedDay(dayItem);
