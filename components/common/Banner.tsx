@@ -13,7 +13,7 @@ const bannerImageList = [
   {
     title: "원하는 대로 활동을 만들어 봐요!",
     description: "모두의 기억에 남을, 색다른 체험을 생성하고, 시작하세요!",
-    bannerImageUrl: "/images/배너7.png",
+    bannerImageUrl: "/images/함께 배우면 즐거운 스트릿 댄스.png",
   },
   {
     title: (
@@ -24,12 +24,12 @@ const bannerImageList = [
       </>
     ),
     description: "전국의 체험 / 활동을 분류별로 찾아보세요!",
-    bannerImageUrl: "/images/배너6.png",
+    bannerImageUrl: "/images/연인과 사랑의 징검다리 건너기.png",
   },
   {
     title: "손쉽게 예약하고, 참여하세요!",
     description: "클릭 한번으로 손쉽게 예약하고, 참여하세요!",
-    bannerImageUrl: "/images/배너5.png",
+    bannerImageUrl: "/images/세상에서 가장 멋진 석양.png",
   },
 ];
 
