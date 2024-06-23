@@ -22,6 +22,8 @@ interface Props {
   setSubImageUrls: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
+const MAX_FILE_SIZE = 4 * 1024 * 1024; // 4MB
+
 const ImageInputs = (props: Props) => {
   const {
     responseApiData,
@@ -60,6 +62,12 @@ const ImageInputs = (props: Props) => {
         showNotification("잘못된 이미지 형식입니다.");
         return;
       }
+
+      if (file.size > MAX_FILE_SIZE) {
+        showNotification("파일 크기는 4MB를 넘어갈 수 없습니다.");
+        return;
+      }
+
       setBannerLoading(true);
 
       const imageUrl = await uploadImage(file);
@@ -91,6 +99,11 @@ const ImageInputs = (props: Props) => {
       for (const file of filesToAdd) {
         if (!isValidImageFile(file)) {
           showNotification("잘못된 이미지 형식입니다.");
+          return;
+        }
+
+        if (file.size > MAX_FILE_SIZE) {
+          showNotification("파일 크기는 4MB를 넘어갈 수 없습니다.");
           return;
         }
 
