@@ -6,25 +6,24 @@ import NotificationModal, {
   Notification,
 } from "../../NotificationModal/NotificationModal";
 
-interface ResponseNotificationsApi {
-  totalCount: 0;
-  notifications: Notification[];
+interface Props {
+  totalCount: number;
   cursorId: number | null;
+  notifications: Notification[];
 }
 
-type Props = {
-  notificationsFromApi: ResponseNotificationsApi;
-};
-
-const AlertMenu = ({ notificationsFromApi }: Props) => {
-  const [notifications, setNotifications] = useState<Notification[]>(
-    notificationsFromApi?.notifications || [],
-  );
+const AlertMenu = ({
+  totalCount,
+  cursorId,
+  notifications: initialNotifications,
+}: Props) => {
+  const [notifications, setNotifications] =
+    useState<Notification[]>(initialNotifications);
   const [isAlertClicked, setIsAlertClicked] = useState(false);
 
   const handleAlertClick = (e: React.MouseEvent<HTMLDivElement>) => {
     e.stopPropagation(); // 이벤트 버블링 막기
-    setIsAlertClicked(!isAlertClicked);
+    setIsAlertClicked((prev) => !prev);
   };
   return (
     <>
@@ -32,6 +31,8 @@ const AlertMenu = ({ notificationsFromApi }: Props) => {
         <AlertSvg isClicked={isAlertClicked} />
         {isAlertClicked && (
           <NotificationModal
+            cursorId={cursorId}
+            totalCount={totalCount}
             setState={setIsAlertClicked}
             notifications={notifications}
             setNotifications={setNotifications}
