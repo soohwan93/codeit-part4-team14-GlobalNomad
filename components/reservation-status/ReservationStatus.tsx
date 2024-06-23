@@ -43,7 +43,7 @@ const ReservationStatus = ({
 
   return (
     <div className="w-full">
-      {renderDropdown()}
+      <div className="mx-auto max-w-[768px]">{renderDropdown()}</div>
       {selectedActivity !== null ? (
         <ReservationCalendar selectedActivityId={selectedActivity} />
       ) : (
