@@ -7,6 +7,7 @@ import ReservationModal from "@/components/activity-detail/ReservationModal";
 import { getActivityById, getActivityReviews, getUser } from "@/util/api";
 import StarSvg from "@/components/common/svg/StarSvg";
 import { auth } from "@/auth";
+import { Tooltip } from "@nextui-org/react";
 
 interface ActivityDetailType {
   id: number;
@@ -44,9 +45,11 @@ const page = async ({ params }: { params: { activityId: string } }) => {
             <span className="mb-2.5 text-sm leading-normal text-black">
               {data.category}
             </span>
-            <h1 className="mb-4 text-2xl font-bold leading-normal text-nomad-black md:text-3xl">
-              {data.title}
-            </h1>
+            <Tooltip content={data.title} color="foreground" placement="bottom">
+              <h1 className="mb-4 max-w-[calc(100vw-15px)] cursor-default overflow-hidden truncate text-2xl font-bold leading-normal text-nomad-black md:text-3xl">
+                {data.title}
+              </h1>
+            </Tooltip>
             <div className="flex items-center gap-3 text-sm text-black">
               <span className="flex items-center gap-1.5">
                 <StarSvg />
@@ -78,8 +81,9 @@ const page = async ({ params }: { params: { activityId: string } }) => {
                 체험 설명
               </h3>
               <textarea
+                rows={data.description.valueOf().split(/\n/).length}
                 disabled
-                className="w-full resize-none text-wrap border-none bg-transparent text-base leading-[162.5%] text-nomad-black"
+                className="max-h-[11.25rem] min-h-20 w-full resize-none text-wrap border-none bg-transparent text-base leading-[162.5%] text-nomad-black"
                 defaultValue={data.description}
               />
               <hr className="mb-10 mt-10" />
