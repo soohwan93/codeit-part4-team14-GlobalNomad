@@ -1,5 +1,6 @@
 import React from "react";
 import StatusChip from "./StatusChip";
+import isSelectedPassed from "./isSelectedPassed";
 
 interface StatusChipProps {
   reservationInfo: {
@@ -17,9 +18,19 @@ const StatusChipList = ({
   onChipClick,
 }: StatusChipProps) => {
   const today = new Date();
-  const selectedDate = new Date(date);
+  const todayObject = {
+    year: today.getFullYear(),
+    month: today.getMonth(),
+    date: today.getDate(),
+  };
 
-  let isPassedDate = today > selectedDate ? true : false;
+  const selectedDate = new Date(date);
+  const selectedDateObject = {
+    year: selectedDate.getFullYear(),
+    month: selectedDate.getMonth(),
+    date: selectedDate.getDate(),
+  };
+  let isPassedDate = isSelectedPassed(todayObject, selectedDateObject);
 
   return (
     <div className="flex flex-col gap-0.5 xl:gap-1">
