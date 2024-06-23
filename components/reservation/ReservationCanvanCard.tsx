@@ -30,7 +30,10 @@ interface ReservationCardProps {
   getStatusText: (status: string, endTime: string) => string;
 }
 
-const ReservationCanvanCard = ({ reservation, getStatusText }: ReservationCardProps) => {
+const ReservationCanvanCard = ({
+  reservation,
+  getStatusText,
+}: ReservationCardProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   if (!reservation) {
@@ -38,7 +41,7 @@ const ReservationCanvanCard = ({ reservation, getStatusText }: ReservationCardPr
   }
 
   const isExperienceCompleted = reservation.status === "completed";
-  
+
   const getStatusColor = (status: string) => {
     switch (status) {
       case "pending":
@@ -60,7 +63,7 @@ const ReservationCanvanCard = ({ reservation, getStatusText }: ReservationCardPr
   };
 
   return (
-    <div className="relative flex h-32 w-full overflow-visible rounded-3xl bg-white pr-3 shadow-lg outline-[1px] my-4 md:h-52 md:pr-6">
+    <div className="flex h-32 w-full overflow-visible rounded-3xl bg-white pr-3 shadow-lg outline-[1px] md:h-52 md:pr-6 ">
       <div className="relative mr-2 inline-block h-full w-32 shrink-0 md:mr-6 md:w-52">
         <Image
           src={reservation.activity.bannerImageUrl}
@@ -71,9 +74,11 @@ const ReservationCanvanCard = ({ reservation, getStatusText }: ReservationCardPr
           alt={reservation.activity.title}
         />
       </div>
-      <section className="my-auto inline-block w-full relative">
+      <section className="relative my-auto inline-block w-full">
         <div className="mb-4 md:mb-6">
-          <span className={`flex items-center font-extrabold text-sm md:text-base ${getStatusColor(reservation.status)}`}>
+          <span
+            className={`flex items-center text-sm font-extrabold md:text-base ${getStatusColor(reservation.status)}`}
+          >
             {getStatusText(reservation.status, reservation.endTime)}
           </span>
           <h4 className="max-w-[170px] truncate text-nowrap text-sm font-bold leading-[1.625rem] text-green-20 md:max-w-[472px] md:text-xl">
@@ -82,16 +87,18 @@ const ReservationCanvanCard = ({ reservation, getStatusText }: ReservationCardPr
         </div>
         <div className="flex items-center justify-between">
           <div>
-            <div className="text-gray-600 text-xs mb-2 md:mb-4 md:text-medium">
-              {reservation.date} · {reservation.startTime} - {reservation.endTime} · {reservation.headCount}명
+            <div className="mb-2 text-xs text-gray-600 md:mb-4 md:text-medium">
+              {reservation.date} · {reservation.startTime} -{" "}
+              {reservation.endTime} · {reservation.headCount}명
             </div>
-            <div className="text-gray-800 font-bold">
+            <div className="font-bold text-gray-800">
               ₩{reservation.totalPrice.toLocaleString()}
+              <span className="text-gray-50">/인</span>
             </div>
           </div>
           {isExperienceCompleted && (
-            <button 
-              className="absolute bottom-1 right-4 bg-nomad-black text-xs text-white py-1 px-2 rounded-lg md:py-2 md:px-4 md:text-medium md:bottom-[-6px]"
+            <button
+              className="absolute bottom-1 right-4 rounded-lg bg-nomad-black px-2 py-1 text-xs text-white md:bottom-[-6px] md:px-4 md:py-2 md:text-medium"
               onClick={handleReviewButtonClick}
             >
               후기 작성
@@ -100,10 +107,7 @@ const ReservationCanvanCard = ({ reservation, getStatusText }: ReservationCardPr
         </div>
       </section>
       {isModalOpen && (
-        <ReviewModal 
-          reservation={reservation} 
-          setState={setIsModalOpen} 
-        />
+        <ReviewModal reservation={reservation} setState={setIsModalOpen} />
       )}
     </div>
   );
