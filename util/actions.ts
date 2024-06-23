@@ -24,7 +24,6 @@ export async function authenticate(
         case "CredentialsSignin":
           return "유효하지 않은 자격증명입니다.";
         default:
-          console.log("default 에러 발생: ", error.cause?.err?.message);
           return error.cause?.err?.message || "Unknown error occurred";
       }
     }
@@ -41,8 +40,7 @@ export async function fetcher(
   // 서버 측에서 next-auth에서 설정한 session값 확인
   const session = await auth();
   const accessToken = session?.accessToken;
-  console.log(session);
-  console.log(accessToken);
+
   // 요청에 필요한 헤더 설정
   const headers = new Headers();
   if (accessToken) {

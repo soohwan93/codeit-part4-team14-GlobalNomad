@@ -8,16 +8,8 @@ export default auth((req) => {
 
   const refreshTokenExpires = req.auth?.expires;
   const isRefreshTokenExpired = Date.now() > +(refreshTokenExpires || 0);
-  //테스트를 위해 refreshToken이 만료되었다고 가정
-  // const isRefreshTokenExpired = true;
-
-  console.log("Auth:", req.auth);
-  console.log("Refresh Token Expires:", refreshTokenExpires);
-  console.log("Current Time:", Date.now());
-  console.log("Is Refresh Token Expired:", isRefreshTokenExpired);
 
   if (isRefreshTokenExpired) {
-    console.log("Refresh token 만료, signin 페이지로 이동");
     req.auth = null;
     let res;
     if (isOnMainPage || isOnDetailPage) {
