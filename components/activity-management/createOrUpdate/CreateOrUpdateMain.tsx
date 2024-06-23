@@ -5,7 +5,6 @@ import React, { useEffect, useState } from "react";
 import ActivityCreateOrUpdateHeader from "./ActivityCreateOrUpdateHeader";
 import ActivityCreateOrUpdateForm from "./ActivityCreateOrUpdateForm";
 import { MyActivityBody, PostActivityBody, Schedule } from "@/util/apiType";
-import { patchMyActivity, postActivity } from "@/util/api";
 import { useNotification } from "@/contexts/NotificationContext";
 import { useParams, useRouter } from "next/navigation";
 import { validateActivity } from "@/util/validation";
