@@ -24,7 +24,7 @@ export const CardResourcePopular = ({ item }: CardProps) => {
         <div className="flex gap-[5px]">
           <StarSvg />
           <span className="text-[14px] font-[600]">
-            {item.rating} ({item.reviewCount})
+            {item.rating.toFixed(1)} ({item.reviewCount})
           </span>
         </div>
         <div className="break-word line-clamp-2 h-[55px] w-[146px] break-all text-[18px] font-[700] md:h-[90px] md:w-[230px] md:text-[30px]">
@@ -59,7 +59,7 @@ export const CardResourceCategory = ({ item }: CardProps) => {
         <div className="flex gap-[5px]">
           <StarSvg />
           <span className="text-[16px] font-[500]">
-            {item.rating}{" "}
+            {item.rating.toFixed(1)}{" "}
             <span className="text-[#a1a1a1]">({item.reviewCount})</span>
           </span>
         </div>
