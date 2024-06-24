@@ -52,6 +52,11 @@ const SignupForm = () => {
 
     try {
       const response = await postUser(body);
+      console.log(response);
+      if (typeof response === "string") {
+        showNotification(response);
+        return;
+      }
       showNotification("가입이 완료되었습니다!", () => router.push("/signin"));
     } catch (error: any) {
       showNotification(error.message);
