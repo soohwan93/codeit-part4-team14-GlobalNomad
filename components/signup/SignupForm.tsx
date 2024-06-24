@@ -52,7 +52,6 @@ const SignupForm = () => {
 
     try {
       const response = await postUser(body);
-      console.log(response);
       if (typeof response === "string") {
         showNotification(response);
         return;

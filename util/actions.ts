@@ -20,7 +20,6 @@ export async function authenticate(
     return "";
   } catch (error: any) {
     if (error instanceof AuthError) {
-      console.log(error);
       switch (error.type) {
         case "CredentialsSignin":
           return "유효하지 않은 자격증명입니다.";

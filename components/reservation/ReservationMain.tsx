@@ -95,7 +95,6 @@ const ReservationMain = ({
   };
 
   const filteredReservations = reservations.filter((reservation) => {
-    console.log("filtered");
     if (filter === "all") return true;
     if (filter === "completed") return reservation.status === "completed";
     return reservation.status === filter;

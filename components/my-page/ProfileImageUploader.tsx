@@ -51,8 +51,6 @@ const ProfileImageUploader = ({
   };
 
   const uploadImage = async (file: File): Promise<string | null> => {
-    console.log(file.size);
-
     const formData = new FormData();
     formData.append("image", file);
 

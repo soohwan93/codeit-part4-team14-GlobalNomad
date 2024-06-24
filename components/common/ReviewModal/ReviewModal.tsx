@@ -27,11 +27,9 @@ const ReviewModal = ({
   const [reviewText, setReviewText] = useState("");
   const { showNotification } = useNotification();
   const textareaRef = useRef<HTMLTextAreaElement>(null);
-  console.log(reservation);
   const handleSubmit = useCallback(async () => {
     try {
       const id = reservation.id;
-      console.log(id);
       const reviewData = {
         rating,
         content: reviewText,
