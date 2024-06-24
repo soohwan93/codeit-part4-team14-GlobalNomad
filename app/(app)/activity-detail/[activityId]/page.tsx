@@ -89,7 +89,7 @@ const page = async ({ params }: { params: { activityId: string } }) => {
                 <ReviewList
                   activityId={Number(params.activityId)}
                   totalCount={reviewData.totalCount}
-                  averageRating={reviewData.averageRating}
+                  averageRating={data.rating}
                   reviews={reviewData.reviews}
                 />
               </section>
