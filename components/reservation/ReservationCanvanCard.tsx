@@ -3,6 +3,7 @@ import Image from "next/image";
 import ReviewModal from "../common/ReviewModal/ReviewModal";
 import { patchMyReservation } from "@/util/api";
 import { useNotification } from "@/contexts/NotificationContext";
+import Link from "next/link";
 
 interface Activity {
   bannerImageUrl: string;
@@ -90,7 +91,10 @@ const ReservationCanvanCard = ({
 
   return (
     <div className="flex h-32 w-full overflow-visible rounded-3xl bg-white pr-3 shadow-lg outline-[1px] md:h-52 md:pr-6 ">
-      <div className="relative mr-2 inline-block h-full w-32 shrink-0 md:mr-6 md:w-52">
+      <Link
+        href={`/activity-detail/${reservation.activity.id}`}
+        className="relative mr-2 inline-block h-full w-32 shrink-0 md:mr-6 md:w-52"
+      >
         <Image
           src={reservation.activity.bannerImageUrl}
           fill
@@ -99,7 +103,7 @@ const ReservationCanvanCard = ({
           sizes="(max-width: 768px) 135px, (max-width: 1200px) 160px, 204px"
           alt={reservation.activity.title}
         />
-      </div>
+      </Link>
       <section className="relative my-auto inline-block w-full">
         <div className="mb-4 md:mb-6">
           <span
