@@ -10,32 +10,60 @@ import StarRating from "./StarRating";
 import { Reservation } from "./ReviewType";
 import ModalPortal from "../ModalPortal";
 import { postMyReservationReview } from "@/util/api";
+import { useNotification } from "@/contexts/NotificationContext";
 
 type ReviewModalProps = {
   reservation: Reservation;
   setState: React.Dispatch<React.SetStateAction<boolean>>;
+  setReservations: React.Dispatch<React.SetStateAction<Reservation[]>>;
 };
 
-const ReviewModal = ({ reservation, setState }: ReviewModalProps) => {
+const ReviewModal = ({
+  setReservations,
+  reservation,
+  setState,
+}: ReviewModalProps) => {
   const [rating, setRating] = useState(0);
   const [reviewText, setReviewText] = useState("");
+  const { showNotification } = useNotification();
   const textareaRef = useRef<HTMLTextAreaElement>(null);
-
+  console.log(reservation);
   const handleSubmit = useCallback(async () => {
     try {
+      const id = reservation.id;
+      console.log(id);
       const reviewData = {
         rating,
         content: reviewText,
       };
 
-      await postMyReservationReview(reservation.id, reviewData);
-      console.log("Review submitted:", { rating, reviewText });
+      const res = await postMyReservationReview(id, reviewData);
+
+      if (typeof res === "string") {
+        showNotification(res);
+        return;
+      }
 
       setState(false);
+      showNotification("후기 작성이 완료되었습니다.");
+      setReservations((prev) =>
+        prev.map((reservation) =>
+          reservation.id === id
+            ? { ...reservation, reviewSubmitted: true }
+            : reservation,
+        ),
+      );
     } catch (error) {
       console.error("Error submitting review:", error);
     }
-  }, [rating, reviewText, reservation.id, setState]);
+  }, [
+    rating,
+    reviewText,
+    reservation.id,
+    setState,
+    showNotification,
+    setReservations,
+  ]);
 
   const handleReviewChange = useCallback(
     (event: ChangeEvent<HTMLTextAreaElement>) => {
