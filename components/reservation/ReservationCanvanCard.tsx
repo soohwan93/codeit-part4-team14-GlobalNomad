@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 import ReviewModal from "../common/ReviewModal/ReviewModal";
 import { patchMyReservation } from "@/util/api";
+import { useNotification } from "@/contexts/NotificationContext";
 
 interface Activity {
   bannerImageUrl: string;
@@ -37,6 +38,7 @@ const ReservationCanvanCard = ({
   getStatusText,
   setReservations,
 }: ReservationCardProps) => {
+  const { showNotification } = useNotification();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isCanceled, setIsCanceled] = useState(
     reservation.status === "canceled",
@@ -69,10 +71,18 @@ const ReservationCanvanCard = ({
   };
 
   const handleCancelButtonClick = async () => {
+    const id = reservation.id;
     try {
-      await patchMyReservation(reservation.id, { status: "canceled" });
+      await patchMyReservation(id, { status: "canceled" });
       setIsCanceled(true);
-      window.location.reload(); // 페이지 새로고침
+      showNotification("취소가 완료되었습니다!");
+      setReservations((prev) =>
+        prev.map((reservation) =>
+          reservation.id === id
+            ? { ...reservation, status: "canceled" }
+            : reservation,
+        ),
+      );
     } catch (error) {
       console.error("예약 취소에 실패했습니다:", error);
     }
