@@ -52,7 +52,7 @@ const Review = ({ reviewData }: { reviewData: ReviewProps }) => {
         <textarea
           ref={textareaRef}
           disabled
-          className="max-h-36 min-h-20 w-full resize-none overflow-y-scroll text-wrap border-none bg-transparent p-0 md:max-h-20 md:min-h-10 md:max-w-[46.5rem]"
+          className="max-h-36 min-h-20 w-full resize-none overflow-y-scroll text-wrap border-none bg-transparent p-0 scrollbar-hide md:max-h-20 md:min-h-10 md:max-w-[46.5rem]"
           defaultValue={content}
           cols={100}
         />
