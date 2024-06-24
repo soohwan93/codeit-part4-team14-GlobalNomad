@@ -20,7 +20,7 @@ const NotificationPopup = ({
       isOpen={isOpen}
       onClose={onClose}
     >
-      <div className="m-3 flex h-[220px] w-[327px] max-w-full flex-col items-center justify-between rounded-xl bg-white p-6 md:h-[250px] md:w-[540px]">
+      <div className=" m-3 flex h-[220px] w-[327px] max-w-full flex-col items-center justify-between rounded-xl bg-white p-6 md:h-[250px] md:w-[540px]">
         <div className="flex flex-grow items-center justify-center">
           <p className="text-center">{message}</p>
         </div>

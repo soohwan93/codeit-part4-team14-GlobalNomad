@@ -35,8 +35,8 @@ export default function RootLayout({
                 <GNB />
                 {children}
                 <Footer />
+                <div id="portal"></div>
               </NotificationProvider>
-              <div id="portal"></div>
             </SessionProviderWrapper>
           </SessionProvider>
         </NextUIProvider>

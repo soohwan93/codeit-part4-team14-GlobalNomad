@@ -29,14 +29,18 @@ interface Reservation {
 interface ReservationCardProps {
   reservation: Reservation;
   getStatusText: (status: string, endTime: string) => string;
+  setReservations: React.Dispatch<React.SetStateAction<Reservation[]>>;
 }
 
 const ReservationCanvanCard = ({
   reservation,
   getStatusText,
+  setReservations,
 }: ReservationCardProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isCanceled, setIsCanceled] = useState(reservation.status === "canceled");
+  const [isCanceled, setIsCanceled] = useState(
+    reservation.status === "canceled",
+  );
 
   if (!reservation) {
     return null;
@@ -105,7 +109,6 @@ const ReservationCanvanCard = ({
             </div>
             <div className="font-bold text-gray-800">
               ₩{reservation.totalPrice.toLocaleString()}
-              <span className="text-gray-50">/인</span>
             </div>
           </div>
           {isExperienceCompleted ? (
@@ -125,7 +128,8 @@ const ReservationCanvanCard = ({
               </button>
             )
           ) : (
-            !isCanceled && reservation.status !== "canceled" && (
+            !isCanceled &&
+            reservation.status === "pending" && (
               <button
                 className="absolute bottom-1 right-4 rounded-lg border border-nomad-black bg-white px-2 py-1 text-xs text-nomad-black md:bottom-[-6px] md:px-4 md:py-2 md:text-medium"
                 onClick={handleCancelButtonClick}
@@ -137,7 +141,11 @@ const ReservationCanvanCard = ({
         </div>
       </section>
       {isModalOpen && (
-        <ReviewModal reservation={reservation} setState={setIsModalOpen} />
+        <ReviewModal
+          setReservations={setReservations}
+          reservation={reservation}
+          setState={setIsModalOpen}
+        />
       )}
     </div>
   );
