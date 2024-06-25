@@ -98,9 +98,13 @@ const ActivityCreateOrUpdateForm = (props: Props) => {
     }
     setAddressError(!!!address);
   };
+  const addComma = (price: string) => {
+    let returnString = price?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return returnString;
+  };
 
   const handlePriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    let newValue = e.target.value;
+    let newValue = e.target.value.replaceAll(",", "");
 
     // 정규식을 사용하여 숫자 외의 문자 입력을 방지
     if (/^\d*$/.test(newValue)) {
@@ -198,7 +202,7 @@ const ActivityCreateOrUpdateForm = (props: Props) => {
             placeholder="숫자만 입력 가능합니다(최대 50만원)"
             id="price"
             name="price"
-            value={price}
+            value={addComma(price)}
             onChange={handlePriceChange}
             error={priceError}
             errorMessage={ERROR_MESSAGE.PRICE}
