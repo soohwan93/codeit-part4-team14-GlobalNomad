@@ -1,7 +1,7 @@
 import React from "react";
 
 type Props = {
-  totalCount: number;
+  totalCount?: number;
   isClicked: Boolean;
 };
 
