@@ -26,11 +26,11 @@ const AlertSvg: React.FC<Props> = ({ totalCount, isClicked }: Props) => {
           fill={isClicked ? `#FFC23D` : `#4B4B4B`}
         />
       </svg>
-      {totalCount && !isClicked && (
+      {!!totalCount && !isClicked && (
         <div className="absolute right-0 top-0">
-          <span className="relative flex h-2 w-2">
+          <span className="relative flex h-[7px] w-[7px]">
             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-500 opacity-75"></span>
-            <span className="relative inline-flex h-2 w-2 rounded-full bg-red-500"></span>
+            <span className="relative inline-flex h-[7px] w-[7px] rounded-full bg-red-500"></span>
           </span>
         </div>
       )}
