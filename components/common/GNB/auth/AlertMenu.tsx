@@ -34,7 +34,7 @@ const AlertMenu = ({
   return (
     <>
       <div onClick={handleAlertClick} className="relative">
-        <AlertSvg isClicked={isAlertClicked} />
+        <AlertSvg totalCount={totalCount} isClicked={isAlertClicked} />
         {isAlertClicked && (
           <NotificationModal
             cursorId={cursorId}
@@ -47,7 +47,6 @@ const AlertMenu = ({
             onClose={handleCloseModal}
           />
         )}
-        <div className="absolute">{isAlertClicked}</div>
       </div>
     </>
   );
