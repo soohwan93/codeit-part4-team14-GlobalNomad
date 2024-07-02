@@ -11,8 +11,8 @@ const pretendard = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "GlobalNomad",
-  description: "여행",
+  title: "GlobalNomad | 여행을 더 편하게",
+  description: "체험을 빠르게 신청하고 즐기세요!",
 };
 
 export default function AuthLayout({
