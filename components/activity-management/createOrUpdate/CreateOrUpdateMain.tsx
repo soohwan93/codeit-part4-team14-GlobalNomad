@@ -77,6 +77,7 @@ const CreateOrUpdateMain = ({ responseApiData }: CreateMainProps) => {
         });
       }
       const rs = await res.json();
+
       if (rs.success === "ok") {
         showNotification(
           `${activityId ? `수정` : `등록`}이 완료되었습니다!`,
@@ -108,7 +109,7 @@ const CreateOrUpdateMain = ({ responseApiData }: CreateMainProps) => {
       title: title,
       category: selected || "",
       description: description,
-      price: price ? +price : 0,
+      price: price ? +price.replaceAll(",", "") : 0,
       address: address,
       bannerImageUrl: bannerImageUrl || NO_IMAGE_URL,
       subImageIdsToRemove: subImageIdsToRemove,
@@ -132,11 +133,12 @@ const CreateOrUpdateMain = ({ responseApiData }: CreateMainProps) => {
       category: selected || "",
       description: description,
       address: address,
-      price: price ? +price : 0,
+      price: price ? +price.replaceAll(",", "") : 0,
       schedules: JSON.parse(formattedSchedules),
       bannerImageUrl: bannerImageUrl || NO_IMAGE_URL,
       subImageUrls: subImageUrls.length !== 0 ? subImageUrls : [NO_IMAGE_URL],
     };
+
     return body;
   };
 
