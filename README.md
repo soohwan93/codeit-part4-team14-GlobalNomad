@@ -70,5 +70,5 @@
 |                                                    [김수환](https://github.com/soohwan93)                                                    |                                                    [구승모](https://github.com/Trophy198)                                                    |                                                     [김세동](https://github.com/Rhajiit)                                                     |                                                   [신민철](https://github.com/MinCheolS)                                                    |                                                    [한태욱](https://github.com/TaeUk471)                                                    |
 
 - API - CodeIt 제공(https://www.codeit.kr/)
-
+- 배포링크(https://codeit-part4-team14-global-nomad.vercel.app/)
 ![footer](https://capsule-render.vercel.app/api?type=waving&section=footer&height=160&color=121&reversal=true&text=자,%20색다른%20체험을%20탐험하러%20가보실까요?&fontSize=45&&&fontColor=ffe&fontAlignY=75&rotate=1)
